@@ -8,11 +8,11 @@ public class FoodCategory {
 
     }
 
-    public String getName() {
+    public String getText() {
         return text;
     }
 
-    public void setName(String name) {
+    public void setText(String name) {
         text = name;
     }
 

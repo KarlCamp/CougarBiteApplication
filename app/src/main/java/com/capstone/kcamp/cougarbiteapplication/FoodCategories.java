@@ -79,13 +79,13 @@ public class FoodCategories extends AppCompatActivity
             @Override
             protected void populateViewHolder(MenuViewHolder viewHolder, FoodCategory model, int position) {
 
-                viewHolder.txtMenuName.setText(model.getName());
+                viewHolder.txtMenuName.setText(model.getText());
                 Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.imageView);
                 final FoodCategory clickItem = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(FoodCategories.this, ""+clickItem.getName(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(FoodCategories.this, ""+clickItem.getText(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -117,11 +117,6 @@ public class FoodCategories extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -18,12 +18,12 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:id="@+id/menu_name"
             android:text="Name of Menu"
             android:textColor="@android:color/white"
             android:background="@color/overlayBackground"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:gravity="center"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
