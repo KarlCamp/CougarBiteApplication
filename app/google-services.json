@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "775920321101",
+    "firebase_url": "https://cougarbiteapplication.firebaseio.com",
+    "project_id": "cougarbiteapplication",
+    "storage_bucket": "cougarbiteapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775920321101:android:5558d9f0798ad52a",
+        "android_client_info": {
+          "package_name": "com.capstone.kcamp.cougarbiteapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775920321101-adnpi5v83lu39kfalvbv1g0c0i5hkvt1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.kcamp.cougarbiteapplication",
+            "certificate_hash": "64e0a2c2873dfe1a32243047d8c9f27394ab5254"
+          }
+        },
+        {
+          "client_id": "775920321101-pe8nr9g6fp12rdcqca7asr4uk7t8qn82.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8JV4hqW97JfObwm5oL8IWKsDDM9OinGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775920321101-pe8nr9g6fp12rdcqca7asr4uk7t8qn82.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

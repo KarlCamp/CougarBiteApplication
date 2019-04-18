@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="CUCGold">#d1a916</color>
+    <color name="CUCMaroon">#a31f37</color>
+    <color name="ToolbarMaroon">#AF002D</color>
+
+    <color name="colorPrimary">#AF002D</color>
+    <color name="colorPrimaryDark">#AF002D</color>
+    <color name="colorAccent">#AF002D</color>
 </resources>
