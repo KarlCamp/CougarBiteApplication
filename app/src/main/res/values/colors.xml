@@ -4,7 +4,10 @@
     <color name="CUCMaroon">#a31f37</color>
     <color name="ToolbarMaroon">#AF002D</color>
 
-    <color name="colorPrimary">#AF002D</color>
-    <color name="colorPrimaryDark">#AF002D</color>
-    <color name="colorAccent">#AF002D</color>
+    <color name="colorPrimary">#a31f37</color>
+    <color name="colorPrimaryDark">#940016</color>
+    <color name="colorAccent">#940016</color>
+
+    <color name="overlayBackground">#7FFDCC00</color>
+    <color name="overlayActionBar">#AF002D</color>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.capstone.kcamp.cougarbiteapplication.Common.Common;
 import com.capstone.kcamp.cougarbiteapplication.Model.AppUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,7 +49,11 @@ public class CustomerActivity extends AppCompatActivity {
                             AppUser user = dataSnapshot.child(hNumber.getText().toString()).getValue(AppUser.class);
                             user.setPhone(phone.getText().toString());
                             if (user.getPassword().equals(password.getText().toString())) {
-                                Toast.makeText(CustomerActivity.this, "Sign in success!", Toast.LENGTH_LONG).show();
+                                Intent foodCategories = new Intent(CustomerActivity.this, FoodCategories.class);
+                                Common.currentUser = user;
+                                startActivity(foodCategories);
+                                finish();
+
                             } else {
                                 Toast.makeText(CustomerActivity.this, "Sign in failed!", Toast.LENGTH_LONG).show();
                             }
