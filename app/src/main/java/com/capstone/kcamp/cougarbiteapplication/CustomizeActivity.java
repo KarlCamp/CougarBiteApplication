@@ -1,5 +1,6 @@
 package com.capstone.kcamp.cougarbiteapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -165,12 +166,15 @@ public class CustomizeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_menu) {
-            // Handle the camera action
+            Intent intent = new Intent(CustomizeActivity.this, FoodCategories.class);
+            startActivity(intent);
         } else if (id == R.id.nav_check_out) {
-
+            Intent intent = new Intent(CustomizeActivity.this, CheckOutActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.about) {
+            Intent intent = new Intent(CustomizeActivity.this, AboutActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_pay) {
-
-        } else if (id == R.id.nav_check_out) {
 
         } else if (id == R.id.nav_log_out) {
 

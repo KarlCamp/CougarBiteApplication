@@ -51,8 +51,8 @@ public class FoodItemActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent cartIntent = new Intent(FoodItemActivity.this, CheckOutActivity.class);
+                startActivity(cartIntent);
             }
         });
 
@@ -153,11 +153,14 @@ public class FoodItemActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_menu) {
-            // Handle the camera action
+            Intent intent = new Intent(FoodItemActivity.this, FoodCategories.class);
+            startActivity(intent);
         } else if (id == R.id.nav_check_out) {
-
+            Intent intent = new Intent(FoodItemActivity.this, CheckOutActivity.class);
+            startActivity(intent);
         } else if (id == R.id.about) {
-
+            Intent intent = new Intent(FoodItemActivity.this, AboutActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_pay) {
 
         } else if (id == R.id.nav_log_out) {

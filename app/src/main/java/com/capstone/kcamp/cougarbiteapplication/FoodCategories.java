@@ -128,15 +128,21 @@ public class FoodCategories extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_menu) {
-            // Handle the camera action
+            Intent intent = new Intent(FoodCategories.this, FoodCategories.class);
+            startActivity(intent);
         } else if (id == R.id.nav_check_out) {
-
+            Intent intent = new Intent(FoodCategories.this, CheckOutActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_pay) {
-
+            Intent intent = new Intent(FoodCategories.this, OrderStatusActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(FoodCategories.this, AboutActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_log_out) {
-
+            Intent signIn = new Intent(FoodCategories.this, CustomerActivity.class);
+            signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(signIn);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
