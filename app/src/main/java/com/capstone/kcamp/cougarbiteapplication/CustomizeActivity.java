@@ -16,7 +16,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.capstone.kcamp.cougarbiteapplication.Common.Common;
 import com.capstone.kcamp.cougarbiteapplication.Database.Database;
+import com.capstone.kcamp.cougarbiteapplication.Model.AppUser;
 import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
 import com.capstone.kcamp.cougarbiteapplication.Model.Order;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -26,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Random;
 
 public class CustomizeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,20 +54,26 @@ public class CustomizeActivity extends AppCompatActivity
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("fooditems");
+        final DatabaseReference orders=firebaseDatabase.getReference("orders");
 
         numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
-        btnAdd = (FloatingActionButton)findViewById(R.id.btnAdd);
+        //btnAdd = (FloatingActionButton)findViewById(R.id.heyHey);
 
-        btnAdd.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                new Database(getBaseContext()).addToCart(new Order(
-                    foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice()
-                ));
+        //btnAdd.setOnClickListener(new View.OnClickListener(){
+            //@Override
+            //public void onClick(View view) {
+               // Random rand= new Random();
+               // Integer i= rand.nextInt()%10000000;
+               // Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice());
+               // DatabaseReference mRef =  firebaseDatabase.getReference().child("orders").child(i.toString());
+              //  mRef.setValue(mRef);
+                //new Database(getBaseContext()).addToCart(new Order(
+                //    foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice()
+                //));
 
-                Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
-            }
-        });
+            //    Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+          //  }
+        //});
         food_description = (TextView)findViewById(R.id.food_description);
         food_name = (TextView) findViewById(R.id.food_name);
         food_price = (TextView) findViewById(R.id.food_price);
@@ -76,12 +86,18 @@ public class CustomizeActivity extends AppCompatActivity
             }
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btnAdd);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.heyHey);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice());
+                DatabaseReference mRef =  firebaseDatabase.getReference().child("orders").child(Common.currentUser.getHNumber());
+                mRef.setValue(order);
+                //new Database(getBaseContext()).addToCart(new Order(
+                //    foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice()
+                //));
+
+                Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
         });
 

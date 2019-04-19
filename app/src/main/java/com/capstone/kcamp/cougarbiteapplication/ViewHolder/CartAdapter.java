@@ -17,28 +17,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-    public TextView txt_crt_name, txt_price;
-    public ImageView img_cart_count;
-
-    private ItemClickListener itemClickListener;
-
-    public void setTxt_cart_name(TextView txt_cart_name) {
-        this.txt_crt_name = txt_cart_name;
-    }
-
-    public CartViewHolder(View itemView) {
-        super(itemView);
-        txt_crt_name = (TextView)itemView.findViewById(R.id.cart_item_name);
-        txt_price = (TextView)itemView.findViewById(R.id.cart_item_price);
-    }
-    @Override
-    public void onClick(View view) {
-
-    }
-}
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
     private List<Order> listData = new ArrayList<>();
@@ -60,7 +38,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
     public void onBindViewHolder(CartViewHolder holder, int position) {
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(""+listData.get(position).getQuantity(), Color.RED);
-        holder.img_cart_count.setImageDrawable(drawable);
 
         Locale locale = new Locale("en","US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);

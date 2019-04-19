@@ -48,6 +48,7 @@ public class CustomerActivity extends AppCompatActivity {
                             mDialog.dismiss();
                             AppUser user = dataSnapshot.child(hNumber.getText().toString()).getValue(AppUser.class);
                             user.setPhone(phone.getText().toString());
+                            user.setHNumber(hNumber.getText().toString());
                             if (user.getPassword().equals(password.getText().toString())) {
                                 Intent foodCategories = new Intent(CustomerActivity.this, FoodCategories.class);
                                 Common.currentUser = user;

@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Database extends SQLiteAssetHelper {
-    private static final String DB_NAME="CougarBiteDB";
+    private static final String DB_NAME="CougarBiteDB.db";
     private static final int DB_VER=1;
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VER);
     }
     public List<Order> getCarts() {
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         String[] sqlSelect={"productname", "productid", "quantity", "price"};
-        String sqlTable="OrderDetail";
+        String sqlTable="OrderDetails";
         qb.setTables(sqlTable);
         Cursor c = qb.query(db, sqlSelect, null, null, null, null, null);
 
@@ -31,7 +31,7 @@ public class Database extends SQLiteAssetHelper {
                 result.add(new Order(c.getString(c.getColumnIndex("productid")),
                         c.getString(c.getColumnIndex("productname")),
                         c.getString(c.getColumnIndex("quantity")),
-                        c.getString(c.getColumnIndex("discount"))
+                        c.getString(c.getColumnIndex("price"))
                 ));
             }while (c.moveToNext());
         }
