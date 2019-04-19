@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomizeActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".CheckOutActivity"></activity>
+        <activity
+            android:name=".CustomizeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FoodItemActivity"
             android:theme="@style/AppTheme.NoActionBar" />

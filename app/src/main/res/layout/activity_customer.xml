@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cougarbitebackground"
-    tools:context=".CustomerActivity">
+    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerActivity">
 
     <TextView
         android:layout_width="fill_parent"

@@ -15,7 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.capstone.kcamp.cougarbiteapplication.Database.Database;
 import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
+import com.capstone.kcamp.cougarbiteapplication.Model.Order;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +37,8 @@ public class CustomizeActivity extends AppCompatActivity
 
     TextView food_name, food_price, food_description, food_nutrition;
     ElegantNumberButton numberButton;
+    FloatingActionButton btnAdd;
+    FoodItem foodItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,18 @@ public class CustomizeActivity extends AppCompatActivity
         databaseReference = firebaseDatabase.getReference("fooditems");
 
         numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
+        btnAdd = (FloatingActionButton)findViewById(R.id.btnAdd);
+
+        btnAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                new Database(getBaseContext()).addToCart(new Order(
+                    foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice()
+                ));
+
+                Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+            }
+        });
         food_description = (TextView)findViewById(R.id.food_description);
         food_name = (TextView) findViewById(R.id.food_name);
         food_price = (TextView) findViewById(R.id.food_price);
@@ -59,7 +76,7 @@ public class CustomizeActivity extends AppCompatActivity
             }
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btnAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +95,7 @@ public class CustomizeActivity extends AppCompatActivity
         databaseReference.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FoodItem foodItem = dataSnapshot.getValue(FoodItem.class);
+                foodItem = dataSnapshot.getValue(FoodItem.class);
 
                 food_price.setText(foodItem.getPrice());
 

@@ -72,22 +72,22 @@ public class FoodItemActivity extends AppCompatActivity
         }
         if (!categoryId.isEmpty()) {
            if (categoryId.equals("01")) {
-                //toolbar.setTitle("Sandwiches");
+                toolbar.setTitle("Sandwiches");
                   loadListFood(categoryId);
            } else if (categoryId.equals("02")) {
-                //toolbar.setTitle("Favorites");
+                toolbar.setTitle("Favorites");
                  loadListFood(categoryId);
             } else if (categoryId.equals("03")) {
-                //toolbar.setTitle("Sides");
+                toolbar.setTitle("Sides");
                  loadListFood(categoryId);
             } else if (categoryId.equals("04")) {
-                //toolbar.setTitle("Sauces");
+                toolbar.setTitle("Sauces");
                  loadListFood(categoryId);
             } else if (categoryId.equals("05")) {
-                //toolbar.setTitle("Drinks");
+                toolbar.setTitle("Drinks");
                  loadListFood(categoryId);
             } else if (categoryId.equals("06")) {
-                //toolbar.setTitle("Build Your Own");
+                toolbar.setTitle("Build Your Own");
                  loadListFood(categoryId);
             }
         }
