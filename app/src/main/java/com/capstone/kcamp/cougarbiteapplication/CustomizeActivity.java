@@ -1,48 +1,63 @@
 package com.capstone.kcamp.cougarbiteapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
-import com.capstone.kcamp.cougarbiteapplication.Model.FoodCategory;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.MenuViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.database.ValueEventListener;
 
-public class FoodCategories extends AppCompatActivity
+public class CustomizeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
-    FirebaseDatabase database;
-    DatabaseReference reference;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    FirebaseRecyclerAdapter<FoodCategory, MenuViewHolder> adapter;
+    String foodId="";
+    String foodName="";
+
+    TextView food_name, food_price, food_description, food_nutrition;
+    ElegantNumberButton numberButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_categories);
+        setContentView(R.layout.activity_customize);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Menu");
+        toolbar.setTitle("Description");
         setSupportActionBar(toolbar);
 
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("foodcategory");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("fooditems");
+
+        numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
+        food_description = (TextView)findViewById(R.id.food_description);
+        food_name = (TextView) findViewById(R.id.food_name);
+        food_price = (TextView) findViewById(R.id.food_price);
+        food_nutrition = (TextView) findViewById(R.id.food_nutrition);
+
+        if(getIntent() !=null) {
+            foodId=getIntent().getStringExtra("FoodId");
+            if(!foodId.isEmpty()){
+                getDetailFood(foodId);
+            }
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,45 +69,34 @@ public class FoodCategories extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_menu);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        loadMenu();
-
     }
 
-    private void loadMenu() {
-        adapter = new FirebaseRecyclerAdapter<FoodCategory,
-                        MenuViewHolder>(FoodCategory.class,R.layout.menu_item, MenuViewHolder.class,reference) {
+    private void getDetailFood(String foodId) {
+        databaseReference.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, FoodCategory model, int position) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FoodItem foodItem = dataSnapshot.getValue(FoodItem.class);
 
-                viewHolder.txtMenuName.setText(model.getText());
-                Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.imageView);
-                final FoodCategory clickItem = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodCategory = new Intent(FoodCategories.this, FoodItemActivity.class);
-                        foodCategory.putExtra("CategoryId", adapter.getRef(position).getKey());
-                        startActivity(foodCategory);
-                    }
-                });
+                food_price.setText(foodItem.getPrice());
+
+                food_name.setText(foodItem.getText());
+
+                foodName=foodItem.getText();
+
+                food_description.setText(foodItem.getDescription());
+
+                food_nutrition.setText(foodItem.getNutritionalValue());
             }
-        };
-        recyclerView.setAdapter(adapter);
-    }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     public void onBackPressed() {
@@ -133,7 +137,7 @@ public class FoodCategories extends AppCompatActivity
 
         } else if (id == R.id.nav_pay) {
 
-        } else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_check_out) {
 
         } else if (id == R.id.nav_log_out) {
 
@@ -144,3 +148,5 @@ public class FoodCategories extends AppCompatActivity
         return true;
     }
 }
+
+

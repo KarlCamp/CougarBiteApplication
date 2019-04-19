@@ -3,46 +3,49 @@ package com.capstone.kcamp.cougarbiteapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
-import com.capstone.kcamp.cougarbiteapplication.Model.FoodCategory;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.MenuViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
+import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
-public class FoodCategories extends AppCompatActivity
+public class FoodItemActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseDatabase database;
-    DatabaseReference reference;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    FirebaseRecyclerAdapter<FoodCategory, MenuViewHolder> adapter;
+
+    FirebaseRecyclerAdapter<FoodItem, FoodViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_categories);
+        setContentView(R.layout.activity_food_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Menu");
+        toolbar.setTitle("Food");
         setSupportActionBar(toolbar);
 
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("foodcategory");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("fooditems");
+
+        String categoryId="";
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,40 +62,57 @@ public class FoodCategories extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_menu);
+        recyclerView = (RecyclerView) findViewById(R.id.recycle_food);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        loadMenu();
-
+        if(getIntent() != null) {
+            categoryId = getIntent().getStringExtra("CategoryId");
+        }
+        if (!categoryId.isEmpty()) {
+           if (categoryId.equals("01")) {
+                //toolbar.setTitle("Sandwiches");
+                  loadListFood(categoryId);
+           } else if (categoryId.equals("02")) {
+                //toolbar.setTitle("Favorites");
+                 loadListFood(categoryId);
+            } else if (categoryId.equals("03")) {
+                //toolbar.setTitle("Sides");
+                 loadListFood(categoryId);
+            } else if (categoryId.equals("04")) {
+                //toolbar.setTitle("Sauces");
+                 loadListFood(categoryId);
+            } else if (categoryId.equals("05")) {
+                //toolbar.setTitle("Drinks");
+                 loadListFood(categoryId);
+            } else if (categoryId.equals("06")) {
+                //toolbar.setTitle("Build Your Own");
+                 loadListFood(categoryId);
+            }
+        }
     }
 
-    private void loadMenu() {
-        adapter = new FirebaseRecyclerAdapter<FoodCategory,
-                        MenuViewHolder>(FoodCategory.class,R.layout.menu_item, MenuViewHolder.class,reference) {
+    private void loadListFood(String categoryId) {
+        adapter = new FirebaseRecyclerAdapter<FoodItem,
+                FoodViewHolder>(FoodItem.class,R.layout.food_item,FoodViewHolder.class,databaseReference.orderByChild("menuid").equalTo(categoryId)) {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, FoodCategory model, int position) {
+            protected void populateViewHolder(FoodViewHolder viewHolder, FoodItem model, int position) {
 
-                viewHolder.txtMenuName.setText(model.getText());
-                Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.imageView);
-                final FoodCategory clickItem = model;
+                viewHolder.txtFoodName.setText(model.getText());
+                final FoodItem clickItem = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodCategory = new Intent(FoodCategories.this, FoodItemActivity.class);
-                        foodCategory.putExtra("CategoryId", adapter.getRef(position).getKey());
-                        startActivity(foodCategory);
+                    public void onClick(View view, int pos, boolean isLongClick) {
+                        Intent foodDetail = new Intent(FoodItemActivity.this, CustomizeActivity.class);
+                        foodDetail.putExtra("FoodId", adapter.getRef(pos).getKey());
+                        startActivity(foodDetail);
                     }
                 });
             }
         };
         recyclerView.setAdapter(adapter);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -118,6 +138,11 @@ public class FoodCategories extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        //if (id == R.id.action_settings) {
+        //    return true;
+        //}
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -131,9 +156,9 @@ public class FoodCategories extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_check_out) {
 
-        } else if (id == R.id.nav_pay) {
+        } else if (id == R.id.about) {
 
-        } else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_pay) {
 
         } else if (id == R.id.nav_log_out) {
 
@@ -144,3 +169,4 @@ public class FoodCategories extends AppCompatActivity
         return true;
     }
 }
+
