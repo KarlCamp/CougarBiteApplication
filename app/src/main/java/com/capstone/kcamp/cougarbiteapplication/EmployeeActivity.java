@@ -1,13 +1,16 @@
 package com.capstone.kcamp.cougarbiteapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.capstone.kcamp.cougarbiteapplication.Common.Common;
 import com.capstone.kcamp.cougarbiteapplication.Model.AppUser;
+import com.capstone.kcamp.cougarbiteapplication.Model.Employee;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +20,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class EmployeeActivity extends AppCompatActivity {
 
-    MaterialEditText password, phone;
+    MaterialEditText password, name;
     Button employee;
 
     @Override
@@ -25,13 +28,13 @@ public class EmployeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
         getSupportActionBar().hide();
-        phone = (MaterialEditText)findViewById(R.id.Phone);
-        password = (MaterialEditText)findViewById(R.id.Password);
+        name = (MaterialEditText)findViewById(R.id.name);
+        password = (MaterialEditText)findViewById(R.id.password);
 
-        employee=(Button)findViewById(R.id.buttonEmployee);
+        employee=(Button)findViewById(R.id.button);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_user = database.getReference("users");
+        final DatabaseReference table_user = database.getReference("employees");
 
         employee.setOnClickListener(new View.OnClickListener() {
 
@@ -43,12 +46,13 @@ public class EmployeeActivity extends AppCompatActivity {
                     table_user.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child(phone.getText().toString()).exists()) {
+                            if (dataSnapshot.child(name.getText().toString()).exists()) {
                                 mDialog.dismiss();
-                                AppUser user = dataSnapshot.child(phone.getText().toString()).getValue(AppUser.class);
-                                user.setPhone(phone.getText().toString());
-                                if (user.getPassword().equals(password.getText().toString())) {
-                                    Toast.makeText(EmployeeActivity.this, "Sign in success!", Toast.LENGTH_LONG).show();
+                                Employee employee = dataSnapshot.child(name.getText().toString()).getValue(Employee.class);
+                                if (employee.getPassword().equals(password.getText().toString())) {
+                                    Intent foodCategories = new Intent(EmployeeActivity.this, EmployeeOrderStatus.class);
+                                    startActivity(foodCategories);
+                                    finish();
                                 } else {
                                     Toast.makeText(EmployeeActivity.this, "Sign in failed!", Toast.LENGTH_LONG).show();
                                 }
