@@ -20,9 +20,6 @@ import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Objects;
-
 public class FoodScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DatabaseReference databaseReference;
     RecyclerView recView;
