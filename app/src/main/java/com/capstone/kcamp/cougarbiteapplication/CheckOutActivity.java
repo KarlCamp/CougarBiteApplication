@@ -21,19 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Database.Database;
-import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
-import com.capstone.kcamp.cougarbiteapplication.Model.AppUser;
-import com.capstone.kcamp.cougarbiteapplication.Model.FoodCategory;
 import com.capstone.kcamp.cougarbiteapplication.Model.Order;
 import com.capstone.kcamp.cougarbiteapplication.Model.Request;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.CartAdapter;
 import com.capstone.kcamp.cougarbiteapplication.ViewHolder.CartViewHolder;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -194,8 +187,8 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.nav_check_out) {
             Intent intent = new Intent(CheckOutActivity.this, CheckOutActivity.class);
             startActivity(intent);
-        } else if (id == R.id.about) {
-            Intent intent = new Intent(CheckOutActivity.this, AboutActivity.class);
+        } else if (id == R.id.abt) {
+            Intent intent = new Intent(CheckOutActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pay) {
 

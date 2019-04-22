@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -158,8 +157,8 @@ public class FoodItemActivity extends AppCompatActivity
         } else if (id == R.id.nav_check_out) {
             Intent intent = new Intent(FoodItemActivity.this, CheckOutActivity.class);
             startActivity(intent);
-        } else if (id == R.id.about) {
-            Intent intent = new Intent(FoodItemActivity.this, AboutActivity.class);
+        } else if (id == R.id.abt) {
+            Intent intent = new Intent(FoodItemActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pay) {
 

@@ -2,25 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/cougarbitebackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cougarbitebackground"
-    tools:context="com.capstone.kcamp.cougarbiteapplication.MainActivity">
-
+    tools:context="com.capstone.kcamp.cougarbiteapplication.StartScreenActivity">
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
         <ImageView
             android:src="@drawable/cougarbitelogo"
             android:layout_width="370dp"
             android:layout_height="370dp"
             android:layout_marginBottom="200dp"/>
-
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,40 +24,35 @@
         android:layout_marginBottom="0dp"
         android:orientation="vertical"
         android:weightSum="3">
-
         <info.hoang8f.widget.FButton
-            android:id="@+id/buttonCustomer"
+            android:id="@+id/btnCust"
+            android:text="@string/customer_button"
+            android:textColor="@android:color/white"
+            app:cornerRadius="4dp"
+            app:fButtonColor="@color/CUCMaroon"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:text="Customer"
+            android:layout_weight="1" />
+        <info.hoang8f.widget.FButton
+            android:id="@+id/btnEmp"
+            android:text="@string/employee_button"
             android:textColor="@android:color/white"
             app:cornerRadius="4dp"
-            app:fButtonColor="@color/CUCMaroon" />
-
-
-        <info.hoang8f.widget.FButton
-            android:id="@+id/buttonEmployee"
+            app:fButtonColor="@color/CUCMaroon"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:text="Employee"
+            android:layout_weight="1" />
+        <info.hoang8f.widget.FButton
+            android:id="@+id/btnAbt"
+            android:text="@string/about_button"
             android:textColor="@android:color/white"
             app:cornerRadius="4dp"
-            app:fButtonColor="@color/CUCMaroon" />
-
-        <info.hoang8f.widget.FButton
-            android:id="@+id/buttonAbout"
+            app:fButtonColor="@color/CUCMaroon"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:text="About"
-            android:textColor="@android:color/white"
-            app:cornerRadius="4dp"
-            app:fButtonColor="@color/CUCMaroon" />
-
+            android:layout_weight="1" />
     </LinearLayout>
 </RelativeLayout>

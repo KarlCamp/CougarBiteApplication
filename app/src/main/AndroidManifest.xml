@@ -35,10 +35,10 @@
             android:name=".FoodCategories"
             android:label="@string/title_activity_food_categories"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AboutActivity" />
+        <activity android:name=".AboutScreenActivity" />
         <activity android:name=".EmployeeActivity" />
         <activity android:name=".CustomerActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".StartScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
