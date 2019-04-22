@@ -40,7 +40,7 @@ public class OrderStatusActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         if (getIntent() == null)
-            loadOrders(Common.currentUser.getPhone());
+            loadOrders(Common.currentCustomer.getPhone());
         else
             loadOrders(getIntent().getStringExtra("userPhone"));
     }

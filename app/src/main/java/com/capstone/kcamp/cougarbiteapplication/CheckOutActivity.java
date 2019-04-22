@@ -106,8 +106,8 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
             public void onClick(DialogInterface dialog, int which) {
                 // Create new Request
                 Request request = new Request(
-                        Common.currentUser.getPhone(),
-                        Common.currentUser.getHNumber(),
+                        Common.currentCustomer.getPhone(),
+                        Common.currentCustomer.getHNumber(),
                         edtTime.getText().toString(),
                         txtTotalPrice.getText().toString(),
                         cart

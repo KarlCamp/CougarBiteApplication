@@ -7,9 +7,23 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
     <string name="customer_button">Customer</string>
     <string name="employee_button">Employee</string>
     <string name="about_button">About</string>
+
+    <string name="default_hnumber">00559989</string>
+    <string name="hnumber_hint"><font size="30">HNUMBER</font></string>
+    <string name="default_phone">773–706–6119</string>
+    <string name="phone_hint"><font size="30">PHONE (NNN-NNN-NNNN)</font></string>
+    <string name="default_password">CrazyRussian</string>
+    <string name="password_hint"><font size="30">PASSWORD</font></string>
+    <string name="customer_sign_in_btn">Customer Sign In</string>
+
+    <string name="default_name">Karl Camp</string>
+    <string name="name_hint"><font size="30">NAME (FIRST LAST)</font></string>
+    <string name="employee_sign_in_btn">Customer Sign In</string>
+
     <string name="about_page_title">About CougarBite</string>
     <string name="about_page_description">Description</string>
     <string name="about_page_version">Version 0.0.0</string>

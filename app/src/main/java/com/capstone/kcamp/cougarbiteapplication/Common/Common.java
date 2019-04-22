@@ -1,9 +1,9 @@
 package com.capstone.kcamp.cougarbiteapplication.Common;
 
-import com.capstone.kcamp.cougarbiteapplication.Model.AppUser;
+import com.capstone.kcamp.cougarbiteapplication.Model.Customer;
 
 public class Common {
-    public static AppUser currentUser;
+    public static Customer currentCustomer;
     public static final String UPDATE = "Update";
     public static final String DELETE = "Update";
     public static String convertCodeToStatus(String status) {

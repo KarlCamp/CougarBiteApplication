@@ -86,7 +86,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
             Intent intent = new Intent(PaymentMethodActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_log_out) {
-            Intent signIn = new Intent(PaymentMethodActivity.this, CustomerActivity.class);
+            Intent signIn = new Intent(PaymentMethodActivity.this, CustomerSignInScreenActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
         }

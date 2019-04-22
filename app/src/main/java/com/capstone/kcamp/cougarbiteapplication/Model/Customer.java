@@ -1,15 +1,15 @@
 package com.capstone.kcamp.cougarbiteapplication.Model;
 
-public class AppUser {
+public class Customer {
     private String Password;
     private String Phone;
     private String HNumber;
 
-    public AppUser() {
+    public Customer() {
 
     }
 
-    public AppUser(String hNumber, String password, String phone) {
+    public Customer(String hNumber, String password, String phone) {
         HNumber = hNumber;
         Password = password;
         Phone = phone;

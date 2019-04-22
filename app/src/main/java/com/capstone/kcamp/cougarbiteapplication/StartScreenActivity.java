@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import java.util.Objects;
 public class StartScreenActivity extends AppCompatActivity {
     Button btnCust, btnEmp, btnAbt;
@@ -19,14 +18,14 @@ public class StartScreenActivity extends AppCompatActivity {
         btnCust.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StartScreenActivity.this, CustomerActivity.class);
+                Intent intent = new Intent(StartScreenActivity.this, CustomerSignInScreenActivity.class);
                 startActivity(intent);
             }
         });
         btnEmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StartScreenActivity.this, EmployeeActivity.class);
+                Intent intent = new Intent(StartScreenActivity.this, EmployeeSignInScreenActivity.class);
                 startActivity(intent);
             }
         });

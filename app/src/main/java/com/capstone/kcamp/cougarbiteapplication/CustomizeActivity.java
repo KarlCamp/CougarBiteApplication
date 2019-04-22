@@ -85,7 +85,7 @@ public class CustomizeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice());
-                DatabaseReference mRef =  firebaseDatabase.getReference().child("orders").child(Common.currentUser.getHNumber());
+                DatabaseReference mRef =  firebaseDatabase.getReference().child("orders").child(Common.currentCustomer.getHNumber());
                 mRef.setValue(order);
                 //new Database(getBaseContext()).addToCart(new Order(
                 //    foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice()

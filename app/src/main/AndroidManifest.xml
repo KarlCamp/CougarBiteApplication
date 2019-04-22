@@ -36,8 +36,8 @@
             android:label="@string/title_activity_food_categories"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AboutScreenActivity" />
-        <activity android:name=".EmployeeActivity" />
-        <activity android:name=".CustomerActivity" />
+        <activity android:name=".EmployeeSignInScreenActivity" />
+        <activity android:name=".CustomerSignInScreenActivity" />
         <activity android:name=".StartScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

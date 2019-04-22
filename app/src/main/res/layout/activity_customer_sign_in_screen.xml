@@ -2,67 +2,71 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/cougarbitebackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cougarbitebackground"
-    tools:context="com.capstone.kcamp.cougarbiteapplication.EmployeeActivity">
-
+    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerSignInScreenActivity">
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#9f000000"
         android:gravity="center">
-
     </TextView>
-
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerInParent="true">
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/name"
-            android:hint="Phone"
+            android:id="@+id/hNumber"
+            android:hint="@string/hnumber_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
-            android:text="Jacob John"
-            app:met_maxCharacters="10"
+            android:text="@string/default_hnumber"
+            android:textSize="34sp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/white"
+            app:met_maxCharacters="8"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@android:color/white" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/phone"
+            android:hint="@string/phone_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/white"
+            android:text="@string/default_phone"
+            app:met_maxCharacters="12"
             android:textSize="34sp"
             android:inputType="text"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="@android:color/white"
-            />
-
+            app:met_primaryColor="@android:color/white" />
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/password"
-            android:hint="Password"
+            android:hint="@string/password_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
-            android:text="CrazyIndian"
+            android:text="@string/default_password"
             android:textSize="34sp"
             android:inputType="textPassword"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="@android:color/white"
-            />
-
+            app:met_primaryColor="@android:color/white" />
     </LinearLayout>
-
     <info.hoang8f.widget.FButton
-        android:id="@+id/button"
+        android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_margin="4dp"
-        android:layout_weight="1"
-        android:text="Sign In"
+        android:text="@string/customer_sign_in_btn"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         app:cornerRadius="4dp"
         app:fButtonColor="@color/CUCMaroon" />
 </RelativeLayout>
+

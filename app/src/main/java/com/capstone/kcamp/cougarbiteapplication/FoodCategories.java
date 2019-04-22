@@ -143,7 +143,7 @@ public class FoodCategories extends AppCompatActivity
             Intent intent = new Intent(FoodCategories.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_log_out) {
-            Intent signIn = new Intent(FoodCategories.this, CustomerActivity.class);
+            Intent signIn = new Intent(FoodCategories.this, CustomerSignInScreenActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
         }
