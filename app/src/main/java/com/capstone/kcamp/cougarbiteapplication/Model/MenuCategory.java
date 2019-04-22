@@ -1,31 +1,22 @@
 package com.capstone.kcamp.cougarbiteapplication.Model;
-
-public class FoodCategory {
+public class MenuCategory {
     private String text;
     private String image;
-
-    public FoodCategory() {
-
-    }
-
+    public MenuCategory() { }
     public String getText() {
         return text;
     }
-
-    public void setText(String name) {
-        text = name;
+    public void setText(String text) {
+        this.text = text;
     }
-
     public String getImage() {
         return image;
     }
-
     public void setImage(String image) {
         this.image = image;
     }
-
-    public FoodCategory(String name, String image) {
-        text = name;
+    public MenuCategory(String text, String image) {
+        this.text = text;
         this.image = image;
     }
 }

@@ -20,6 +20,7 @@ import java.util.Objects;
 public class EmployeeSignInScreenActivity extends AppCompatActivity {
     MaterialEditText password, name;
     Button empSignIn;
+    DatabaseReference ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +29,14 @@ public class EmployeeSignInScreenActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         password = findViewById(R.id.password);
         empSignIn= findViewById(R.id.btn);
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("employees");
+        ref = FirebaseDatabase.getInstance().getReference("employees");
         empSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final ProgressDialog dialog = new ProgressDialog(EmployeeSignInScreenActivity.this);
                 dialog.setMessage("Loading...");
                 dialog.show();
-                reference.addValueEventListener(new ValueEventListener() {
+                ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.child(name.getText().toString()).exists()) {

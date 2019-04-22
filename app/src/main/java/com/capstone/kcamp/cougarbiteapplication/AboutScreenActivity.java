@@ -12,17 +12,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 public class AboutScreenActivity extends AppCompatActivity {
     TextView about, title, version;
-    DatabaseReference reference;
+    DatabaseReference ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_screen);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        reference = FirebaseDatabase.getInstance().getReference("about");
+        ref = FirebaseDatabase.getInstance().getReference("about");
         about = findViewById(R.id.abt);
         title = findViewById(R.id.title);
         version = findViewById(R.id.vers);
-        reference.child("title").addValueEventListener(new ValueEventListener() {
+        ref.child("title").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String str = dataSnapshot.getValue(String.class);
@@ -33,7 +33,7 @@ public class AboutScreenActivity extends AppCompatActivity {
                 Toast.makeText(AboutScreenActivity.this, "Error: issue connecting to database.", Toast.LENGTH_SHORT).show();
             }
         });
-        reference.child("description").addValueEventListener(new ValueEventListener() {
+        ref.child("description").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String str = dataSnapshot.getValue(String.class);
@@ -44,7 +44,7 @@ public class AboutScreenActivity extends AppCompatActivity {
                 Toast.makeText(AboutScreenActivity.this, "Error: issue connecting to database.", Toast.LENGTH_SHORT).show();
             }
         });
-        reference.child("version").addValueEventListener(new ValueEventListener() {
+        ref.child("version").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String str = dataSnapshot.getValue(String.class);

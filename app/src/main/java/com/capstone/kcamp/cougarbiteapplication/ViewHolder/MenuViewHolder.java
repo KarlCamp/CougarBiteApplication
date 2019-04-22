@@ -10,8 +10,8 @@ import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
 import com.capstone.kcamp.cougarbiteapplication.R;
 
 public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public TextView txtMenuName;
-    public ImageView imageView;
+    public TextView categoryTitle;
+    public ImageView image;
 
     private ItemClickListener itemClickListener;
 
@@ -22,8 +22,8 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public MenuViewHolder(View itemView) {
         super(itemView);
 
-        txtMenuName = (TextView) itemView.findViewById(R.id.menu_name);
-        imageView = (ImageView) itemView.findViewById(R.id.menu_image);
+        categoryTitle = (TextView) itemView.findViewById(R.id.menu_name);
+        image = (ImageView) itemView.findViewById(R.id.menu_image);
 
         itemView.setOnClickListener(this);
     }

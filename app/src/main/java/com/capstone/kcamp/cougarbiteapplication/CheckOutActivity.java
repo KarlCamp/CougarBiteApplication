@@ -161,7 +161,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.food_categories, menu);
+        getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
 
@@ -178,25 +178,28 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_menu) {
-            Intent intent = new Intent(CheckOutActivity.this, FoodCategories.class);
+        if (id == R.id.navigation_menu) {
+            Intent intent = new Intent(CheckOutActivity.this, MenuScreenActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_check_out) {
+        } else if (id == R.id.navigation_check_out) {
             Intent intent = new Intent(CheckOutActivity.this, CheckOutActivity.class);
             startActivity(intent);
-        } else if (id == R.id.abt) {
+        } else if (id == R.id.navigation_pay) {
+            Intent intent = new Intent(CheckOutActivity.this, PaymentMethodActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navigation_order_status) {
+            Intent intent = new Intent(CheckOutActivity.this, OrderStatusActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.navigation_about) {
             Intent intent = new Intent(CheckOutActivity.this, AboutScreenActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_pay) {
-
-        } else if (id == R.id.nav_log_out) {
-
+        } else if (id == R.id.navigation_sign_out) {
+            Intent intent = new Intent(CheckOutActivity.this, CustomerSignInScreenActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

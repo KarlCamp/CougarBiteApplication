@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
             android:text="@string/default_name"
-            app:met_maxCharacters="10"
             android:textSize="34sp"
             android:inputType="text"
             app:met_baseColor="@android:color/white"

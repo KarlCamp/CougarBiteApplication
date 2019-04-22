@@ -20,10 +20,10 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_food_categories"
+        app:headerLayout="@layout/nav_header_general"
         android:background="@color/CUCGold"
         app:itemTextColor="@android:color/white"
         app:itemIconTint="@android:color/white"
-        app:menu="@menu/activity_food_categories_drawer"
+        app:menu="@menu/activity_general_drawer"
         />
 </android.support.v4.widget.DrawerLayout>

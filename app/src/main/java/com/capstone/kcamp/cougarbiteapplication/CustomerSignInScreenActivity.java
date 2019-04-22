@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
 import com.capstone.kcamp.cougarbiteapplication.Model.Customer;
@@ -20,6 +19,7 @@ import java.util.Objects;
 public class CustomerSignInScreenActivity extends AppCompatActivity {
     MaterialEditText hNumber, password, phone;
     Button custSignIn;
+    DatabaseReference ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +29,14 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         phone = findViewById(R.id.phone);
         custSignIn = findViewById(R.id.btn);
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("customers");
+        ref = FirebaseDatabase.getInstance().getReference("customers");
         custSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final ProgressDialog dialog = new ProgressDialog(CustomerSignInScreenActivity.this);
                 dialog.setMessage("Loading...");
                 dialog.show();
-                reference.addValueEventListener(new ValueEventListener() {
+                ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.child(hNumber.getText().toString()).exists()) {
@@ -48,7 +48,7 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
                                 if (phone.getText().toString().length() == 12) {
                                     if (customer.getPhone().equals(phone.getText().toString())) {
                                         Common.currentCustomer = customer;
-                                        Intent intent = new Intent(CustomerSignInScreenActivity.this, FoodCategories.class);
+                                        Intent intent = new Intent(CustomerSignInScreenActivity.this, MenuScreenActivity.class);
                                         startActivity(intent);
                                         finish();
                                     } else {

@@ -74,57 +74,43 @@ public class CustomizeActivity extends AppCompatActivity
         food_nutrition = (TextView) findViewById(R.id.food_nutrition);
 
         if(getIntent() !=null) {
-            foodId=getIntent().getStringExtra("FoodId");
+            foodId=getIntent().getStringExtra("foodIdentificationNumber");
             if(!foodId.isEmpty()){
                 getDetailFood(foodId);
             }
         }
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.heyHey);
+        FloatingActionButton fab = findViewById(R.id.heyHey);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice());
                 DatabaseReference mRef =  firebaseDatabase.getReference().child("orders").child(Common.currentCustomer.getHNumber());
                 mRef.setValue(order);
-                //new Database(getBaseContext()).addToCart(new Order(
-                //    foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice()
-                //));
-
                 Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
         });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
     }
-
     private void getDetailFood(String foodId) {
         databaseReference.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 foodItem = dataSnapshot.getValue(FoodItem.class);
-
                 food_price.setText(foodItem.getPrice());
-
                 food_name.setText(foodItem.getText());
-
                 foodName=foodItem.getText();
-
                 food_description.setText(foodItem.getDescription());
-
                 food_nutrition.setText(foodItem.getNutritionalValue());
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -134,49 +120,42 @@ public class CustomizeActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.food_categories, menu);
+        getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_menu) {
-            Intent intent = new Intent(CustomizeActivity.this, FoodCategories.class);
+        if (id == R.id.navigation_menu) {
+            Intent intent = new Intent(CustomizeActivity.this, MenuScreenActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_check_out) {
+        } else if (id == R.id.navigation_check_out) {
             Intent intent = new Intent(CustomizeActivity.this, CheckOutActivity.class);
             startActivity(intent);
-        } else if (id == R.id.abt) {
+        } else if (id == R.id.navigation_pay) {
+            Intent intent = new Intent(CustomizeActivity.this, PaymentMethodActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navigation_order_status) {
+            Intent intent = new Intent(CustomizeActivity.this, OrderStatusActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.navigation_about) {
             Intent intent = new Intent(CustomizeActivity.this, AboutScreenActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_pay) {
-
-        } else if (id == R.id.nav_log_out) {
-
+        } else if (id == R.id.navigation_sign_out) {
+            Intent intent = new Intent(CustomizeActivity.this, CustomerSignInScreenActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }
-
-

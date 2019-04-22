@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.capstone.kcamp.cougarbiteapplication.CustomizeActivity"
-    tools:showIn="@layout/app_bar_food_items"
+    tools:showIn="@layout/app_bar_food_screen"
     android:background="@android:color/white">
 
     <LinearLayout

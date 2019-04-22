@@ -29,11 +29,10 @@
             android:name=".CustomizeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FoodItemActivity"
+            android:name=".FoodScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FoodCategories"
-            android:label="@string/title_activity_food_categories"
+            android:name=".MenuScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AboutScreenActivity" />
         <activity android:name=".EmployeeSignInScreenActivity" />
