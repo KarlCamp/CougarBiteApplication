@@ -18,26 +18,6 @@ public class MainActivity extends AppCompatActivity {
         buttonEmployee = (Button)findViewById(R.id.buttonEmployee);
         buttonAbout = (Button)findViewById(R.id.buttonAbout);
         getSupportActionBar().hide();
-        buttonCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        buttonEmployee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        buttonAbout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         buttonCustomer.setOnClickListener(new View.OnClickListener() {
             @Override

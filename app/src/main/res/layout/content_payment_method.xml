@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PaymentMethodActivity"
+    tools:showIn="@layout/app_bar_food_items"
+    android:background="@android:color/white"
+    android:theme="@style/AppTheme.NoActionBar">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <ImageView
+            android:src="@drawable/creditcard"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="135dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Credit Card"
+            android:textColor="@color/CUCMaroon"
+            android:textSize="20sp"
+            android:layout_marginStart="155dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <ImageView
+                android:src="@drawable/meals"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="10dp"/>
+
+            <ImageView
+                android:src="@drawable/cougarcash"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="10dp"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CougarCash                      Meals"
+            android:textColor="@color/CUCMaroon"
+            android:textSize="20sp"
+            android:layout_marginStart="55dp"
+            android:layout_marginBottom="130dp"/>
+
+    </LinearLayout>
+
+    <info.hoang8f.widget.FButton
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:text="Pay"
+            android:textColor="@android:color/white"
+            android:layout_alignParentBottom="true"
+            app:cornerRadius="4dp"
+            app:fButtonColor="@color/CUCMaroon" />
+
+</RelativeLayout>

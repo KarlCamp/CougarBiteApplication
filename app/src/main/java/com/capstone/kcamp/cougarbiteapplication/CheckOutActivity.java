@@ -108,7 +108,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         alertDialog.setView(edtTime);
         alertDialog.setIcon(R.drawable.ic_add_shopping_cart_black_24dp);
 
-        alertDialog.setPositiveButton("YA", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Create new Request
@@ -123,12 +123,14 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
                         .setValue(request);
                 //Delete cart
                 //new Database(getBaseContext()).cleanCart();
-                Toast.makeText(CheckOutActivity.this, "Terimakasih, Telah mengorder!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CheckOutActivity.this, "Cart processed!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CheckOutActivity.this, PaymentMethodActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
 
-        alertDialog.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();

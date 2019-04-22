@@ -1,58 +1,42 @@
 package com.capstone.kcamp.cougarbiteapplication;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
 import com.capstone.kcamp.cougarbiteapplication.Model.FoodCategory;
 import com.capstone.kcamp.cougarbiteapplication.Service.ListenOrder;
 import com.capstone.kcamp.cougarbiteapplication.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
-public class FoodCategories extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class PaymentMethodActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     FirebaseDatabase database;
     DatabaseReference reference;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    FirebaseRecyclerAdapter<FoodCategory, MenuViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_categories);
+        setContentView(R.layout.activity_payment_method);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Menu");
+        toolbar.setTitle("Payment Method");
         setSupportActionBar(toolbar);
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("foodcategory");
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent cartIntent = new Intent(FoodCategories.this, CheckOutActivity.class);
-                startActivity(cartIntent);
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,41 +47,7 @@ public class FoodCategories extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_menu);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        loadMenu();
-
-        Intent service = new Intent(FoodCategories.this, ListenOrder.class);
-        startService(service);
-
     }
-
-    private void loadMenu() {
-        adapter = new FirebaseRecyclerAdapter<FoodCategory,
-                        MenuViewHolder>(FoodCategory.class,R.layout.menu_item, MenuViewHolder.class,reference) {
-            @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, FoodCategory model, int position) {
-
-                viewHolder.txtMenuName.setText(model.getText());
-                Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.imageView);
-                final FoodCategory clickItem = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodCategory = new Intent(FoodCategories.this, FoodItemActivity.class);
-                        foodCategory.putExtra("CategoryId", adapter.getRef(position).getKey());
-                        startActivity(foodCategory);
-                    }
-                });
-            }
-        };
-        recyclerView.setAdapter(adapter);
-    }
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -132,19 +82,19 @@ public class FoodCategories extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_menu) {
-            Intent intent = new Intent(FoodCategories.this, FoodCategories.class);
+            Intent intent = new Intent(PaymentMethodActivity.this, FoodCategories.class);
             startActivity(intent);
         } else if (id == R.id.nav_check_out) {
-            Intent intent = new Intent(FoodCategories.this, CheckOutActivity.class);
+            Intent intent = new Intent(PaymentMethodActivity.this, CheckOutActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pay) {
-            Intent intent = new Intent(FoodCategories.this, OrderStatusActivity.class);
+            Intent intent = new Intent(PaymentMethodActivity.this, OrderStatusActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {
-            Intent intent = new Intent(FoodCategories.this, AboutActivity.class);
+            Intent intent = new Intent(PaymentMethodActivity.this, AboutActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_log_out) {
-            Intent signIn = new Intent(FoodCategories.this, CustomerActivity.class);
+            Intent signIn = new Intent(PaymentMethodActivity.this, CustomerActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
         }

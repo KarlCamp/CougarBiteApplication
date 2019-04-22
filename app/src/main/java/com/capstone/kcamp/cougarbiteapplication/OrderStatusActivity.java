@@ -43,10 +43,8 @@ public class OrderStatusActivity extends AppCompatActivity {
             loadOrders(Common.currentUser.getPhone());
         else
             loadOrders(getIntent().getStringExtra("userPhone"));
-
-        loadOrders(Common.currentUser.getPhone());
     }
-    
+
     private void loadOrders(String phone) {
         adapter = new FirebaseRecyclerAdapter<Request, OrderViewHolder>(
                 Request.class,
