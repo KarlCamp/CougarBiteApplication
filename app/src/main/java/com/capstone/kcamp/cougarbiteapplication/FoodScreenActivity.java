@@ -14,8 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
 import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
 import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
 import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodScreenViewHolder;
@@ -90,12 +88,10 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
                     @Override
                     public void onClick(View view, int pos, boolean isLongClick) {
                         if (categoryIdentificationNumber.equals("01")) {
-                            Toast.makeText(FoodScreenActivity.this, "Error: Sandwiches!", Toast.LENGTH_SHORT).show();
                             Intent foodDetail = new Intent(FoodScreenActivity.this, CustomizeSandwichesScreenActivity.class);
                             foodDetail.putExtra("foodIdentificationNumber", adapt.getRef(pos).getKey());
                             startActivity(foodDetail);
                         } else {
-                            Toast.makeText(FoodScreenActivity.this, "Error: WTF!", Toast.LENGTH_SHORT).show();
                             Intent foodDetail = new Intent(FoodScreenActivity.this, CustomizeActivity.class);
                             foodDetail.putExtra("foodIdentificationNumber", adapt.getRef(pos).getKey());
                             startActivity(foodDetail);

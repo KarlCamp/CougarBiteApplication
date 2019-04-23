@@ -44,11 +44,6 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
     TextView txtTotalPrice, txt_crt_name, txt_price;
     FButton btnPlace;
 
-    String edtTime;
-    //List<Order> cart = new ArrayList<>();
-
-    //FirebaseRecyclerAdapter<Order, CartViewHolder> adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

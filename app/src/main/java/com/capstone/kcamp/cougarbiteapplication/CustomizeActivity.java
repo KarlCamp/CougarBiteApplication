@@ -58,7 +58,8 @@ public class CustomizeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice());
+                Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice(),
+                        false, false, false, false, false, false, false, false, false, false);
                 Common.cart.add(order);
                 Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }

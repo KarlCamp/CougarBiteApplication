@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
@@ -32,6 +33,8 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
     ElegantNumberButton numberButton;
     FloatingActionButton btnAdd;
     FoodItem foodItem;
+    boolean lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
+            fried_eggTopping, chickenTopping, pattyTopping;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +63,15 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice());
-                Common.cart.add(order);
-                Toast.makeText(CustomizeSandwichesScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                if(numberButton.getNumber().equals("0")) {
+                    Toast.makeText(CustomizeSandwichesScreenActivity.this, "Error: please choose quantity.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Order order = new Order(foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice(),
+                            lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
+                            fried_eggTopping, chickenTopping, pattyTopping);
+                    Common.cart.add(order);
+                    Toast.makeText(CustomizeSandwichesScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -87,6 +96,92 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
             }
         });
     }
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        switch(view.getId()) {
+            case R.id.Lettuce: {
+                if (checked) {
+                    lettuceTopping = true;
+                } else {
+                    lettuceTopping = false;
+                }
+                break;
+            }
+            case R.id.Tomato: {
+                if (checked) {
+                    tomatoTopping = true;
+                } else {
+                    tomatoTopping = false;
+                }
+                break;
+            }
+            case R.id.Onion: {
+                if (checked) {
+                    onionTopping = true;
+                } else {
+                    onionTopping = false;
+                }
+                break;
+            }
+            case R.id.Pickle: {
+                if (checked) {
+                    pickleTopping = true;
+                } else {
+                    pickleTopping = false;
+                }
+                break;
+            }
+            case R.id.Bacon: {
+                if (checked) {
+                    baconTopping = true;
+                } else {
+                    baconTopping = false;
+                }
+                break;
+            }
+            case R.id.Cheese: {
+                if (checked) {
+                    cheeseTopping = true;
+                } else {
+                    cheeseTopping = false;
+                }
+                break;
+            }
+            case R.id.Avocado: {
+                if (checked) {
+                    avocadoTopping = true;
+                } else {
+                    avocadoTopping = false;
+                }
+                break;
+            }
+            case R.id.FriedEgg: {
+                if (checked) {
+                    fried_eggTopping = true;
+                } else {
+                    fried_eggTopping = false;
+                }
+                break;
+            }
+            case R.id.Chicken: {
+                if (checked) {
+                    chickenTopping = true;
+                } else {
+                    chickenTopping = false;
+                }
+                break;
+            }
+            case R.id.Patty: {
+                if (checked) {
+                    pattyTopping = true;
+                } else {
+                    pattyTopping = false;
+                }
+                break;
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
