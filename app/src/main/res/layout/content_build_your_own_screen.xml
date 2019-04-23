@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cougarbitebackground"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.capstone.kcamp.cougarbiteapplication.BuildYourOwnScreenActivity"
+    tools:showIn="@layout/app_bar_food_screen">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    android:weightSum="4">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/burgers"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="18sp"
+                        android:text="Burgers"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:weightSum="2">
+
+                        <CheckBox
+                            android:id="@+id/Beef"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Beef"
+                            android:textSize="10sp"
+                            android:layout_marginStart="34dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Grilled_Chicken"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Grilled Chicken"
+                            android:textSize="10sp"
+                            android:layout_marginStart="152dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+
+                        <CheckBox
+                            android:id="@+id/Turkey"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Turkey"
+                            android:textSize="10sp"
+                            android:layout_marginStart="39dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Black_Bean"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Black Bean"
+                            android:textSize="10sp"
+                            android:layout_marginStart="129dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Breaded_Chicken"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Breaded Chicken"
+                            android:textSize="10sp"
+                            android:layout_marginStart="60dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    android:weightSum="4">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/PickCheese"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="18sp"
+                        android:text="Pick One Cheese"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:weightSum="2">
+
+                        <CheckBox
+                            android:id="@+id/American"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="American"
+                            android:textSize="10sp"
+                            android:layout_marginStart="44dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Bleu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bleu"
+                            android:textSize="10sp"
+                            android:layout_marginStart="96dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+
+                        <CheckBox
+                            android:id="@+id/Pepper_Jack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pepper Jack"
+                            android:textSize="10sp"
+                            android:layout_marginStart="50dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Swiss"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Swiss"
+                            android:textSize="10sp"
+                            android:layout_marginStart="81dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Provolone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Provolone"
+                            android:textSize="10sp"
+                            android:layout_marginStart="45dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    android:weightSum="5">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Bread"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="18sp"
+                        android:text="Pick One Bread"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:weightSum="2">
+
+                        <CheckBox
+                            android:id="@+id/White_Kaiser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="White Kaiser"
+                            android:textSize="10sp"
+                            android:layout_marginStart="49dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Flat_Bread"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Flat Bread"
+                            android:textSize="10sp"
+                            android:layout_marginStart="87dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+
+                        <CheckBox
+                            android:id="@+id/Flour_Wrap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Flour Wrap"
+                            android:textSize="10sp"
+                            android:layout_marginStart="45dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Wheat_Kaiser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wheat Kaiser"
+                            android:textSize="10sp"
+                            android:layout_marginStart="103dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Spinach_Wrap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Spinach Wrap"
+                            android:textSize="10sp"
+                            android:layout_marginStart="51dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Garlic_Wrap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Garlic Wrap"
+                            android:textSize="10sp"
+                            android:layout_marginStart="80dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Gluten_Free"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gluten Free($1 more)"
+                            android:textSize="10sp"
+                            android:layout_marginStart="68dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    android:weightSum="3">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/toppings"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="18sp"
+                        android:text="Toppings"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Lettuce"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lettuce"
+                            android:textSize="10sp"
+                            android:layout_marginStart="38dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Tomato"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tomato"
+                            android:checked="true"
+                            android:textSize="10sp"
+                            android:layout_marginStart="118dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Onion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Onion"
+                            android:textSize="10sp"
+                            android:layout_marginStart="34dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Pickle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pickle"
+                            android:checked="true"
+                            android:textSize="10sp"
+                            android:layout_marginStart="126dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    android:weightSum="4">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/extras"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="18sp"
+                        android:text="Extras"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Bacon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bacon"
+                            android:textSize="10sp"
+                            android:layout_marginStart="35dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Cheese"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cheese"
+                            android:checked="true"
+                            android:textSize="10sp"
+                            android:layout_marginStart="123dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Avocado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avocado"
+                            android:textSize="10sp"
+                            android:layout_marginStart="40dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/FriedEgg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fried Egg"
+                            android:checked="true"
+                            android:textSize="10sp"
+                            android:layout_marginStart="111dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+                        <CheckBox
+                            android:id="@+id/Chicken"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Chicken"
+                            android:textSize="10sp"
+                            android:layout_marginStart="38dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                        <CheckBox
+                            android:id="@+id/Patty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Patty"
+                            android:checked="true"
+                            android:textSize="10sp"
+                            android:layout_marginStart="107dp"
+                            android:scaleX="2"
+                            android:scaleY="2"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -14,9 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
 import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodScreenViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,7 +27,7 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
     RecyclerView recView;
     RecyclerView.LayoutManager layout;
     String categoryIdentificationNumber="";
-    FirebaseRecyclerAdapter<FoodItem, FoodViewHolder> adapt;
+    FirebaseRecyclerAdapter<FoodItem, FoodScreenViewHolder> adapt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
                 startActivity(intent);
             }
         });
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -80,16 +82,24 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
     }
     private void fillAdapter(String categoryId) {
         adapt = new FirebaseRecyclerAdapter<FoodItem,
-                FoodViewHolder>(FoodItem.class,R.layout.food_item,FoodViewHolder.class,databaseReference.orderByChild("foodIdentificationNumber").equalTo(categoryId)) {
+                FoodScreenViewHolder>(FoodItem.class,R.layout.food_item, FoodScreenViewHolder.class,databaseReference.orderByChild("foodIdentificationNumber").equalTo(categoryId)) {
             @Override
-            protected void populateViewHolder(FoodViewHolder viewHolder, FoodItem model, int position) {
+            protected void populateViewHolder(FoodScreenViewHolder viewHolder, FoodItem model, int position) {
                 viewHolder.txtFoodName.setText(model.getText());
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int pos, boolean isLongClick) {
-                        Intent foodDetail = new Intent(FoodScreenActivity.this, CustomizeActivity.class);
-                        foodDetail.putExtra("foodIdentificationNumber", adapt.getRef(pos).getKey());
-                        startActivity(foodDetail);
+                        if (categoryIdentificationNumber.equals("01")) {
+                            Toast.makeText(FoodScreenActivity.this, "Error: Sandwiches!", Toast.LENGTH_SHORT).show();
+                            Intent foodDetail = new Intent(FoodScreenActivity.this, CustomizeSandwichesScreenActivity.class);
+                            foodDetail.putExtra("foodIdentificationNumber", adapt.getRef(pos).getKey());
+                            startActivity(foodDetail);
+                        } else {
+                            Toast.makeText(FoodScreenActivity.this, "Error: WTF!", Toast.LENGTH_SHORT).show();
+                            Intent foodDetail = new Intent(FoodScreenActivity.this, CustomizeActivity.class);
+                            foodDetail.putExtra("foodIdentificationNumber", adapt.getRef(pos).getKey());
+                            startActivity(foodDetail);
+                        }
                     }
                 });
             }

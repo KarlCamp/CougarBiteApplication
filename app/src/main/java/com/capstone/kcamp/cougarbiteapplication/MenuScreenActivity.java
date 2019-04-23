@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
 import com.capstone.kcamp.cougarbiteapplication.Model.MenuCategory;
 import com.capstone.kcamp.cougarbiteapplication.Service.ListenOrder;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.MenuViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.ViewHolder.MenuScreenViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,7 +27,7 @@ public class MenuScreenActivity extends AppCompatActivity implements NavigationV
     DatabaseReference ref;
     RecyclerView recView;
     RecyclerView.LayoutManager layout;
-    FirebaseRecyclerAdapter<MenuCategory, MenuViewHolder> adapt;
+    FirebaseRecyclerAdapter<MenuCategory, MenuScreenViewHolder> adapt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,17 +60,22 @@ public class MenuScreenActivity extends AppCompatActivity implements NavigationV
         startService(intent);
     }
     private void fillAdapter() {
-        adapt = new FirebaseRecyclerAdapter<MenuCategory, MenuViewHolder>(MenuCategory.class,R.layout.menu_item, MenuViewHolder.class,ref) {
+        adapt = new FirebaseRecyclerAdapter<MenuCategory, MenuScreenViewHolder>(MenuCategory.class,R.layout.menu_item, MenuScreenViewHolder.class,ref) {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, MenuCategory model, int position) {
+            protected void populateViewHolder(MenuScreenViewHolder viewHolder, MenuCategory model, int position) {
                 viewHolder.categoryTitle.setText(model.getText());
                 Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.image);
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
+                        if (adapt.getRef(position).getKey().equals("06")) {
+                            Intent foodCategory = new Intent(MenuScreenActivity.this, BuildYourOwnScreenActivity.class);
+                            startActivity(foodCategory);
+                        } else {
                         Intent foodCategory = new Intent(MenuScreenActivity.this, FoodScreenActivity.class);
                         foodCategory.putExtra("categoryIdentificationNumber", adapt.getRef(position).getKey());
                         startActivity(foodCategory);
+                    }
                     }
                 });
             }

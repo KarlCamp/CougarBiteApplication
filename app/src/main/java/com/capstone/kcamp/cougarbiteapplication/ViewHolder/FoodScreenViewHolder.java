@@ -8,12 +8,12 @@ import android.widget.TextView;
 import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
 import com.capstone.kcamp.cougarbiteapplication.R;
 
-public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FoodScreenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView txtFoodName;
     private ItemClickListener itemClickListener;
 
-    public FoodViewHolder(View itemView) {
+    public FoodScreenViewHolder(View itemView) {
         super(itemView);
 
         txtFoodName = (TextView)itemView.findViewById(R.id.food_name);

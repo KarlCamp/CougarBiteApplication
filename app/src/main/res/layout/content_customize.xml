@@ -57,18 +57,17 @@
                         android:layout_width="0dp"
                         android:layout_weight="9"
                         android:textSize="18sp" />
-
                     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                         android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:id="@+id/number_button"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="18dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginEnd="30dp"
                         app:textSize="8sp"
                         app:backGroundColor="@color/colorAccent"
                         app:initialNumber="1"
-                        app:finalNumber="20"
+                        app:finalNumber="9"
                         />
                 </LinearLayout>
             </LinearLayout>

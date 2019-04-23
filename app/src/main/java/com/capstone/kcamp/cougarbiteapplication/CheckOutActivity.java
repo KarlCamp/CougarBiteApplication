@@ -1,5 +1,4 @@
 package com.capstone.kcamp.cougarbiteapplication;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -15,26 +14,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
 import com.capstone.kcamp.cougarbiteapplication.Model.Order;
 import com.capstone.kcamp.cougarbiteapplication.Model.Request;
+import com.capstone.kcamp.cougarbiteapplication.ViewHolder.CartAdapter;
 import com.capstone.kcamp.cougarbiteapplication.ViewHolder.CartViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import info.hoang8f.widget.FButton;
-
 public class CheckOutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView recyclerView;
@@ -44,13 +41,13 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
     DatabaseReference request;
     DatabaseReference requests;
 
-    TextView txtTotalPrice;
+    TextView txtTotalPrice, txt_crt_name, txt_price;
     FButton btnPlace;
 
     String edtTime;
-    List<Order> cart = new ArrayList<>();
+    //List<Order> cart = new ArrayList<>();
 
-    FirebaseRecyclerAdapter<Order, CartViewHolder> adapter;
+    //FirebaseRecyclerAdapter<Order, CartViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +56,13 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Check Out");
         setSupportActionBar(toolbar);
-
+        txt_crt_name = findViewById(R.id.cart_item_name);
+        txt_price = findViewById(R.id.cart_item_price);
         database = FirebaseDatabase.getInstance();
-        //String id = Common.currentUser.getHNumber();
         request=database.getReference("orders");
         requests=database.getReference("requests");
 
-        recyclerView = (RecyclerView)findViewById(R.id.listCart);
+        recyclerView = findViewById(R.id.listCart);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -110,7 +107,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
                         Common.currentCustomer.getHNumber(),
                         edtTime.getText().toString(),
                         txtTotalPrice.getText().toString(),
-                        cart
+                        Common.cart
                 );
                 requests.child(String.valueOf(System.currentTimeMillis()))
                         .setValue(request);
@@ -134,19 +131,16 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
     }
 
     private void loadListFood() {
-        adapter = new FirebaseRecyclerAdapter<Order, CartViewHolder>(Order.class,R.layout.cart_layout, CartViewHolder.class,request) {
-            @Override
-            protected void populateViewHolder(CartViewHolder viewHolder, Order model, int position) {
-                viewHolder.txt_crt_name.setText(model.getProductname());
-                double total = 0;
-                total+=(Double.parseDouble(model.getPrice())) * (Double.parseDouble(model.getQuantity()));
-                Locale locale = new Locale("en","US");
-                NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-                txtTotalPrice.setText(fmt.format(total));
-                cart.add(model);
-            }
-        };
+        CartAdapter adapter = new CartAdapter(Common.cart);
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        double total = 0;
+        for (int i = 0; i < Common.cart.size(); i++) {
+            total += (Double.parseDouble(Common.cart.get(i).getPrice())) * (Double.parseDouble(Common.cart.get(i).getQuantity()));
+            Locale locale = new Locale("en", "US");
+            NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+            txtTotalPrice.setText(fmt.format(total));
+        }
     }
     @Override
     public void onBackPressed() {
@@ -160,16 +154,12 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);

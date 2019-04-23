@@ -22,13 +22,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
     private List<Order> listData = new ArrayList<>();
     private Context context;
 
-    public CartAdapter(List<Order> listData, Context context) {
+    public CartAdapter(List<Order> listData) {
         this.listData = listData;
-        this.context = context;
     }
 
     @Override
     public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context=parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View itemView = inflater.inflate(R.layout.cart_layout,parent,false);
         return new CartViewHolder(itemView);
@@ -41,7 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
         Locale locale = new Locale("en","US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        int price = (Integer.parseInt(listData.get(position).getPrice())) * (Integer.parseInt(listData.get(position).getQuantity()));
+        double price = (Double.parseDouble(listData.get(position).getPrice())) * (Double.parseDouble(listData.get(position).getQuantity()));
         holder.txt_price.setText(fmt.format(price));
         holder.txt_crt_name.setText(listData.get(position).getProductname());
     }

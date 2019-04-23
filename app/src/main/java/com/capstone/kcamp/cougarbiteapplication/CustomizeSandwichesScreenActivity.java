@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-public class CustomizeActivity extends AppCompatActivity
+public class CustomizeSandwichesScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -35,13 +35,15 @@ public class CustomizeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customize);
+        setContentView(R.layout.activity_customize_sandwiches_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Description");
         setSupportActionBar(toolbar);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("fooditems");
+        final DatabaseReference orders=firebaseDatabase.getReference("orders");
+
         numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
         food_description = (TextView)findViewById(R.id.food_description);
         food_name = (TextView) findViewById(R.id.food_name);
@@ -60,7 +62,7 @@ public class CustomizeActivity extends AppCompatActivity
             public void onClick(View view) {
                 Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice());
                 Common.cart.add(order);
-                Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomizeSandwichesScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -109,22 +111,22 @@ public class CustomizeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.navigation_menu) {
-            Intent intent = new Intent(CustomizeActivity.this, MenuScreenActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, MenuScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_check_out) {
-            Intent intent = new Intent(CustomizeActivity.this, CheckOutActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, CheckOutActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_pay) {
-            Intent intent = new Intent(CustomizeActivity.this, PaymentMethodActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, PaymentMethodActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
-            Intent intent = new Intent(CustomizeActivity.this, OrderStatusActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, OrderStatusActivity.class);
             startActivity(intent);
         }else if (id == R.id.navigation_about) {
-            Intent intent = new Intent(CustomizeActivity.this, AboutScreenActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_sign_out) {
-            Intent intent = new Intent(CustomizeActivity.this, CustomerSignInScreenActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, CustomerSignInScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

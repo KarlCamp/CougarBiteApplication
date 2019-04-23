@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
 import com.capstone.kcamp.cougarbiteapplication.R;
 
-public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MenuScreenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView categoryTitle;
     public ImageView image;
 
@@ -19,7 +19,7 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         this.itemClickListener = itemClickListener;
     }
 
-    public MenuViewHolder(View itemView) {
+    public MenuScreenViewHolder(View itemView) {
         super(itemView);
 
         categoryTitle = (TextView) itemView.findViewById(R.id.menu_name);
