@@ -16,20 +16,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Model.Order;
 import com.capstone.kcamp.cougarbiteapplication.Model.Request;
 import com.capstone.kcamp.cougarbiteapplication.ViewHolder.CartAdapter;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.CartViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import info.hoang8f.widget.FButton;
 public class CheckOutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,11 +34,12 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
     RecyclerView.LayoutManager layoutManager;
 
     FirebaseDatabase database;
-    DatabaseReference request;
     DatabaseReference requests;
 
-    TextView txtTotalPrice, txt_crt_name, txt_price;
+    TextView txt_crt_name, txt_price;
+    public TextView txtTotalPrice;
     FButton btnPlace;
+    ImageView removeItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,6 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         txt_crt_name = findViewById(R.id.cart_item_name);
         txt_price = findViewById(R.id.cart_item_price);
         database = FirebaseDatabase.getInstance();
-        //request=database.getReference("orders");
         requests=database.getReference("requests");
 
         recyclerView = findViewById(R.id.listCart);
@@ -126,38 +122,46 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
     }
 
     private void loadListFood() {
-        CartAdapter adapter = new CartAdapter(Common.cart);
+        CartAdapter adapter = new CartAdapter(Common.cart, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        double total = 0;
+        Common.total = 0;
         for (int position = 0; position < Common.cart.size(); position++) {
-            total += (Double.parseDouble(Common.cart.get(position).getPrice())) * (Double.parseDouble(Common.cart.get(position).getQuantity()));
+            double price=(Double.parseDouble(Common.cart.get(position).getPrice())) * (Double.parseDouble(Common.cart.get(position).getQuantity()));
+            Common.total += (Double.parseDouble(Common.cart.get(position).getPrice())) * (Double.parseDouble(Common.cart.get(position).getQuantity()));
             if (Common.cart.get(position).isBacon() || Common.cart.get(position).isAvocado()
                     ||Common.cart.get(position).isCheese() ||Common.cart.get(position).isChicken()
                     ||Common.cart.get(position).isPatty() ||Common.cart.get(position).isFried_egg()) {
                 if (Common.cart.get(position).isBacon()) {
-                    total+=1.59;
+                    Common.total+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                    price+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isAvocado()) {
-                    total+=1.59;
+                    Common.total+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                    price+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isCheese()) {
-                    total+=0.89;
+                    Common.total+=0.89* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                    price+=0.89* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isPatty()) {
-                    total+=2.19;
+                    Common.total+=2.19* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                    price+=2.19* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isChicken()) {
-                    total+=2.49;
+                    Common.total+=2.49* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                    price+=2.49* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isFried_egg()) {
-                    total+=1.29;
+                    Common.total+=1.29* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                    price+=1.29* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
             }
+            Common.prices.add(price);
         }
         Locale locale = new Locale("en", "US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        txtTotalPrice.setText(fmt.format(total));
+        txtTotalPrice.setText(fmt.format(Common.total));
     }
     @Override
     public void onBackPressed() {

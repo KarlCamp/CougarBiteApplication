@@ -10,6 +10,14 @@
     tools:showIn="@layout/app_bar_check_out"
     tools:context="com.capstone.kcamp.cougarbiteapplication.CheckOutActivity">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listCart"
         android:background="@android:color/transparent"
@@ -70,5 +78,7 @@
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

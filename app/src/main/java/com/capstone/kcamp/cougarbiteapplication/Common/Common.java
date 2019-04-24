@@ -9,8 +9,10 @@ import java.util.List;
 public class Common {
     public static Customer currentCustomer;
     public static List<Order> cart = new ArrayList<>();
+    public static List<Double> prices = new ArrayList<>();
     public static final String UPDATE = "Update";
     public static final String DELETE = "Update";
+    public static double total=0;
     public static String convertCodeToStatus(String status) {
         if (status.equals("0"))
             return "Placed";

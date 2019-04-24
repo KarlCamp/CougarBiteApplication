@@ -80,13 +80,21 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Order order = new Order("", "Build Your Own", "1", "8.00",
-                        lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
-                        fried_eggTopping, chickenTopping, pattyTopping, beefTopping, breaded_chickenTopping, black_beanTopping, turkeyTopping, grilled_chickenTopping,
-                        americanTopping, bleuTopping, pepper_jackTopping, swiss_Topping, provoloneTopping, white_kaiserTopping, wheat_kaiserTopping, spinach_wrapTopping,
-                        flour_wrapTopping, flat_breadTopping, garlic_wrapTopping, gluten_freeTopping);
-                Common.cart.add(order);
-                Toast.makeText(BuildYourOwnScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                if (beefTopping || breaded_chickenTopping || black_beanTopping || turkeyTopping || grilled_chickenTopping) {
+                    if (white_kaiserTopping || wheat_kaiserTopping || spinach_wrapTopping || flat_breadTopping || flour_wrapTopping || garlic_wrapTopping || gluten_freeTopping) {
+                        Order order = new Order("", "Build Your Own", "1", "8.00",
+                                lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
+                                fried_eggTopping, chickenTopping, pattyTopping, beefTopping, breaded_chickenTopping, black_beanTopping, turkeyTopping, grilled_chickenTopping,
+                                americanTopping, bleuTopping, pepper_jackTopping, swiss_Topping, provoloneTopping, white_kaiserTopping, wheat_kaiserTopping, spinach_wrapTopping,
+                                flour_wrapTopping, flat_breadTopping, garlic_wrapTopping, gluten_freeTopping);
+                        Common.cart.add(order);
+                        Toast.makeText(BuildYourOwnScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(BuildYourOwnScreenActivity.this, "Error: pick one bread.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(BuildYourOwnScreenActivity.this, "Error: pick one meat.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
