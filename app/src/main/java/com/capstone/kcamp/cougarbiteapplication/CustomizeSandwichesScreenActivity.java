@@ -68,7 +68,8 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
                 } else {
                     Order order = new Order(foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice(),
                             lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
-                            fried_eggTopping, chickenTopping, pattyTopping);
+                            fried_eggTopping, chickenTopping, pattyTopping, false, false, false, false, false,
+                            false, false, false, false, false, false, false, false, false, false, false, false);
                     Common.cart.add(order);
                     Toast.makeText(CustomizeSandwichesScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
                 }

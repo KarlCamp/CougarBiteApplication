@@ -108,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:text="Breaded Chicken"
                             android:textSize="10sp"
-                            android:layout_marginStart="60dp"
+                            android:layout_marginStart="61dp"
                             android:scaleX="2"
                             android:scaleY="2"/>
 
@@ -288,7 +288,7 @@
                             android:layout_height="wrap_content"
                             android:text="Wheat Kaiser"
                             android:textSize="10sp"
-                            android:layout_marginStart="103dp"
+                            android:layout_marginStart="105dp"
                             android:scaleX="2"
                             android:scaleY="2"/>
 
@@ -316,7 +316,7 @@
                             android:layout_height="wrap_content"
                             android:text="Garlic Wrap"
                             android:textSize="10sp"
-                            android:layout_marginStart="80dp"
+                            android:layout_marginStart="83dp"
                             android:scaleX="2"
                             android:scaleY="2"/>
 
@@ -385,7 +385,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tomato"
-                            android:checked="true"
                             android:textSize="10sp"
                             android:layout_marginStart="118dp"
                             android:scaleX="2"
@@ -413,7 +412,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pickle"
-                            android:checked="true"
                             android:textSize="10sp"
                             android:layout_marginStart="126dp"
                             android:scaleX="2"
@@ -466,7 +464,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Cheese"
-                            android:checked="true"
                             android:textSize="10sp"
                             android:layout_marginStart="123dp"
                             android:scaleX="2"
@@ -494,7 +491,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Fried Egg"
-                            android:checked="true"
                             android:textSize="10sp"
                             android:layout_marginStart="111dp"
                             android:scaleX="2"
@@ -523,7 +519,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Patty"
-                            android:checked="true"
                             android:textSize="10sp"
                             android:layout_marginStart="107dp"
                             android:scaleX="2"

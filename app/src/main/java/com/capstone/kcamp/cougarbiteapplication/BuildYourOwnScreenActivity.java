@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +28,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class BuildYourOwnScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    String foodId="";
-    String foodName="";
-    TextView food_name, food_price, food_description, food_nutrition;
-    ElegantNumberButton numberButton;
-    FloatingActionButton btnAdd;
-    FoodItem foodItem;
+    boolean lettuceTopping, tomatoTopping, onionTopping, pickleTopping,
+            baconTopping, cheeseTopping, avocadoTopping, fried_eggTopping, chickenTopping, pattyTopping,
+            beefTopping, breaded_chickenTopping, black_beanTopping, turkeyTopping, grilled_chickenTopping,
+            americanTopping, bleuTopping, pepper_jackTopping, swiss_Topping, provoloneTopping,
+            white_kaiserTopping, spinach_wrapTopping, flour_wrapTopping, wheat_kaiserTopping, flat_breadTopping, garlic_wrapTopping, gluten_freeTopping;
+    CheckBox lettuce, tomato, onion, pickle, bacon, cheese, avocado, fried_egg, chicken, patty,
+            beef, breaded_chicken, black_bean, turkey, grilled_chicken, american, bleu, pepper_jack, swiss, provolone,
+            white_kaiser, spinach_wrap, flour_wrap, wheat_kaiser, flat_bread, garlic_wrap, gluten_free;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +44,48 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         toolbar.setTitle("Build Your Own");
         setSupportActionBar(toolbar);
 
+        lettuce=findViewById(R.id.Lettuce);
+        tomato=findViewById(R.id.Tomato);
+        onion=findViewById(R.id.Onion);
+        pickle=findViewById(R.id.Pickle);
+
+        bacon=findViewById(R.id.Bacon);
+        cheese=findViewById(R.id.Cheese);
+        avocado=findViewById(R.id.Avocado);
+        fried_egg=findViewById(R.id.FriedEgg);
+        chicken=findViewById(R.id.Chicken);
+        patty=findViewById(R.id.Patty);
+
+        beef=findViewById(R.id.Beef);
+        breaded_chicken=findViewById(R.id.Breaded_Chicken);
+        black_bean=findViewById(R.id.Black_Bean);
+        turkey=findViewById(R.id.Turkey);
+        grilled_chicken=findViewById(R.id.Grilled_Chicken);
+
+        american=findViewById(R.id.American);
+        bleu=findViewById(R.id.Bleu);
+        pepper_jack=findViewById(R.id.Pepper_Jack);
+        swiss=findViewById(R.id.Swiss);
+        provolone=findViewById(R.id.Provolone);
+
+        white_kaiser=findViewById(R.id.White_Kaiser);
+        spinach_wrap=findViewById(R.id.Spinach_Wrap);
+        flour_wrap=findViewById(R.id.Flour_Wrap);
+        wheat_kaiser=findViewById(R.id.Wheat_Kaiser);
+        flat_bread=findViewById(R.id.Flat_Bread);
+        garlic_wrap=findViewById(R.id.Garlic_Wrap);
+        gluten_free=findViewById(R.id.Gluten_Free);
+
         FloatingActionButton fab = findViewById(R.id.heyHey);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Order order = new Order("", "Build Your Own", "1", "8.00",
+                        lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
+                        fried_eggTopping, chickenTopping, pattyTopping, beefTopping, breaded_chickenTopping, black_beanTopping, turkeyTopping, grilled_chickenTopping,
+                        americanTopping, bleuTopping, pepper_jackTopping, swiss_Topping, provoloneTopping, white_kaiserTopping, wheat_kaiserTopping, spinach_wrapTopping,
+                        flour_wrapTopping, flat_breadTopping, garlic_wrapTopping, gluten_freeTopping);
+                Common.cart.add(order);
                 Toast.makeText(BuildYourOwnScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
         });
@@ -53,6 +93,528 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        beef.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    beefTopping=true;
+                    breaded_chicken.setEnabled(false);
+                    black_bean.setEnabled(false);
+                    turkey.setEnabled(false);
+                    grilled_chicken.setEnabled(false);
+                } else {
+                    beefTopping=false;
+                    breaded_chicken.setEnabled(true);
+                    black_bean.setEnabled(true);
+                    turkey.setEnabled(true);
+                    grilled_chicken.setEnabled(true);
+                }
+            }
+        });
+        breaded_chicken.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    breaded_chickenTopping=true;
+                    beef.setEnabled(false);
+                    black_bean.setEnabled(false);
+                    turkey.setEnabled(false);
+                    grilled_chicken.setEnabled(false);
+                } else {
+                    breaded_chickenTopping=false;
+                    beef.setEnabled(true);
+                    black_bean.setEnabled(true);
+                    turkey.setEnabled(true);
+                    grilled_chicken.setEnabled(true);
+                }
+            }
+        });
+        black_bean.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    black_beanTopping=true;
+                    beef.setEnabled(false);
+                    breaded_chicken.setEnabled(false);
+                    turkey.setEnabled(false);
+                    grilled_chicken.setEnabled(false);
+                } else {
+                    black_beanTopping=false;
+                    beef.setEnabled(true);
+                    breaded_chicken.setEnabled(true);
+                    turkey.setEnabled(true);
+                    grilled_chicken.setEnabled(true);
+                }
+            }
+        });
+        turkey.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    turkeyTopping=true;
+                    beef.setEnabled(false);
+                    breaded_chicken.setEnabled(false);
+                    black_bean.setEnabled(false);
+                    grilled_chicken.setEnabled(false);
+                } else {
+                    turkeyTopping=false;
+                    beef.setEnabled(true);
+                    breaded_chicken.setEnabled(true);
+                    black_bean.setEnabled(true);
+                    grilled_chicken.setEnabled(true);
+                }
+            }
+        });
+        grilled_chicken.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    grilled_chickenTopping=true;
+                    beef.setEnabled(false);
+                    breaded_chicken.setEnabled(false);
+                    black_bean.setEnabled(false);
+                    turkey.setEnabled(false);
+                } else {
+                    grilled_chickenTopping=false;
+                    beef.setEnabled(true);
+                    breaded_chicken.setEnabled(true);
+                    black_bean.setEnabled(true);
+                    turkey.setEnabled(true);
+                }
+            }
+        });
+        american.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    americanTopping=true;
+                    bleu.setEnabled(false);
+                    pepper_jack.setEnabled(false);
+                    swiss.setEnabled(false);
+                    provolone.setEnabled(false);
+                } else {
+                    americanTopping=false;
+                    bleu.setEnabled(true);
+                    pepper_jack.setEnabled(true);
+                    swiss.setEnabled(true);
+                    provolone.setEnabled(true);
+                }
+            }
+        });
+        bleu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    bleuTopping=true;
+                    american.setEnabled(false);
+                    pepper_jack.setEnabled(false);
+                    swiss.setEnabled(false);
+                    provolone.setEnabled(false);
+                } else {
+                    bleuTopping=false;
+                    american.setEnabled(true);
+                    pepper_jack.setEnabled(true);
+                    swiss.setEnabled(true);
+                    provolone.setEnabled(true);
+                }
+            }
+        });
+        pepper_jack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    pepper_jackTopping=true;
+                    american.setEnabled(false);
+                    bleu.setEnabled(false);
+                    swiss.setEnabled(false);
+                    provolone.setEnabled(false);
+                } else {
+                    pepper_jackTopping=false;
+                    american.setEnabled(true);
+                    bleu.setEnabled(true);
+                    swiss.setEnabled(true);
+                    provolone.setEnabled(true);
+                }
+            }
+        });
+        swiss.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    swiss_Topping=true;
+                    american.setEnabled(false);
+                    bleu.setEnabled(false);
+                    pepper_jack.setEnabled(false);
+                    provolone.setEnabled(false);
+                } else {
+                    swiss_Topping=false;
+                    american.setEnabled(true);
+                    bleu.setEnabled(true);
+                    pepper_jack.setEnabled(true);
+                    provolone.setEnabled(true);
+                }
+            }
+        });
+        provolone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    provoloneTopping=true;
+                    american.setEnabled(false);
+                    bleu.setEnabled(false);
+                    pepper_jack.setEnabled(false);
+                    swiss.setEnabled(false);
+                } else {
+                    provoloneTopping=false;
+                    american.setEnabled(true);
+                    bleu.setEnabled(true);
+                    pepper_jack.setEnabled(true);
+                    swiss.setEnabled(true);
+                }
+            }
+        });
+        white_kaiser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    white_kaiserTopping=true;
+                    spinach_wrap.setEnabled(false);
+                    flour_wrap.setEnabled(false);
+                    wheat_kaiser.setEnabled(false);
+                    flat_bread.setEnabled(false);
+                    garlic_wrap.setEnabled(false);
+                    gluten_free.setEnabled(false);
+                } else {
+                    white_kaiserTopping=false;
+                    spinach_wrap.setEnabled(true);
+                    flour_wrap.setEnabled(true);
+                    wheat_kaiser.setEnabled(true);
+                    flat_bread.setEnabled(true);
+                    garlic_wrap.setEnabled(true);
+                    gluten_free.setEnabled(true);
+                }
+            }
+        });
+        spinach_wrap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    spinach_wrapTopping=true;
+                    white_kaiser.setEnabled(false);
+                    flour_wrap.setEnabled(false);
+                    wheat_kaiser.setEnabled(false);
+                    flat_bread.setEnabled(false);
+                    garlic_wrap.setEnabled(false);
+                    gluten_free.setEnabled(false);
+                } else {
+                    spinach_wrapTopping=false;
+                    white_kaiser.setEnabled(true);
+                    flour_wrap.setEnabled(true);
+                    wheat_kaiser.setEnabled(true);
+                    flat_bread.setEnabled(true);
+                    garlic_wrap.setEnabled(true);
+                    gluten_free.setEnabled(true);
+                }
+            }
+        });
+        flour_wrap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    flour_wrapTopping=true;
+                    white_kaiser.setEnabled(false);
+                    spinach_wrap.setEnabled(false);
+                    wheat_kaiser.setEnabled(false);
+                    flat_bread.setEnabled(false);
+                    garlic_wrap.setEnabled(false);
+                    gluten_free.setEnabled(false);
+                } else {
+                    flour_wrapTopping=false;
+                    white_kaiser.setEnabled(true);
+                    spinach_wrap.setEnabled(true);
+                    wheat_kaiser.setEnabled(true);
+                    flat_bread.setEnabled(true);
+                    garlic_wrap.setEnabled(true);
+                    gluten_free.setEnabled(true);
+                }
+            }
+        });
+        wheat_kaiser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    wheat_kaiserTopping=true;
+                    white_kaiser.setEnabled(false);
+                    spinach_wrap.setEnabled(false);
+                    flour_wrap.setEnabled(false);
+                    flat_bread.setEnabled(false);
+                    garlic_wrap.setEnabled(false);
+                    gluten_free.setEnabled(false);
+                } else {
+                    wheat_kaiserTopping=false;
+                    white_kaiser.setEnabled(true);
+                    spinach_wrap.setEnabled(true);
+                    flour_wrap.setEnabled(true);
+                    flat_bread.setEnabled(true);
+                    garlic_wrap.setEnabled(true);
+                    gluten_free.setEnabled(true);
+                }
+            }
+        });
+        flat_bread.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    flat_breadTopping=true;
+                    white_kaiser.setEnabled(false);
+                    spinach_wrap.setEnabled(false);
+                    flour_wrap.setEnabled(false);
+                    wheat_kaiser.setEnabled(false);
+                    garlic_wrap.setEnabled(false);
+                    gluten_free.setEnabled(false);
+                } else {
+                    flat_breadTopping=false;
+                    white_kaiser.setEnabled(true);
+                    spinach_wrap.setEnabled(true);
+                    flour_wrap.setEnabled(true);
+                    wheat_kaiser.setEnabled(true);
+                    garlic_wrap.setEnabled(true);
+                    gluten_free.setEnabled(true);
+                }
+            }
+        });
+        garlic_wrap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    garlic_wrapTopping=true;
+                    white_kaiser.setEnabled(false);
+                    spinach_wrap.setEnabled(false);
+                    flour_wrap.setEnabled(false);
+                    wheat_kaiser.setEnabled(false);
+                    flat_bread.setEnabled(false);
+                    gluten_free.setEnabled(false);
+                } else {
+                    garlic_wrapTopping=false;
+                    white_kaiser.setEnabled(true);
+                    spinach_wrap.setEnabled(true);
+                    flour_wrap.setEnabled(true);
+                    wheat_kaiser.setEnabled(true);
+                    flat_bread.setEnabled(true);
+                    gluten_free.setEnabled(true);
+                }
+            }
+        });
+        gluten_free.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    gluten_freeTopping=true;
+                    white_kaiser.setEnabled(false);
+                    spinach_wrap.setEnabled(false);
+                    flour_wrap.setEnabled(false);
+                    wheat_kaiser.setEnabled(false);
+                    flat_bread.setEnabled(false);
+                    garlic_wrap.setEnabled(false);
+                } else {
+                    gluten_freeTopping=false;
+                    white_kaiser.setEnabled(true);
+                    spinach_wrap.setEnabled(true);
+                    flour_wrap.setEnabled(true);
+                    wheat_kaiser.setEnabled(true);
+                    flat_bread.setEnabled(true);
+                    garlic_wrap.setEnabled(true);
+                }
+            }
+        });
+        lettuce.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lettuceTopping = true;
+                } else {
+                    lettuceTopping = false;
+                }
+            }
+        });
+        tomato.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tomatoTopping = true;
+                } else {
+                    tomatoTopping = false;
+                }
+            }
+        });
+        onion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    onionTopping = true;
+                } else {
+                    onionTopping = false;
+                }
+            }
+        });
+        pickle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    pickleTopping = true;
+                } else {
+                    pickleTopping = false;
+                }
+            }
+        });
+        bacon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    baconTopping = true;
+                } else {
+                    baconTopping = false;
+                }
+            }
+        });
+        cheese.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    cheeseTopping = true;
+                } else {
+                    cheeseTopping = false;
+                }
+            }
+        });
+        avocado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    avocadoTopping = true;
+                } else {
+                    avocadoTopping = false;
+                }
+            }
+        });
+        fried_egg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    fried_eggTopping = true;
+                } else {
+                    fried_eggTopping = false;
+                }
+            }
+        });
+        chicken.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chickenTopping = true;
+                } else {
+                    chickenTopping = false;
+                }
+            }
+        });
+        patty.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    pattyTopping = true;
+                } else {
+                    pattyTopping = false;
+                }
+            }
+        });
+    }
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        switch(view.getId()) {
+            case R.id.Lettuce: {
+                if (checked) {
+                    lettuceTopping = true;
+                } else {
+                    lettuceTopping = false;
+                }
+                break;
+            }
+            case R.id.Tomato: {
+                if (checked) {
+                    tomatoTopping = true;
+                } else {
+                    tomatoTopping = false;
+                }
+                break;
+            }
+            case R.id.Onion: {
+                if (checked) {
+                    onionTopping = true;
+                } else {
+                    onionTopping = false;
+                }
+                break;
+            }
+            case R.id.Pickle: {
+                if (checked) {
+                    pickleTopping = true;
+                } else {
+                    pickleTopping = false;
+                }
+                break;
+            }
+            case R.id.Bacon: {
+                if (checked) {
+                    baconTopping = true;
+                } else {
+                    baconTopping = false;
+                }
+                break;
+            }
+            case R.id.Cheese: {
+                if (checked) {
+                    cheeseTopping = true;
+                } else {
+                    cheeseTopping = false;
+                }
+                break;
+            }
+            case R.id.Avocado: {
+                if (checked) {
+                    avocadoTopping = true;
+                } else {
+                    avocadoTopping = false;
+                }
+                break;
+            }
+            case R.id.FriedEgg: {
+                if (checked) {
+                    fried_eggTopping = true;
+                } else {
+                    fried_eggTopping = false;
+                }
+                break;
+            }
+            case R.id.Chicken: {
+                if (checked) {
+                    chickenTopping = true;
+                } else {
+                    chickenTopping = false;
+                }
+                break;
+            }
+            case R.id.Patty: {
+                if (checked) {
+                    pattyTopping = true;
+                } else {
+                    pattyTopping = false;
+                }
+                break;
+            }
+
+        }
+
     }
     @Override
     public void onBackPressed() {

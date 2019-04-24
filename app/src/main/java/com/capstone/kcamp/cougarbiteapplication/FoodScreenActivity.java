@@ -20,7 +20,7 @@ import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodScreenViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-public class FoodScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class FoodScreenActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     RecyclerView recView;
     RecyclerView.LayoutManager layout;
@@ -120,33 +120,5 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
-    }
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.navigation_menu) {
-            Intent intent = new Intent(FoodScreenActivity.this, MenuScreenActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_check_out) {
-            Intent intent = new Intent(FoodScreenActivity.this, CheckOutActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_pay) {
-            Intent intent = new Intent(FoodScreenActivity.this, PaymentMethodActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_order_status) {
-            Intent intent = new Intent(FoodScreenActivity.this, OrderStatusActivity.class);
-            startActivity(intent);
-        }else if (id == R.id.navigation_about) {
-            Intent intent = new Intent(FoodScreenActivity.this, AboutScreenActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_sign_out) {
-            Intent intent = new Intent(FoodScreenActivity.this, CustomerSignInScreenActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }

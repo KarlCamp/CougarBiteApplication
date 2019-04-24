@@ -54,7 +54,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         txt_crt_name = findViewById(R.id.cart_item_name);
         txt_price = findViewById(R.id.cart_item_price);
         database = FirebaseDatabase.getInstance();
-        request=database.getReference("orders");
+        //request=database.getReference("orders");
         requests=database.getReference("requests");
 
         recyclerView = findViewById(R.id.listCart);
@@ -130,12 +130,34 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         double total = 0;
-        for (int i = 0; i < Common.cart.size(); i++) {
-            total += (Double.parseDouble(Common.cart.get(i).getPrice())) * (Double.parseDouble(Common.cart.get(i).getQuantity()));
-            Locale locale = new Locale("en", "US");
-            NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-            txtTotalPrice.setText(fmt.format(total));
+        for (int position = 0; position < Common.cart.size(); position++) {
+            total += (Double.parseDouble(Common.cart.get(position).getPrice())) * (Double.parseDouble(Common.cart.get(position).getQuantity()));
+            if (Common.cart.get(position).isBacon() || Common.cart.get(position).isAvocado()
+                    ||Common.cart.get(position).isCheese() ||Common.cart.get(position).isChicken()
+                    ||Common.cart.get(position).isPatty() ||Common.cart.get(position).isFried_egg()) {
+                if (Common.cart.get(position).isBacon()) {
+                    total+=1.59;
+                }
+                if (Common.cart.get(position).isAvocado()) {
+                    total+=1.59;
+                }
+                if (Common.cart.get(position).isCheese()) {
+                    total+=0.89;
+                }
+                if (Common.cart.get(position).isPatty()) {
+                    total+=2.19;
+                }
+                if (Common.cart.get(position).isChicken()) {
+                    total+=2.49;
+                }
+                if (Common.cart.get(position).isFried_egg()) {
+                    total+=1.29;
+                }
+            }
         }
+        Locale locale = new Locale("en", "US");
+        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+        txtTotalPrice.setText(fmt.format(total));
     }
     @Override
     public void onBackPressed() {
