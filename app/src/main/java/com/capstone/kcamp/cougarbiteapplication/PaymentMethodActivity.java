@@ -103,7 +103,11 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                             } else {
                                 value = Integer.parseInt(Common.currentCustomer.getMeals())-((numberOfMeals.intValue()));
                                 Common.total=Common.total-(numberOfMeals.intValue()*5);
-                                newTotal=Double.parseDouble(Common.currentCustomer.getCash())-Common.total;
+                                if (Double.parseDouble(Common.currentCustomer.getCash())-Common.total>=0) {
+                                    newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
+                                } else {
+                                    value--;
+                                }
                             }
                             customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue(""+value);
                             customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue(""+newTotal);

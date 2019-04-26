@@ -119,35 +119,29 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         Common.total = 0;
         for (int position = 0; position < Common.cart.size(); position++) {
             double price=(Double.parseDouble(Common.cart.get(position).getPrice())) * (Double.parseDouble(Common.cart.get(position).getQuantity()));
-            Common.total += (Double.parseDouble(Common.cart.get(position).getPrice())) * (Double.parseDouble(Common.cart.get(position).getQuantity()));
             if (Common.cart.get(position).isBacon() || Common.cart.get(position).isAvocado()
                     ||Common.cart.get(position).isCheese() ||Common.cart.get(position).isChicken()
                     ||Common.cart.get(position).isPatty() ||Common.cart.get(position).isFried_egg()) {
                 if (Common.cart.get(position).isBacon()) {
-                    Common.total+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                     price+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isAvocado()) {
-                    Common.total+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                     price+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isCheese()) {
-                    Common.total+=0.89* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                     price+=0.89* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isPatty()) {
-                    Common.total+=2.19* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                     price+=2.19* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isChicken()) {
-                    Common.total+=2.49* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                     price+=2.49* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
                 if (Common.cart.get(position).isFried_egg()) {
-                    Common.total+=1.29* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                     price+=1.29* (Double.parseDouble(Common.cart.get(position).getQuantity()));
                 }
             }
+            Common.total+=price;
             Common.prices.add(price);
         }
         Locale locale = new Locale("en", "US");
