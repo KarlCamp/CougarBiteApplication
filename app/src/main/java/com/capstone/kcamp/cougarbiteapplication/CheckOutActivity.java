@@ -1,11 +1,11 @@
 package com.capstone.kcamp.cougarbiteapplication;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
 import com.capstone.kcamp.cougarbiteapplication.Model.Request;
@@ -29,7 +28,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import info.hoang8f.widget.FButton;
 public class CheckOutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
@@ -65,62 +63,55 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showAlertDialog();
             }
         });
-
         loadListFood();
     }
 
     private void showAlertDialog() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CheckOutActivity.this);
+        TimePickerDialog.Builder alertDialog = new TimePickerDialog.Builder(CheckOutActivity.this);
         alertDialog.setTitle("One more step!");
-        alertDialog.setMessage("Enter your time: ");
-        final EditText edtTime = new EditText(CheckOutActivity.this);
+        alertDialog.setMessage("Enter your pick up time: ");
+        final TimePicker edtTime = new TimePicker(CheckOutActivity.this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
         edtTime.setLayoutParams(lp);
         alertDialog.setView(edtTime);
-        alertDialog.setIcon(R.drawable.ic_add_shopping_cart_black_24dp);
-
+        alertDialog.setIcon(R.drawable.ic_access_time_black_24dp);
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Create new Request
-                Request request = new Request(
-                        Common.currentCustomer.getPhone(),
-                        Common.currentCustomer.getHNumber(),
-                        edtTime.getText().toString(),
-                        txtTotalPrice.getText().toString(),
-                        Common.cart
-                );
-                requests.child(String.valueOf(System.currentTimeMillis()))
-                        .setValue(request);
-                //Delete cart
-                //new Database(getBaseContext()).cleanCart();
-                Toast.makeText(CheckOutActivity.this, "Cart processed!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CheckOutActivity.this, PaymentMethodActivity.class);
-                startActivity(intent);
-                finish();
+                if ((edtTime.getHour()>11) && (edtTime.getHour()<23)) {
+                    Common.request = new Request(
+                            Common.currentCustomer.getPhone(),
+                            Common.currentCustomer.getHNumber(),
+                            "" + edtTime.getHour() + ":" + edtTime.getMinute(),
+                            txtTotalPrice.getText().toString(),
+                            Common.cart
+                    );
+                    Toast.makeText(CheckOutActivity.this, "Cart processed!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CheckOutActivity.this, PaymentMethodActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(CheckOutActivity.this, "Error: Hours from 11AM-11PM.", Toast.LENGTH_LONG).show();
+                }
             }
         });
-
         alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
             }
         });
-
         alertDialog.show();
     }
-
     private void loadListFood() {
         CartAdapter adapter = new CartAdapter(Common.cart, this);
         recyclerView.setAdapter(adapter);

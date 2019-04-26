@@ -20,6 +20,7 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
     MaterialEditText hNumber, password, phone;
     Button custSignIn;
     DatabaseReference ref;
+    Customer customer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.child(hNumber.getText().toString()).exists()) {
                             dialog.dismiss();
-                            Customer customer = dataSnapshot.child(hNumber.getText().toString()).getValue(Customer.class);
+                            customer = dataSnapshot.child(hNumber.getText().toString()).getValue(Customer.class);
                             assert customer != null;
                             customer.setHNumber(hNumber.getText().toString());
                             if (customer.getPassword().equals(password.getText().toString())) {
@@ -52,22 +53,22 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        Toast.makeText(CustomerSignInScreenActivity.this, "Error: incorrect phone!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(CustomerSignInScreenActivity.this, "Error: Incorrect phone!", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Toast.makeText(CustomerSignInScreenActivity.this, "Error: incorrect phone format!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(CustomerSignInScreenActivity.this, "Error: Incorrect phone format!", Toast.LENGTH_LONG).show();
                                 }
                             } else {
-                                Toast.makeText(CustomerSignInScreenActivity.this, "Error: incorrect password!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CustomerSignInScreenActivity.this, "Error: Incorrect password!", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             dialog.dismiss();
-                            Toast.makeText(CustomerSignInScreenActivity.this, "Error: customer does not exist!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CustomerSignInScreenActivity.this, "Error: Customer does not exist!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseerror) {
-                        Toast.makeText(CustomerSignInScreenActivity.this, "Error: issue connecting to database!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CustomerSignInScreenActivity.this, "Error: Issue connecting to database!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

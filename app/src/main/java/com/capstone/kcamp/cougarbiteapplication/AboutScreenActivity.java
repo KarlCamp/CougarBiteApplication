@@ -30,7 +30,7 @@ public class AboutScreenActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(AboutScreenActivity.this, "Error: issue connecting to database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AboutScreenActivity.this, "Error: Issue connecting to database.", Toast.LENGTH_SHORT).show();
             }
         });
         ref.child("description").addValueEventListener(new ValueEventListener() {
@@ -41,7 +41,7 @@ public class AboutScreenActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(AboutScreenActivity.this, "Error: issue connecting to database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AboutScreenActivity.this, "Error: Issue connecting to database.", Toast.LENGTH_SHORT).show();
             }
         });
         ref.child("version").addValueEventListener(new ValueEventListener() {
@@ -52,7 +52,7 @@ public class AboutScreenActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(AboutScreenActivity.this, "Error: issue connecting to database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AboutScreenActivity.this, "Error: Issue connecting to database.", Toast.LENGTH_SHORT).show();
             }
         });
     }

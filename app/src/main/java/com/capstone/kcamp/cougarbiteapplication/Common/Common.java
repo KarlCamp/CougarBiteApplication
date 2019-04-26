@@ -2,12 +2,14 @@ package com.capstone.kcamp.cougarbiteapplication.Common;
 
 import com.capstone.kcamp.cougarbiteapplication.Model.Customer;
 import com.capstone.kcamp.cougarbiteapplication.Model.Order;
+import com.capstone.kcamp.cougarbiteapplication.Model.Request;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Common {
     public static Customer currentCustomer;
+    public static Request request;
     public static List<Order> cart = new ArrayList<>();
     public static List<Double> prices = new ArrayList<>();
     public static final String UPDATE = "Update";

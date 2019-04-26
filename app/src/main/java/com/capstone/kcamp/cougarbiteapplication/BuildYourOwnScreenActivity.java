@@ -90,10 +90,10 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
                         Common.cart.add(order);
                         Toast.makeText(BuildYourOwnScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(BuildYourOwnScreenActivity.this, "Error: pick one bread.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BuildYourOwnScreenActivity.this, "Error: Pick one bread.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(BuildYourOwnScreenActivity.this, "Error: pick one meat.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuildYourOwnScreenActivity.this, "Error: Pick one meat.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
