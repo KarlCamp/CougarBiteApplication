@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/cougarbitebackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.capstone.kcamp.cougarbiteapplication.CreditCardScreenActivity">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#9f000000"
+        android:gravity="center">
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerInParent="true">
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/cardNumber"
+            android:hint="CARD NUMBER"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/white"
+            android:text="0000111122223333"
+            android:textSize="34sp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/white"
+            app:met_maxCharacters="16"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@android:color/white" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/creditCardName"
+            android:hint="NAME ON CREDIT CARD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/white"
+            android:text="Karl Camp"
+            android:textSize="34sp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@android:color/white" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/CVV"
+            android:hint="CVV"
+            app:met_maxCharacters="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/white"
+            android:text="123"
+            android:textSize="34sp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@android:color/white" />
+    </LinearLayout>
+    <info.hoang8f.widget.FButton
+        android:id="@+id/processCard"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_margin="4dp"
+        android:text="Process Card"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        app:cornerRadius="4dp"
+        app:fButtonColor="@color/CUCMaroon" />
+</RelativeLayout>

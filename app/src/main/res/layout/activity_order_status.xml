@@ -9,21 +9,12 @@
     android:background="@drawable/cougarbitebackground"
     tools:openDrawer="start">
 
-    <include
-        layout="@layout/app_bar_menu_screen"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listOrders"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:background="@color/CUCGold"
-        app:itemTextColor="@android:color/white"
-        app:itemIconTint="@android:color/white"
-        app:headerLayout="@layout/nav_header_general"
-        app:menu="@menu/activity_general_drawer" />
+        android:scrollbars="vertical">
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.v4.widget.DrawerLayout>

@@ -76,6 +76,12 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         garlic_wrap=findViewById(R.id.Garlic_Wrap);
         gluten_free=findViewById(R.id.Gluten_Free);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         FloatingActionButton fab = findViewById(R.id.heyHey);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,10 +103,6 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
                 }
             }
         });
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
         beef.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
@@ -28,10 +29,8 @@ public class EmployeeOrderStatus extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-
+    ImageView deleteImage, upArrowImage, upsideDownArrowImage;
     FirebaseRecyclerAdapter<Request, EmployeeOrderViewHolder> adapter;
-
-    MaterialSpinner spinner;
 
     FirebaseDatabase db;
     DatabaseReference requests;
@@ -73,46 +72,5 @@ public class EmployeeOrderStatus extends AppCompatActivity {
         };
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if(item.getTitle().equals(UPDATE))
-            showUpdateDialog(adapter.getRef(item.getOrder()).getKey(),
-                    adapter.getItem(item.getOrder()));
-        else if(item.getTitle().equals(DELETE))
-            deleteOrder(adapter.getRef(item.getOrder()).getKey());
-        return super.onContextItemSelected(item);
-    }
-    private void showUpdateDialog(String key, final Request item) {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EmployeeOrderStatus.this);
-        alertDialog.setTitle("Update Order");
-        alertDialog.setMessage("Please choose status");
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.update_order_layout, null);
-
-        spinner = (MaterialSpinner)view.findViewById(R.id.statusSpinner);
-        spinner.setItems("Placed", "On my way", "Shipped");
-        alertDialog.setView(view);
-        final String localKey = key;
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                item.setStatus(String.valueOf(spinner.getSelectedIndex()));
-                requests.child(localKey).setValue(item);
-            }
-        });
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        alertDialog.show();
-    }
-
-    private void deleteOrder(String key) {
-        requests.child(key).removeValue();
     }
 }

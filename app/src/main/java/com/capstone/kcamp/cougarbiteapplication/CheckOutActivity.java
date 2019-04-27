@@ -46,6 +46,12 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Check Out");
         setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         txt_crt_name = findViewById(R.id.cart_item_name);
         txt_price = findViewById(R.id.cart_item_price);
         database = FirebaseDatabase.getInstance();
@@ -59,14 +65,14 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         txtTotalPrice = (TextView)findViewById(R.id.total);
         btnPlace = (FButton)findViewById(R.id.btnPlaceOrder);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAlertDialog();
+                if (Common.cart.isEmpty()) {
+                    Toast.makeText(CheckOutActivity.this, "Error: Cart is empty.", Toast.LENGTH_LONG).show();
+                } else {
+                    showAlertDialog();
+                }
             }
         });
         loadListFood();
@@ -87,7 +93,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if ((edtTime.getHour()>11) && (edtTime.getHour()<23)) {
+                if ((edtTime.getHour()>=11) && (edtTime.getHour()<23)) {
                     Common.request = new Request(
                             Common.currentCustomer.getPhone(),
                             Common.currentCustomer.getHNumber(),

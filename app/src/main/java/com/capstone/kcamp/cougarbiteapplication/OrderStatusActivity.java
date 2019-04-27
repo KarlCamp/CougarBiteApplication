@@ -20,8 +20,6 @@ public class OrderStatusActivity extends AppCompatActivity {
     public RecyclerView.LayoutManager layoutManager;
 
     FirebaseRecyclerAdapter<Request, OrderViewHolder>  adapter;
-
-    //Firebase
     FirebaseDatabase database;
     DatabaseReference requests;
 
@@ -30,7 +28,6 @@ public class OrderStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_status);
 
-        //Init Firebase
         database  = FirebaseDatabase.getInstance();
         requests = database.getReference("requests");
 
@@ -43,6 +40,7 @@ public class OrderStatusActivity extends AppCompatActivity {
             loadOrders(Common.currentCustomer.getPhone());
         else
             loadOrders(getIntent().getStringExtra("userPhone"));
+        loadOrders(Common.currentCustomer.getPhone());
     }
 
     private void loadOrders(String phone) {

@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Credit Card                        Both"
+            android:text="Credit Card                Meals &amp; Cash"
             android:textColor="@color/CUCMaroon"
             android:textSize="20sp"
             android:layout_marginStart="57dp"

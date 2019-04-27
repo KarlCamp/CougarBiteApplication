@@ -27,7 +27,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
     DatabaseReference reference, customer;
     ImageView meals, cougarCash, creditCard, both;
     FButton pay;
-    boolean isMeals, isCash, isBoth;
+    boolean isMeals, isCash, isBoth, isCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +36,6 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Payment Method");
         setSupportActionBar(toolbar);
-
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("foodcategory");
-        customer = FirebaseDatabase.getInstance().getReference("customers");
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -49,6 +44,9 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        database = FirebaseDatabase.getInstance();
+        customer = FirebaseDatabase.getInstance().getReference("customers");
 
         meals = findViewById(R.id.meals);
         cougarCash = findViewById(R.id.cougar_cash);
@@ -62,75 +60,99 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isMeals) {
-                    if (Integer.parseInt(Common.currentCustomer.getMeals())*5-Common.total>=0) {
-                        int value=0;
-                        Double numberOfMeals=Common.total/5;
-                        if (Common.total%5==0) {
-                            value = Integer.parseInt(Common.currentCustomer.getMeals())-(numberOfMeals.intValue());
-                        } else {
-                            value = Integer.parseInt(Common.currentCustomer.getMeals())-((numberOfMeals.intValue())+1);
-                        }
-                        customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue(""+value);
-                        Common.currentCustomer.setMeals(""+value);
-                        reference.child(String.valueOf(System.currentTimeMillis()))
-                                .setValue(Common.request);
-                    } else {
-                        Toast.makeText(PaymentMethodActivity.this, "Error: You are short on meals!", Toast.LENGTH_LONG).show();
-                        isMeals=false;
-                        pay.setEnabled(false);
-                    }
-                } else if (isCash) {
-                    if (Double.parseDouble(Common.currentCustomer.getCash())-Common.total>=0) {
-                        double newTotal=Double.parseDouble(Common.currentCustomer.getCash())-Common.total;
-                        customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue(""+newTotal);
-                        Common.currentCustomer.setCash(""+newTotal);
-                        reference.child(String.valueOf(System.currentTimeMillis()))
-                                .setValue(Common.request);
-                    } else {
-                        Toast.makeText(PaymentMethodActivity.this, "Error: You are short on cougar cash!", Toast.LENGTH_LONG).show();
-                        isCash=false;
-                        pay.setEnabled(false);
-                    }
-                } else if (isBoth) {
-                    if ((Double.parseDouble(Common.currentCustomer.getCash())+Integer.parseInt(Common.currentCustomer.getMeals())*5)-Common.total>=0) {
-                        if (Integer.parseInt(Common.currentCustomer.getMeals())*5-Common.total>=0) {
-                            int value=0;
-                            double newTotal=0;
-                            Double numberOfMeals=Common.total/5;
-                            if (Common.total%5==0) {
-                                value = Integer.parseInt(Common.currentCustomer.getMeals())-(numberOfMeals.intValue());
+                if (Common.cart.isEmpty() && Common.total <= 0) {
+                    Toast.makeText(PaymentMethodActivity.this, "Error: Cart is empty!", Toast.LENGTH_LONG).show();
+                } else {
+                    if (isMeals) {
+                        if (Integer.parseInt(Common.currentCustomer.getMeals()) * 5 - Common.total >= 0) {
+                            int value = 0;
+                            Double numberOfMeals = Common.total / 5;
+                            if (Common.total % 5 == 0) {
+                                value = Integer.parseInt(Common.currentCustomer.getMeals()) - (numberOfMeals.intValue());
                             } else {
-                                value = Integer.parseInt(Common.currentCustomer.getMeals())-((numberOfMeals.intValue()));
-                                Common.total=Common.total-(numberOfMeals.intValue()*5);
-                                if (Double.parseDouble(Common.currentCustomer.getCash())-Common.total>=0) {
-                                    newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
-                                } else {
-                                    value--;
-                                }
+                                value = Integer.parseInt(Common.currentCustomer.getMeals()) - ((numberOfMeals.intValue()) + 1);
                             }
-                            customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue(""+value);
-                            customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue(""+newTotal);
-                            Common.currentCustomer.setCash(""+newTotal);
-                            Common.currentCustomer.setMeals(""+value);
+                            customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
+                            Common.currentCustomer.setMeals("" + value);
                             reference.child(String.valueOf(System.currentTimeMillis()))
                                     .setValue(Common.request);
+                            Common.cart.clear();
+                            Common.prices.clear();
+                            Common.total = 0;
+                            Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
                         } else {
-                            int value=0;
-                            double newTotal=0;
-                            Common.total=Common.total-Integer.parseInt(Common.currentCustomer.getMeals())*5;
-                            newTotal=Double.parseDouble(Common.currentCustomer.getCash())-Common.total;
-                            customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue(""+value);
-                            customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue(""+newTotal);
-                            Common.currentCustomer.setCash(""+newTotal);
-                            Common.currentCustomer.setMeals(""+value);
+                            Toast.makeText(PaymentMethodActivity.this, "Error: You are short on meals!", Toast.LENGTH_LONG).show();
+                            isMeals = false;
+                            pay.setEnabled(false);
+                        }
+                    } else if (isCash) {
+                        if (Double.parseDouble(Common.currentCustomer.getCash()) - Common.total >= 0) {
+                            double newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
+                            customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
+                            Common.currentCustomer.setCash("" + Common.df.format(newTotal));
                             reference.child(String.valueOf(System.currentTimeMillis()))
                                     .setValue(Common.request);
+                            Common.cart.clear();
+                            Common.prices.clear();
+                            Common.total = 0;
+                            Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(PaymentMethodActivity.this, "Error: You are short on cougar cash!", Toast.LENGTH_LONG).show();
+                            isCash = false;
+                            pay.setEnabled(false);
                         }
-                    } else {
-                        Toast.makeText(PaymentMethodActivity.this, "Error: You are short on meals and cash!", Toast.LENGTH_LONG).show();
-                        isMeals=false;
-                        pay.setEnabled(false);
+                    } else if (isBoth) {
+                        if ((Double.parseDouble(Common.currentCustomer.getCash()) + Integer.parseInt(Common.currentCustomer.getMeals()) * 5) - Common.total >= 0) {
+                            if (Integer.parseInt(Common.currentCustomer.getMeals()) * 5 - Common.total >= 0) {
+                                int value = 0;
+                                double newTotal = 0;
+                                Double numberOfMeals = Common.total / 5;
+                                if (Common.total % 5 == 0) {
+                                    value = Integer.parseInt(Common.currentCustomer.getMeals()) - (numberOfMeals.intValue());
+                                } else {
+                                    value = Integer.parseInt(Common.currentCustomer.getMeals()) - ((numberOfMeals.intValue()));
+                                    Common.total = Common.total - (numberOfMeals.intValue() * 5);
+                                    if (Double.parseDouble(Common.currentCustomer.getCash()) - Common.total >= 0) {
+                                        newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
+                                    } else {
+                                        value--;
+                                    }
+                                }
+                                customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
+                                customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + newTotal);
+                                Common.currentCustomer.setCash("" + newTotal);
+                                Common.currentCustomer.setMeals("" + value);
+                                reference.child(String.valueOf(System.currentTimeMillis()))
+                                        .setValue(Common.request);
+                                Common.cart.clear();
+                                Common.prices.clear();
+                                Common.total = 0;
+                                Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
+                            } else {
+                                int value = 0;
+                                double newTotal = 0;
+                                Common.total = Common.total - Integer.parseInt(Common.currentCustomer.getMeals()) * 5;
+                                newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
+                                customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
+                                customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
+                                Common.currentCustomer.setCash("" + Common.df.format(newTotal));
+                                Common.currentCustomer.setMeals("" + value);
+                                reference.child(String.valueOf(System.currentTimeMillis()))
+                                        .setValue(Common.request);
+                                Common.cart.clear();
+                                Common.prices.clear();
+                                Common.total = 0;
+                                Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(PaymentMethodActivity.this, "Error: You are short on meals and cash!", Toast.LENGTH_LONG).show();
+                            isMeals = false;
+                            pay.setEnabled(false);
+                        }
+                    } else if (isCard) {
+                        Intent intent = new Intent(PaymentMethodActivity.this, CreditCardScreenActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             }
@@ -141,7 +163,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
             public void onClick(View v) {
                 if (!isMeals) {
                     GradientDrawable gd = new GradientDrawable();
-                    gd.setColor(0xFFd1a916);
+                    gd.setColor(0xFFF6BBBB);
                     gd.setCornerRadius(10);
                     gd.setStroke(1, 0xFF000000);
                     meals.setBackgroundDrawable(gd);
@@ -164,6 +186,15 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                         isBoth = false;
                         pay.setEnabled(false);
                     }
+                    if (isCard) {
+                        GradientDrawable g = new GradientDrawable();
+                        g.setColor(0xFFFFFFFF);
+                        g.setCornerRadius(10);
+                        g.setStroke(1, 0xFFFFFFFF);
+                        creditCard.setBackgroundDrawable(g);
+                        isCard = false;
+                        pay.setEnabled(false);
+                    }
                     pay.setEnabled(true);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -182,7 +213,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
             public void onClick(View v) {
                 if (!isCash) {
                     GradientDrawable gd = new GradientDrawable();
-                    gd.setColor(0xFFa31f37);
+                    gd.setColor(0xFFF6BBBB);
                     gd.setCornerRadius(10);
                     gd.setStroke(1, 0xFF000000);
                     cougarCash.setBackgroundDrawable(gd);
@@ -205,6 +236,15 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                         isBoth = false;
                         pay.setEnabled(false);
                     }
+                    if (isCard) {
+                        GradientDrawable g = new GradientDrawable();
+                        g.setColor(0xFFFFFFFF);
+                        g.setCornerRadius(10);
+                        g.setStroke(1, 0xFFFFFFFF);
+                        creditCard.setBackgroundDrawable(g);
+                        isCard = false;
+                        pay.setEnabled(false);
+                    }
                     pay.setEnabled(true);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -223,7 +263,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
             public void onClick(View v) {
                 if (!isBoth) {
                     GradientDrawable gd = new GradientDrawable();
-                    gd.setColor(0xFFa31f37);
+                    gd.setColor(0xFFF6BBBB);
                     gd.setCornerRadius(10);
                     gd.setStroke(1, 0xFF000000);
                     both.setBackgroundDrawable(gd);
@@ -246,6 +286,15 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                         isCash = false;
                         pay.setEnabled(false);
                     }
+                    if (isCard) {
+                        GradientDrawable g = new GradientDrawable();
+                        g.setColor(0xFFFFFFFF);
+                        g.setCornerRadius(10);
+                        g.setStroke(1, 0xFFFFFFFF);
+                        creditCard.setBackgroundDrawable(g);
+                        isCard = false;
+                        pay.setEnabled(false);
+                    }
                     pay.setEnabled(true);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -254,6 +303,55 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                     gd.setStroke(1, 0xFFFFFFFF);
                     both.setBackgroundDrawable(gd);
                     isBoth = false;
+                    pay.setEnabled(false);
+                }
+            }
+        });
+        creditCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isCard) {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setColor(0xFFF6BBBB);
+                    gd.setCornerRadius(10);
+                    gd.setStroke(1, 0xFF000000);
+                    creditCard.setBackgroundDrawable(gd);
+                    isCard = true;
+                    if (isCash) {
+                        GradientDrawable g = new GradientDrawable();
+                        g.setColor(0xFFFFFFFF);
+                        g.setCornerRadius(10);
+                        g.setStroke(1, 0xFFFFFFFF);
+                        cougarCash.setBackgroundDrawable(g);
+                        isCash = false;
+                        pay.setEnabled(false);
+                    }
+                    if (isBoth) {
+                        GradientDrawable g = new GradientDrawable();
+                        g.setColor(0xFFFFFFFF);
+                        g.setCornerRadius(10);
+                        g.setStroke(1, 0xFFFFFFFF);
+                        both.setBackgroundDrawable(g);
+                        isBoth = false;
+                        pay.setEnabled(false);
+                    }
+                    if (isMeals) {
+                        GradientDrawable g = new GradientDrawable();
+                        g.setColor(0xFFFFFFFF);
+                        g.setCornerRadius(10);
+                        g.setStroke(1, 0xFFFFFFFF);
+                        meals.setBackgroundDrawable(g);
+                        isMeals = false;
+                        pay.setEnabled(false);
+                    }
+                    pay.setEnabled(true);
+                } else if (isCard){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setColor(0xFFFFFFFF);
+                    gd.setCornerRadius(10);
+                    gd.setStroke(1, 0xFFFFFFFF);
+                    creditCard.setBackgroundDrawable(gd);
+                    isCard = false;
                     pay.setEnabled(false);
                 }
             }

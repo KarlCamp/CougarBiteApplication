@@ -35,7 +35,7 @@
                         android:id="@+id/burgers"
                         android:lineSpacingMultiplier="1.5"
                         android:padding="18sp"
-                        android:text="Burgers"
+                        android:text="Pick One Patty"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"/>
 
