@@ -23,6 +23,10 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import io.paperdb.Paper;
+
+
 public class MenuScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DatabaseReference ref;
     RecyclerView recView;
@@ -33,6 +37,7 @@ public class MenuScreenActivity extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_screen);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        Paper.init(this);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
         ref = FirebaseDatabase.getInstance().getReference("foodcategories");

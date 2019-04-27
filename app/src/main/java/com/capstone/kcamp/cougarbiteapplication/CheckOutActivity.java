@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.NumberFormat;
 import java.util.Locale;
 import info.hoang8f.widget.FButton;
+import io.paperdb.Paper;
+
 public class CheckOutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -64,6 +66,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
 
         txtTotalPrice = (TextView)findViewById(R.id.total);
         btnPlace = (FButton)findViewById(R.id.btnPlaceOrder);
+        Paper.init(this);
 
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +200,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
             Intent intent = new Intent(CheckOutActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_sign_out) {
+            Paper.book().destroy();
             Intent intent = new Intent(CheckOutActivity.this, CustomerSignInScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

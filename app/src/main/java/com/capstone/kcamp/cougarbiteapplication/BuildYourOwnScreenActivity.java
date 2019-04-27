@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import io.paperdb.Paper;
+
 public class BuildYourOwnScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     boolean lettuceTopping, tomatoTopping, onionTopping, pickleTopping,
             baconTopping, cheeseTopping, avocadoTopping, fried_eggTopping, chickenTopping, pattyTopping,
@@ -75,6 +77,7 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         flat_bread=findViewById(R.id.Flat_Bread);
         garlic_wrap=findViewById(R.id.Garlic_Wrap);
         gluten_free=findViewById(R.id.Gluten_Free);
+        Paper.init(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -665,6 +668,7 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
             Intent intent = new Intent(BuildYourOwnScreenActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_sign_out) {
+            Paper.book().destroy();
             Intent intent = new Intent(BuildYourOwnScreenActivity.this, CustomerSignInScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

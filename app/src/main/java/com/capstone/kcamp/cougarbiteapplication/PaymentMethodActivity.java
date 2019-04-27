@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import info.hoang8f.widget.FButton;
+import io.paperdb.Paper;
 
 public class PaymentMethodActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -56,6 +57,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
         pay.setEnabled(false);
         database = FirebaseDatabase.getInstance();
         reference=database.getReference("requests");
+        Paper.init(this);
 
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -400,6 +402,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
             Intent intent = new Intent(PaymentMethodActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_sign_out) {
+            Paper.book().destroy();
             Intent intent = new Intent(PaymentMethodActivity.this, CustomerSignInScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

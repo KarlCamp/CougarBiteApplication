@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import io.paperdb.Paper;
+
 public class CustomizeSandwichesScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseDatabase firebaseDatabase;
@@ -58,7 +61,7 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
         food_name = (TextView) findViewById(R.id.food_name);
         food_price = (TextView) findViewById(R.id.food_price);
         food_nutrition = (TextView) findViewById(R.id.food_nutrition);
-
+        Paper.init(this);
         if(getIntent() !=null) {
             foodId=getIntent().getStringExtra("foodIdentificationNumber");
             if(!foodId.isEmpty()){
@@ -220,6 +223,7 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
             Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_sign_out) {
+            Paper.book().destroy();
             Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, CustomerSignInScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

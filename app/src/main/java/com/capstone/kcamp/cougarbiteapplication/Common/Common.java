@@ -14,10 +14,11 @@ public class Common {
     public static CreditCard creditCard=new CreditCard();
     public static DecimalFormat df = new DecimalFormat("0.00");
     public static Request request;
+    public static final String HNUMBER_KEY="HNumber";
+    public static final String PHONE_KEY="Phone";
+    public static final String PWD_KEY="Password";
     public static List<Order> cart = new ArrayList<>();
     public static List<Double> prices = new ArrayList<>();
-    public static final String UPDATE = "Update";
-    public static final String DELETE = "Update";
     public static double total=0;
     public static String convertCodeToStatus(String status) {
         if (status.equals("0"))

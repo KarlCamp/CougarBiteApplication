@@ -15,12 +15,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.rey.material.widget.CheckBox;
+
 import java.util.Objects;
+
+import io.paperdb.Paper;
+
 public class CustomerSignInScreenActivity extends AppCompatActivity {
     MaterialEditText hNumber, password, phone;
     Button custSignIn;
     DatabaseReference ref;
     Customer customer;
+    CheckBox ckbRemember;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +36,17 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         phone = findViewById(R.id.phone);
         custSignIn = findViewById(R.id.btn);
+        ckbRemember = findViewById(R.id.ckbRemember);
+        Paper.init(this);
         ref = FirebaseDatabase.getInstance().getReference("customers");
         custSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ckbRemember.isChecked()) {
+                    Paper.book().write(Common.HNUMBER_KEY,hNumber.getText().toString());
+                    Paper.book().write(Common.PHONE_KEY,phone.getText().toString());
+                    Paper.book().write(Common.PWD_KEY,password.getText().toString());
+                }
                 final ProgressDialog dialog = new ProgressDialog(CustomerSignInScreenActivity.this);
                 dialog.setMessage("Loading...");
                 dialog.show();

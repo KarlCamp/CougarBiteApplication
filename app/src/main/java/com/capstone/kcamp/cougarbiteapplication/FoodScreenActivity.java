@@ -20,6 +20,9 @@ import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodScreenViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import io.paperdb.Paper;
+
 public class FoodScreenActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     RecyclerView recView;
@@ -51,6 +54,7 @@ public class FoodScreenActivity extends AppCompatActivity {
         recView.setHasFixedSize(true);
         layout = new LinearLayoutManager(this);
         recView.setLayoutManager(layout);
+        Paper.init(this);
         if(getIntent() != null) {
             categoryIdentificationNumber = getIntent().getStringExtra("categoryIdentificationNumber");
         }

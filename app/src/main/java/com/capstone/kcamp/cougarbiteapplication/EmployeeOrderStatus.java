@@ -20,10 +20,6 @@ import com.capstone.kcamp.cougarbiteapplication.ViewHolder.EmployeeOrderViewHold
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.jaredrummler.materialspinner.MaterialSpinner;
-
-import static com.capstone.kcamp.cougarbiteapplication.Common.Common.DELETE;
-import static com.capstone.kcamp.cougarbiteapplication.Common.Common.UPDATE;
 
 public class EmployeeOrderStatus extends AppCompatActivity {
 
