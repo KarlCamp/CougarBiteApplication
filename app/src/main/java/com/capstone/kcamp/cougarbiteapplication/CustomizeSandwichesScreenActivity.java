@@ -213,9 +213,6 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
         } else if (id == R.id.navigation_check_out) {
             Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, CheckOutActivity.class);
             startActivity(intent);
-        } else if (id == R.id.navigation_pay) {
-            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, PaymentMethodActivity.class);
-            startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
             Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, OrderStatusActivity.class);
             startActivity(intent);

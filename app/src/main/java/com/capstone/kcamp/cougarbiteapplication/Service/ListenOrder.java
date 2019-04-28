@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ListenOrder extends Service implements ChildEventListener{
     FirebaseDatabase db;
-    DatabaseReference requests;
+    DatabaseReference employeerequests, customerrequests;
 
     public ListenOrder() {
     }
@@ -38,12 +38,13 @@ public class ListenOrder extends Service implements ChildEventListener{
     public void onCreate() {
         super.onCreate();
         db = FirebaseDatabase.getInstance();
-        requests = db.getReference("requests");
+        employeerequests = db.getReference("employeerequests");
+        customerrequests = db.getReference("customerrequests");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        requests.addChildEventListener((ChildEventListener) this);
+        employeerequests.addChildEventListener((ChildEventListener) this);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -59,7 +60,7 @@ public class ListenOrder extends Service implements ChildEventListener{
                 .setWhen(System.currentTimeMillis())
                 .setTicker("CougarBite")
                 .setContentInfo("Your order was updated")
-                .setContentText("Order #"+key+" was update status to"+ Common.convertCodeToStatus(request.getStatus()))
+                .setContentText("Order #"+key+" has updated status to"+ Common.convertCodeToStatus(request.getStatus()))
                 .setContentIntent(contentIntent)
                 .setContentInfo("Info")
                 .setSmallIcon(R.mipmap.ic_launcher);

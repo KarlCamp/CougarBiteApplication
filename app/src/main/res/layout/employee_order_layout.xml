@@ -63,42 +63,12 @@
                 android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/employee_hNumber"
+                android:id="@+id/employee_order_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical|start"
-                android:text="00559989"
-                android:textAllCaps="true"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/employee_order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical|start"
-                android:text="Sandwich"
-                android:textAllCaps="true"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/employee_additions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical|start"
-                android:text="Additions"
-                android:textAllCaps="true"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/employee_extras"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical|start"
-                android:text="Extras"
+                android:text="Order Details"
                 android:textStyle="italic" />
 
         </LinearLayout>
@@ -109,7 +79,7 @@
             android:orientation="vertical"
             android:weightSum="3">
             <ImageView
-                android:id="@+id/cart_item_remove"
+                android:id="@+id/employee_item_remove"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="end"

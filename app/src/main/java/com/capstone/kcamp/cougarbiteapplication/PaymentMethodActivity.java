@@ -22,10 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import info.hoang8f.widget.FButton;
 import io.paperdb.Paper;
 
-public class PaymentMethodActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class PaymentMethodActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
-    DatabaseReference reference, customer;
+    DatabaseReference referenceemployee, referencecustomer, customer;
     ImageView meals, cougarCash, creditCard, both;
     FButton pay;
     boolean isMeals, isCash, isBoth, isCard;
@@ -36,15 +36,6 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
         setContentView(R.layout.activity_payment_method);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Payment Method");
-        setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         database = FirebaseDatabase.getInstance();
         customer = FirebaseDatabase.getInstance().getReference("customers");
@@ -56,7 +47,8 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
         pay = findViewById(R.id.pay);
         pay.setEnabled(false);
         database = FirebaseDatabase.getInstance();
-        reference=database.getReference("requests");
+        referenceemployee=database.getReference("employeerequests");
+        referencecustomer=database.getReference("customerrequests");
         Paper.init(this);
 
         pay.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +68,9 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                             }
                             customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
                             Common.currentCustomer.setMeals("" + value);
-                            reference.child(String.valueOf(System.currentTimeMillis()))
+                            referenceemployee.child(String.valueOf(System.currentTimeMillis()))
+                                    .setValue(Common.request);
+                            referencecustomer.child(String.valueOf(System.currentTimeMillis()))
                                     .setValue(Common.request);
                             Common.cart.clear();
                             Common.prices.clear();
@@ -92,7 +86,9 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                             double newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
                             customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
                             Common.currentCustomer.setCash("" + Common.df.format(newTotal));
-                            reference.child(String.valueOf(System.currentTimeMillis()))
+                            referenceemployee.child(String.valueOf(System.currentTimeMillis()))
+                                    .setValue(Common.request);
+                            referencecustomer.child(String.valueOf(System.currentTimeMillis()))
                                     .setValue(Common.request);
                             Common.cart.clear();
                             Common.prices.clear();
@@ -124,7 +120,9 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                                 customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + newTotal);
                                 Common.currentCustomer.setCash("" + newTotal);
                                 Common.currentCustomer.setMeals("" + value);
-                                reference.child(String.valueOf(System.currentTimeMillis()))
+                                referenceemployee.child(String.valueOf(System.currentTimeMillis()))
+                                        .setValue(Common.request);
+                                referencecustomer.child(String.valueOf(System.currentTimeMillis()))
                                         .setValue(Common.request);
                                 Common.cart.clear();
                                 Common.prices.clear();
@@ -139,7 +137,9 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                                 customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
                                 Common.currentCustomer.setCash("" + Common.df.format(newTotal));
                                 Common.currentCustomer.setMeals("" + value);
-                                reference.child(String.valueOf(System.currentTimeMillis()))
+                                referenceemployee.child(String.valueOf(System.currentTimeMillis()))
+                                        .setValue(Common.request);
+                                referencecustomer.child(String.valueOf(System.currentTimeMillis()))
                                         .setValue(Common.request);
                                 Common.cart.clear();
                                 Common.prices.clear();
@@ -358,57 +358,5 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                 }
             }
         });
-    }
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_general, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.navigation_menu) {
-            Intent intent = new Intent(PaymentMethodActivity.this, MenuScreenActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_check_out) {
-            Intent intent = new Intent(PaymentMethodActivity.this, CheckOutActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_pay) {
-            Intent intent = new Intent(PaymentMethodActivity.this, PaymentMethodActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_order_status) {
-            Intent intent = new Intent(PaymentMethodActivity.this, OrderStatusActivity.class);
-            startActivity(intent);
-        }else if (id == R.id.navigation_about) {
-            Intent intent = new Intent(PaymentMethodActivity.this, AboutScreenActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_sign_out) {
-            Paper.book().destroy();
-            Intent intent = new Intent(PaymentMethodActivity.this, CustomerSignInScreenActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }

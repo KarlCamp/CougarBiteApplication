@@ -12,10 +12,6 @@
             android:icon="@drawable/ic_shopping_cart_black_24dp"
             android:title="@string/navigation_check_out" />
         <item
-            android:id="@+id/navigation_pay"
-            android:icon="@drawable/ic_credit_card_black_24dp"
-            android:title="@string/navigation_pay" />
-        <item
             android:id="@+id/navigation_order_status"
             android:icon="@drawable/ic_access_time_black_24dp"
             android:title="@string/navigation_order_status" />

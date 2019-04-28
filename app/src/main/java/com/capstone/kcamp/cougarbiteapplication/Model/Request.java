@@ -7,6 +7,7 @@ public class Request {
     private String phone;
     private String name;
     private String pickUpTime;
+    private String orderDetails;
     private String total;
     private List<Order> ls;
     private String status;
@@ -15,13 +16,22 @@ public class Request {
 
     }
 
-    public Request(String phone, String name, String pickUpTime, String total, List<Order> ls) {
+    public Request(String phone, String name, String pickUpTime, String orderDetails, String total, List<Order> ls) {
         this.phone = phone;
         this.name = name;
         this.pickUpTime = pickUpTime;
+        this.orderDetails = orderDetails;
         this.total = total;
         this.ls = ls;
         this.status = "0";
+    }
+
+    public String getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(String orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public String getStatus() {

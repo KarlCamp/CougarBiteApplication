@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import com.capstone.kcamp.cougarbiteapplication.Common.Common;
 import com.capstone.kcamp.cougarbiteapplication.Model.CreditCard;
@@ -25,7 +24,7 @@ import io.paperdb.Paper;
 public class CreditCardScreenActivity extends AppCompatActivity {
     MaterialEditText cardNumber, creditCardName, CVV;
     Button processPayment;
-    DatabaseReference ref, reference;
+    DatabaseReference ref, referenceemployee, referencecustomer;
     CreditCard creditCard;
     CheckBox ckbRemember;
     @Override
@@ -39,7 +38,9 @@ public class CreditCardScreenActivity extends AppCompatActivity {
         processPayment = findViewById(R.id.processCard);
         ckbRemember = findViewById(R.id.ckbRemember);
         ref = FirebaseDatabase.getInstance().getReference("bank");
-        reference = FirebaseDatabase.getInstance().getReference("requests");
+        referenceemployee=FirebaseDatabase.getInstance().getReference("employeerequests");
+        referencecustomer=FirebaseDatabase.getInstance().getReference("customerrequests");
+
         String number = Paper.book().read(Common.CREDIT_CARD_NUMBER);
         String name = Paper.book().read(Common.CREDIT_CARD_NAME);
         String cvv = Paper.book().read(Common.CREDIT_CARD_CVV);
@@ -77,7 +78,9 @@ public class CreditCardScreenActivity extends AppCompatActivity {
                                             if (Double.parseDouble(creditCard.getCredit())-Common.total>=0) {
                                                 double value = Double.parseDouble(creditCard.getCredit())-Common.total;
                                                 ref.child(Common.creditCard.getNumber()).child("credit").setValue(""+Common.df.format(value));
-                                                reference.child(String.valueOf(System.currentTimeMillis()))
+                                                referenceemployee.child(String.valueOf(System.currentTimeMillis()))
+                                                        .setValue(Common.request);
+                                                referencecustomer.child(String.valueOf(System.currentTimeMillis()))
                                                         .setValue(Common.request);
                                                 Common.cart.clear();
                                                 Common.prices.clear();

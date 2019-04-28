@@ -97,10 +97,12 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if ((edtTime.getHour()>=11) && (edtTime.getHour()<23)) {
+                    String orderDetails = createOrderDetails();
                     Common.request = new Request(
                             Common.currentCustomer.getPhone(),
                             Common.currentCustomer.getHNumber(),
-                            "" + edtTime.getHour() + ":" + edtTime.getMinute(),
+                            "" + edtTime.getHour() + ":" + (edtTime.getMinute()<10 ? "0":"")+edtTime.getMinute(),
+                            orderDetails,
                             txtTotalPrice.getText().toString(),
                             Common.cart
                     );
@@ -157,6 +159,114 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         txtTotalPrice.setText(fmt.format(Common.total));
     }
+    private String createOrderDetails() {
+        String orderDetails="";
+        for (int position = 0; position < Common.cart.size(); position++) {
+            orderDetails=orderDetails+Common.cart.get(position).getProductname()+" x "+Common.cart.get(position).getQuantity()+":";
+            if (Common.cart.get(position).isLettuce() || Common.cart.get(position).isTomato()
+                    || Common.cart.get(position).isOnion() || Common.cart.get(position).isPickle()
+                    || Common.cart.get(position).isBeef() || Common.cart.get(position).isBreaded_chicken()
+                    || Common.cart.get(position).isBlack_bean() || Common.cart.get(position).isTurkey()
+                    || Common.cart.get(position).isGrilled_chicken() || Common.cart.get(position).isAmerican()
+                    || Common.cart.get(position).isBleu() || Common.cart.get(position).isPepper_jack()
+                    || Common.cart.get(position).isSwiss() || Common.cart.get(position).isProvolone()
+                    || Common.cart.get(position).isWhite_kaiser() || Common.cart.get(position).isSpinach_wrap()
+                    || Common.cart.get(position).isFlour_wrap() || Common.cart.get(position).isWheat_kaiser()
+                    || Common.cart.get(position).isFlat_bread() || Common.cart.get(position).isGarlic_wrap()
+                    || Common.cart.get(position).isGluten_free()) {
+                if (Common.cart.get(position).isBeef()) {
+                    orderDetails=orderDetails + " beef,";
+                }
+                if (Common.cart.get(position).isBreaded_chicken()) {
+                    orderDetails=orderDetails + " breaded chicken,";
+                }
+                if (Common.cart.get(position).isBlack_bean()) {
+                    orderDetails=orderDetails + " black bean,";
+                }
+                if (Common.cart.get(position).isTurkey()) {
+                    orderDetails=orderDetails + " turkey,";
+                }
+                if (Common.cart.get(position).isGrilled_chicken()) {
+                    orderDetails=orderDetails + " grilled chicken,";
+                }
+                if (Common.cart.get(position).isAmerican()) {
+                    orderDetails=orderDetails + " american,";
+                }
+                if (Common.cart.get(position).isBleu()) {
+                    orderDetails=orderDetails + " bleu,";
+                }
+                if (Common.cart.get(position).isPepper_jack()) {
+                    orderDetails=orderDetails + " pepper jack,";
+                }
+                if (Common.cart.get(position).isSwiss()) {
+                    orderDetails=orderDetails + " swiss,";
+                }
+                if (Common.cart.get(position).isProvolone()) {
+                    orderDetails=orderDetails + " provolone,";
+                }
+                if (Common.cart.get(position).isWhite_kaiser()) {
+                    orderDetails=orderDetails + " white kaiser,";
+                }
+                if (Common.cart.get(position).isSpinach_wrap()) {
+                    orderDetails=orderDetails + " spinach wrap,";
+                }
+                if (Common.cart.get(position).isFlour_wrap()) {
+                    orderDetails=orderDetails + " flour wrap,";
+                }
+                if (Common.cart.get(position).isWheat_kaiser()) {
+                    orderDetails=orderDetails + " wheat kaiser,";
+                }
+                if (Common.cart.get(position).isFlat_bread()) {
+                    orderDetails=orderDetails + " flat bread,";
+                }
+                if (Common.cart.get(position).isGarlic_wrap()) {
+                    orderDetails=orderDetails + " garlic wrap,";
+                }
+                if (Common.cart.get(position).isGluten_free()) {
+                    orderDetails=orderDetails + " gluten free,";
+                }
+                if (Common.cart.get(position).isLettuce()) {
+                    orderDetails=orderDetails + " lettuce,";
+                }
+                if (Common.cart.get(position).isTomato()) {
+                    orderDetails=orderDetails + " tomato,";
+                }
+                if (Common.cart.get(position).isOnion()) {
+                    orderDetails=orderDetails + " onion,";
+                }
+                if (Common.cart.get(position).isPickle()) {
+                    orderDetails=orderDetails + " pickle,";
+                }
+            }
+            if (Common.cart.get(position).isBacon() || Common.cart.get(position).isAvocado()
+                    || Common.cart.get(position).isCheese() || Common.cart.get(position).isChicken()
+                    || Common.cart.get(position).isPatty() || Common.cart.get(position).isFried_egg()) {
+                if (Common.cart.get(position).isBacon()) {
+                    orderDetails=orderDetails + " bacon,";
+                }
+                if (Common.cart.get(position).isAvocado()) {
+                    orderDetails=orderDetails + " avocado,";
+                }
+                if (Common.cart.get(position).isCheese()) {
+                    orderDetails=orderDetails + " extra cheese,";
+                }
+                if (Common.cart.get(position).isPatty()) {
+                    orderDetails=orderDetails + " extra patty,";
+                }
+                if (Common.cart.get(position).isChicken()) {
+                    orderDetails=orderDetails + " chicken,";
+                }
+                if (Common.cart.get(position).isFried_egg()) {
+                    orderDetails=orderDetails + " fried egg,";
+                }
+            }
+            orderDetails=orderDetails.substring(0, orderDetails.length() - 1);
+            if (!(position==Common.cart.size()-1)) {
+                orderDetails = orderDetails + "\n\n";
+            }
+        }
+        return orderDetails;
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -189,9 +299,6 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
             startActivity(intent);
         } else if (id == R.id.navigation_check_out) {
             Intent intent = new Intent(CheckOutActivity.this, CheckOutActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navigation_pay) {
-            Intent intent = new Intent(CheckOutActivity.this, PaymentMethodActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
             Intent intent = new Intent(CheckOutActivity.this, OrderStatusActivity.class);

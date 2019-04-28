@@ -27,7 +27,9 @@ public class Common {
         if (status.equals("0"))
             return "Placed";
         else if(status.equals("1"))
-            return "On My Way";
-        else return "Shipped";
+            return "Cooking";
+        else if(status.equals("2"))
+            return "Prepared";
+        else return "Picked Up";
     }
 }

@@ -137,9 +137,6 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.navigation_check_out) {
             Intent intent = new Intent(FoodScreenActivity.this, CheckOutActivity.class);
             startActivity(intent);
-        } else if (id == R.id.navigation_pay) {
-            Intent intent = new Intent(FoodScreenActivity.this, PaymentMethodActivity.class);
-            startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
             Intent intent = new Intent(FoodScreenActivity.this, OrderStatusActivity.class);
             startActivity(intent);

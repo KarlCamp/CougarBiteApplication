@@ -658,9 +658,6 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         } else if (id == R.id.navigation_check_out) {
             Intent intent = new Intent(BuildYourOwnScreenActivity.this, CheckOutActivity.class);
             startActivity(intent);
-        } else if (id == R.id.navigation_pay) {
-            Intent intent = new Intent(BuildYourOwnScreenActivity.this, PaymentMethodActivity.class);
-            startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
             Intent intent = new Intent(BuildYourOwnScreenActivity.this, OrderStatusActivity.class);
             startActivity(intent);
