@@ -332,9 +332,9 @@
                             android:id="@+id/Gluten_Free"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Gluten Free($1 more)"
+                            android:text="Gluten Free"
                             android:textSize="10sp"
-                            android:layout_marginStart="68dp"
+                            android:layout_marginStart="46dp"
                             android:scaleX="2"
                             android:scaleY="2"/>
 

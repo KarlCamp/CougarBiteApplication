@@ -126,6 +126,7 @@ public class MenuScreenActivity extends AppCompatActivity implements NavigationV
             Intent intent = new Intent(MenuScreenActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_sign_out) {
+            Paper.book().destroy();
             Intent intent = new Intent(MenuScreenActivity.this, CustomerSignInScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

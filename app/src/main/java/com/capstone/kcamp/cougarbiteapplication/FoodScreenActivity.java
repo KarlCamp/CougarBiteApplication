@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import io.paperdb.Paper;
 
-public class FoodScreenActivity extends AppCompatActivity {
+public class FoodScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     DatabaseReference databaseReference;
     RecyclerView recView;
     RecyclerView.LayoutManager layout;
@@ -50,6 +50,8 @@ public class FoodScreenActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
         recView = findViewById(R.id.food_recycler_view);
         recView.setHasFixedSize(true);
         layout = new LinearLayoutManager(this);
@@ -124,5 +126,34 @@ public class FoodScreenActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.navigation_menu) {
+            Intent intent = new Intent(FoodScreenActivity.this, MenuScreenActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navigation_check_out) {
+            Intent intent = new Intent(FoodScreenActivity.this, CheckOutActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navigation_pay) {
+            Intent intent = new Intent(FoodScreenActivity.this, PaymentMethodActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navigation_order_status) {
+            Intent intent = new Intent(FoodScreenActivity.this, OrderStatusActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.navigation_about) {
+            Intent intent = new Intent(FoodScreenActivity.this, AboutScreenActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navigation_sign_out) {
+            Paper.book().destroy();
+            Intent intent = new Intent(FoodScreenActivity.this, CustomerSignInScreenActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

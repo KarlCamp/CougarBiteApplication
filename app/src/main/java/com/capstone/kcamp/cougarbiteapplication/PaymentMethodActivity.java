@@ -81,7 +81,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                             Common.cart.clear();
                             Common.prices.clear();
                             Common.total = 0;
-                            Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(PaymentMethodActivity.this, "Error: You are short on meals!", Toast.LENGTH_LONG).show();
                             isMeals = false;
@@ -97,7 +97,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                             Common.cart.clear();
                             Common.prices.clear();
                             Common.total = 0;
-                            Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(PaymentMethodActivity.this, "Error: You are short on cougar cash!", Toast.LENGTH_LONG).show();
                             isCash = false;
@@ -129,7 +129,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                                 Common.cart.clear();
                                 Common.prices.clear();
                                 Common.total = 0;
-                                Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                             } else {
                                 int value = 0;
                                 double newTotal = 0;
@@ -144,7 +144,7 @@ public class PaymentMethodActivity extends AppCompatActivity implements Navigati
                                 Common.cart.clear();
                                 Common.prices.clear();
                                 Common.total = 0;
-                                Toast.makeText(PaymentMethodActivity.this, "Error: Payment processed successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Toast.makeText(PaymentMethodActivity.this, "Error: You are short on meals and cash!", Toast.LENGTH_LONG).show();
