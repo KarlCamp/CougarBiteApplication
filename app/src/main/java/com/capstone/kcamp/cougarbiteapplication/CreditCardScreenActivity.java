@@ -78,10 +78,9 @@ public class CreditCardScreenActivity extends AppCompatActivity {
                                             if (Double.parseDouble(creditCard.getCredit())-Common.total>=0) {
                                                 double value = Double.parseDouble(creditCard.getCredit())-Common.total;
                                                 ref.child(Common.creditCard.getNumber()).child("credit").setValue(""+Common.df.format(value));
-                                                referenceemployee.child(String.valueOf(System.currentTimeMillis()))
-                                                        .setValue(Common.request);
-                                                referencecustomer.child(String.valueOf(System.currentTimeMillis()))
-                                                        .setValue(Common.request);
+                                                String key=String.valueOf(System.currentTimeMillis());
+                                                referenceemployee.child(key).setValue(Common.request);
+                                                referencecustomer.child(key).setValue(Common.request);
                                                 Common.cart.clear();
                                                 Common.prices.clear();
                                                 Common.total=0;

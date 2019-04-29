@@ -68,10 +68,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
                             }
                             customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
                             Common.currentCustomer.setMeals("" + value);
-                            referenceemployee.child(String.valueOf(System.currentTimeMillis()))
-                                    .setValue(Common.request);
-                            referencecustomer.child(String.valueOf(System.currentTimeMillis()))
-                                    .setValue(Common.request);
+                            String key=String.valueOf(System.currentTimeMillis());
+                            referenceemployee.child(key).setValue(Common.request);
+                            referencecustomer.child(key).setValue(Common.request);
                             Common.cart.clear();
                             Common.prices.clear();
                             Common.total = 0;
@@ -86,10 +85,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
                             double newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
                             customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
                             Common.currentCustomer.setCash("" + Common.df.format(newTotal));
-                            referenceemployee.child(String.valueOf(System.currentTimeMillis()))
-                                    .setValue(Common.request);
-                            referencecustomer.child(String.valueOf(System.currentTimeMillis()))
-                                    .setValue(Common.request);
+                            String key=String.valueOf(System.currentTimeMillis());
+                            referenceemployee.child(key).setValue(Common.request);
+                            referencecustomer.child(key).setValue(Common.request);
                             Common.cart.clear();
                             Common.prices.clear();
                             Common.total = 0;
@@ -120,10 +118,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
                                 customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + newTotal);
                                 Common.currentCustomer.setCash("" + newTotal);
                                 Common.currentCustomer.setMeals("" + value);
-                                referenceemployee.child(String.valueOf(System.currentTimeMillis()))
-                                        .setValue(Common.request);
-                                referencecustomer.child(String.valueOf(System.currentTimeMillis()))
-                                        .setValue(Common.request);
+                                String key=String.valueOf(System.currentTimeMillis());
+                                referenceemployee.child(key).setValue(Common.request);
+                                referencecustomer.child(key).setValue(Common.request);
                                 Common.cart.clear();
                                 Common.prices.clear();
                                 Common.total = 0;
@@ -137,10 +134,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
                                 customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
                                 Common.currentCustomer.setCash("" + Common.df.format(newTotal));
                                 Common.currentCustomer.setMeals("" + value);
-                                referenceemployee.child(String.valueOf(System.currentTimeMillis()))
-                                        .setValue(Common.request);
-                                referencecustomer.child(String.valueOf(System.currentTimeMillis()))
-                                        .setValue(Common.request);
+                                String key=String.valueOf(System.currentTimeMillis());
+                                referenceemployee.child(key).setValue(Common.request);
+                                referencecustomer.child(key).setValue(Common.request);
                                 Common.cart.clear();
                                 Common.prices.clear();
                                 Common.total = 0;
