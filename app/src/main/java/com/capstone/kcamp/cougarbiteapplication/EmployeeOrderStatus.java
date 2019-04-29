@@ -47,8 +47,8 @@ public class EmployeeOrderStatus extends AppCompatActivity {
                 Request.class,
                 R.layout.employee_order_layout,
                 EmployeeOrderViewHolder.class,
-                requests.orderByChild("phone")
-                        .equalTo("773-706-6119")
+                requests.orderByChild("status")
+                        .equalTo("0")
         ) {
             @Override
             protected void populateViewHolder(final EmployeeOrderViewHolder viewHolder, final Request model, final int position) {
