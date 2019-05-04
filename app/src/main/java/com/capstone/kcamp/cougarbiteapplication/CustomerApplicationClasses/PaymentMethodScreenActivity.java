@@ -50,7 +50,7 @@ public class PaymentMethodScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //see section 2.
-        setContentView(R.layout.activity_payment_method);
+        setContentView(R.layout.activity_payment_method_screen);
 
         //see section 3.
         Toolbar toolbar = findViewById(R.id.toolbar);

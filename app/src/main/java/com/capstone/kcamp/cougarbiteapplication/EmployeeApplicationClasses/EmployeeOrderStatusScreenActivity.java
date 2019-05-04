@@ -52,7 +52,7 @@ public class EmployeeOrderStatusScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //see section 2.
-        setContentView(R.layout.activity_employee_order_status);
+        setContentView(R.layout.activity_employee_order_status_screen);
 
         //see section 3.
         employeerequests = FirebaseDatabase.getInstance().getReference("employeerequests");
@@ -123,7 +123,7 @@ public class EmployeeOrderStatusScreenActivity extends AppCompatActivity {
                         if (model.getStatus().equals("0")) {
                             Toast.makeText(EmployeeOrderStatusScreenActivity.this, "Error: Cannot update below placed.", Toast.LENGTH_SHORT).show();
                         } else {
-                            Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                            Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal());
                             if (model.getStatus().equals("1")) {
                                 model.setStatus("0");
                                 request.setStatus("0");
@@ -143,7 +143,7 @@ public class EmployeeOrderStatusScreenActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //update state
-                        Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                        Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal());
                         if (model.getStatus().equals("0")) {
                             model.setStatus("1");
                             request.setStatus("1");

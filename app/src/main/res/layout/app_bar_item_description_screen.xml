@@ -4,22 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerApplicationClasses.PaymentMethodScreenActivity">
-
-    <include layout="@layout/content_payment_method" />
-
+    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses.ItemDescriptionScreenActivity"
+    android:background="@android:color/white">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:text="@string/description"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     </android.support.design.widget.AppBarLayout>
-
+    <include layout="@layout/content_item_description_screen" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/itemDescriptionScreenActivityFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@android:color/white"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 </android.support.design.widget.CoordinatorLayout>

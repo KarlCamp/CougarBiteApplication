@@ -68,7 +68,7 @@ public class CheckOutScreenActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
 
         //see section 2.
-        setContentView(R.layout.activity_check_out);
+        setContentView(R.layout.activity_check_out_screen);
 
         //see section 3.
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -152,8 +152,7 @@ public class CheckOutScreenActivity extends AppCompatActivity implements Navigat
                             Global.presentCustomer.getHNumber(),
                             "" + edtTime.getHour() + ":" + (edtTime.getMinute()<10 ? "0":"")+edtTime.getMinute(),
                             orderDetails,
-                            txtTotalPrice.getText().toString(),
-                            Global.currentCart
+                            txtTotalPrice.getText().toString()
                     );
                     Toast.makeText(CheckOutScreenActivity.this, "Cart processed!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CheckOutScreenActivity.this, PaymentMethodScreenActivity.class);

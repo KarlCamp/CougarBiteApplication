@@ -26,28 +26,25 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/food_name"
                     android:padding="12dp"
-                    android:text="Food Name"
+                    android:text="@string/default_value"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_marginTop="8dp"/>
-
                 <LinearLayout
                     android:id="@+id/layout_price"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <ImageView
                         android:src="@drawable/ic_attach_money_black_24dp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
                     <TextView
                         android:layout_height="wrap_content"
                         android:id="@+id/food_price"
-                        android:text="1000"
+                        android:text="@string/default_value"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
                         android:layout_width="0dp"
@@ -63,8 +60,7 @@
                         app:textSize="8sp"
                         app:backGroundColor="@color/colorAccent"
                         app:initialNumber="1"
-                        app:finalNumber="9"
-                        />
+                        app:finalNumber="9" />
                 </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -73,7 +69,6 @@
             app:cardUseCompatPadding="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +76,7 @@
                 android:layout_marginTop="12dp"
                 android:lineSpacingMultiplier="1.5"
                 android:padding="12dp"
-                android:text="Description"
+                android:text="@string/default_value"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"/>
         </android.support.v7.widget.CardView>
@@ -97,7 +92,7 @@
                 android:layout_marginTop="12dp"
                 android:lineSpacingMultiplier="1.5"
                 android:padding="12dp"
-                android:text="Nutrition"
+                android:text="@string/default_value"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"/>
         </android.support.v7.widget.CardView>

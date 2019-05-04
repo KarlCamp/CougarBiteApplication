@@ -7,9 +7,8 @@
     android:padding="16dp"
     android:background="@drawable/cougarbitebackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_check_out"
+    tools:showIn="@layout/app_bar_check_out_screen"
     tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses.CheckOutScreenActivity">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,37 +16,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listCart"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="470dp"/>
-
     <android.support.v7.widget.CardView
-        android:layout_alignParentBottom="true"
         app:cardBackgroundColor="@color/CUCGold"
         android:layout_width="match_parent"
         android:layout_height="100dp">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <LinearLayout
                 android:layout_margin="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:text="Total: "
                     android:textSize="20sp"
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
                 <TextView
                     android:id="@+id/total"
                     android:text="$10.00"
@@ -55,9 +47,7 @@
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
             </LinearLayout>
-
             <info.hoang8f.widget.FButton
                 android:id="@+id/btnPlaceOrder"
                 android:text="Place Order"
@@ -68,16 +58,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
                 app:cornerRadius="4dp"
                 app:fButtonColor="@color/CUCMaroon"
                 app:shadowColor="@android:color/black"
                 app:shadowEnabled="true"
                 app:shadowHeight="5dp" />
-
         </RelativeLayout>
     </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

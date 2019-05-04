@@ -6,27 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses.CustomizeSandwichesScreenActivity"
     android:background="@android:color/white">
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:text="Build Your Own"
+            android:text="@string/build_your_own"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            />
-
-
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
-
     <include layout="@layout/content_build_your_own_screen" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buildYourOwnActivityFab"
         android:layout_width="wrap_content"
@@ -34,7 +26,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="@android:color/white"
-        app:srcCompat="@drawable/ic_add_black_24dp"
-        />
-
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 </android.support.design.widget.CoordinatorLayout>

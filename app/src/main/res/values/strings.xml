@@ -34,4 +34,19 @@
     <string name="navigation_order_status">Order Status</string>
     <string name="navigation_about">About</string>
     <string name="navigation_sign_out">Sign Out</string>
+
+    <string name="card_number_hint">CARD NUMBER</string>
+    <string name="card_number">0000111122223333</string>
+    <string name="name_on_credit_card_hint">NAME ON CREDIT CARD</string>
+    <string name="name_on_credit_card">Karl Camp</string>
+    <string name="cvv_hint">CVV</string>
+    <string name="cvv">123</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="process_card">Process Card</string>
+
+    <string name="build_your_own">Build Your Own</string>
+    <string name="check_out">Check Out</string>
+    <string name="description">Description</string>
+    <string name="default_value">Default</string>
+
 </resources>

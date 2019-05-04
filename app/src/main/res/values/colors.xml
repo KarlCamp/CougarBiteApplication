@@ -9,4 +9,5 @@
 
     <color name="overlayBackground">#7FFDCC00</color>
     <color name="overlayActionBar">#AF002D</color>
+    <color name="darkTint">#9f000000</color>
 </resources>

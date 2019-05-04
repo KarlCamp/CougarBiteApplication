@@ -48,7 +48,7 @@ public class OrderStatusScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //see section 2.
-        setContentView(R.layout.activity_order_status);
+        setContentView(R.layout.activity_order_status_screen);
 
         //see section 3.
         recyclerView = findViewById(R.id.listOrders);

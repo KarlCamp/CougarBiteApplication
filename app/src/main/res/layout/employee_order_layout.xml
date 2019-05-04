@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardElevation="8dp"
-    >
-
+    app:cardElevation="8dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,74 +13,65 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
             android:orientation="vertical">
-
             <TextView
                 android:id="@+id/employee_order_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical|start"
-                android:text="#111111"
+                android:text="@string/default_value"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/employee_order_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical|start"
-                android:text="Status"
+                android:text="@string/default_value"
                 android:textAllCaps="true"
                 android:textStyle="italic" />
-
             <TextView
                 android:id="@+id/employee_order_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical|start"
-                android:text="123456789"
+                android:text="@string/default_value"
                 android:textAllCaps="true"
                 android:textStyle="italic" />
-
             <TextView
                 android:id="@+id/employee_order_hNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical|start"
-                android:text="123456789"
+                android:text="@string/default_value"
                 android:textAllCaps="true"
                 android:textStyle="italic" />
-
             <TextView
                 android:id="@+id/employee_order_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical|start"
-                android:text="Pick Up Time"
+                android:text="@string/default_value"
                 android:textAllCaps="true"
                 android:textStyle="italic" />
-
             <TextView
                 android:id="@+id/employee_order_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical|start"
-                android:text="Order Details"
+                android:text="@string/default_value"
                 android:textStyle="italic" />
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,16 +82,15 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="end"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/removeicon"
                 android:layout_marginBottom="10dp"/>
-
         <ImageView
             android:id="@+id/up_arrow"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/arrowimage"
             android:layout_marginBottom="10dp"/>
             <ImageView
@@ -110,12 +98,9 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="end"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/arrowimageupsidedown"
                 android:layout_marginBottom="10dp"/>
-
         </LinearLayout>
-
     </LinearLayout>
-
 </android.support.v7.widget.CardView>

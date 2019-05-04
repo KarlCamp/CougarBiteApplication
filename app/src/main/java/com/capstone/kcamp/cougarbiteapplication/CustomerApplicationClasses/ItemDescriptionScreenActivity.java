@@ -67,7 +67,7 @@ public class ItemDescriptionScreenActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
 
         //see section 2.
-        setContentView(R.layout.activity_customize);
+        setContentView(R.layout.activity_item_description_screen);
 
         //see section 3.
         Toolbar toolbar = findViewById(R.id.toolbar);
