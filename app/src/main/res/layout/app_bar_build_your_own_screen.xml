@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomizeSandwichesScreenActivity"
+    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses.CustomizeSandwichesScreenActivity"
     android:background="@android:color/white">
 
     <android.support.design.widget.AppBarLayout
@@ -28,7 +28,7 @@
     <include layout="@layout/content_build_your_own_screen" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/heyHey"
+        android:id="@+id/buildYourOwnActivityFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

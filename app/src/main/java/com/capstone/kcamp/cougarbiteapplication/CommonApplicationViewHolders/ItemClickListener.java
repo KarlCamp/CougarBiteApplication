@@ -6,7 +6,7 @@ import android.view.View;
  * to allow for item onClick functionality of appropriate recycler views.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public interface ItemClickListener {

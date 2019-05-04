@@ -1,7 +1,8 @@
-package com.capstone.kcamp.cougarbiteapplication;
+package com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,78 +15,120 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.capstone.kcamp.cougarbiteapplication.AboutScreenActivity;
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Request;
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.CartAdapter;
-import com.capstone.kcamp.cougarbiteapplication.Global.Global;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationGlobals.Global;
+import com.capstone.kcamp.cougarbiteapplication.R;
 import java.text.NumberFormat;
 import java.util.Locale;
 import info.hoang8f.widget.FButton;
 import io.paperdb.Paper;
 
-public class CheckOutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
+/**
+ * The CheckOutScreenActivity class is the activity that allows a customer to process an order
+ * successfully before paying. This is the activity where the user will be able to view their
+ * orders, delete anything undesirable, and confirm satisfaction by pressing the pay button. This
+ * activity may be accessed through the MenuScreenActivity cart button, the FoodScreenActivity
+ * cart button, or the NavigationBar.
+ *
+ * @author Karl Camp
+ * @version 1.0.0
+ * @since 2019-05-04
+ */
+public class CheckOutScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    RecyclerView recyclerView; //recycler view to be filled
+    RecyclerView.LayoutManager layoutManager; //layout manager to assist in laying out the recycler view
 
-    FirebaseDatabase database;
-    DatabaseReference requests;
+    TextView txt_crt_name, txt_price; //text views to be filled
+    public TextView txtTotalPrice; //text views to be filled, public because important for the adapter
+    FButton btnPlace; //button to be activated
 
-    TextView txt_crt_name, txt_price;
-    public TextView txtTotalPrice;
-    FButton btnPlace;
-    ImageView removeItem;
-
+    /**
+     * The onCreate method does the following:
+     *      1. Utilizes inheritance for the current saved instance of the state.
+     *      2. Establishes the xml content view to be utilized from the layout folder.
+     *      3. Establishes action bar context.
+     *      4. Identifies all values within the xml layout to be filled with appropriate information.
+     *      5. Initializes Paper, which is a key-value pair object for remember me functionality.
+     *      6. Establishes drawer layout context.
+     *      7. Creates an instance of the NavigationView.
+     *      8. Binds action to button.
+     *      9. Loads food list.
+     * @param savedInstanceState stores an instance of saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //see section 1.
         super.onCreate(savedInstanceState);
+
+        //see section 2.
         setContentView(R.layout.activity_check_out);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //see section 3.
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Check Out");
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
+        //see section 4.
         txt_crt_name = findViewById(R.id.cart_item_name);
         txt_price = findViewById(R.id.cart_item_price);
-        database = FirebaseDatabase.getInstance();
-        requests=database.getReference("requests");
 
         recyclerView = findViewById(R.id.listCart);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        txtTotalPrice = (TextView)findViewById(R.id.total);
-        btnPlace = (FButton)findViewById(R.id.btnPlaceOrder);
+        txtTotalPrice = findViewById(R.id.total);
+        btnPlace = findViewById(R.id.btnPlaceOrder);
+
+        //see section 5.
         Paper.init(this);
 
+        //see section 6.
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        //see section 7.
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //see section 8.
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Global.currentCart.isEmpty()) {
-                    Toast.makeText(CheckOutActivity.this, "Error: Cart is empty.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CheckOutScreenActivity.this, "Error: Cart is empty.", Toast.LENGTH_LONG).show();
                 } else {
                     showAlertDialog();
                 }
             }
         });
+
+        //see section 9.
         loadListFood();
     }
 
+    /**
+     * The showAlertDialog does the following:
+     *      1. Creates an instance of the TimePickerDialog to allow the customer to choose pick up time.
+     *      2. Allows customer to confirm time.
+     *      3. Does validation checking to ensure that time chosen is within appropriate range.
+     *      4. Creates request and confirmation successful processing of cart.
+     */
     private void showAlertDialog() {
-        TimePickerDialog.Builder alertDialog = new TimePickerDialog.Builder(CheckOutActivity.this);
+        //see section 1.
+        TimePickerDialog.Builder alertDialog = new TimePickerDialog.Builder(CheckOutScreenActivity.this);
         alertDialog.setTitle("One more step!");
         alertDialog.setMessage("Enter your pick up time: ");
-        final TimePicker edtTime = new TimePicker(CheckOutActivity.this);
+        final TimePicker edtTime = new TimePicker(CheckOutScreenActivity.this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
@@ -93,10 +136,16 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         edtTime.setLayoutParams(lp);
         alertDialog.setView(edtTime);
         alertDialog.setIcon(R.drawable.ic_access_time_black_24dp);
+
+        //see section 2.
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                //see section 3.
                 if ((edtTime.getHour()>=11) && (edtTime.getHour()<23)) {
+
+                    //see section 4.
                     String orderDetails = createOrderDetails();
                     Global.orderRequest = new Request(
                             Global.presentCustomer.getPhone(),
@@ -106,12 +155,12 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
                             txtTotalPrice.getText().toString(),
                             Global.currentCart
                     );
-                    Toast.makeText(CheckOutActivity.this, "Cart processed!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CheckOutActivity.this, PaymentMethodActivity.class);
+                    Toast.makeText(CheckOutScreenActivity.this, "Cart processed!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CheckOutScreenActivity.this, PaymentMethodScreenActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(CheckOutActivity.this, "Error: Hours from 11AM-11PM.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CheckOutScreenActivity.this, "Error: Hours from 11AM-11PM.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -123,13 +172,25 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         });
         alertDialog.show();
     }
+
+    /**
+     * The loadListFood method does the following:
+     *      1. Allows the CheckOutScreenActivity to fill the adapter and present the user with a list of their orders.
+     *      2. Calculate total prices for all values and the Global.prices list.
+     *      3. Ensure values are presented in the correct format.
+     */
     private void loadListFood() {
+        //see section 1.
         CartAdapter adapter = new CartAdapter(Global.currentCart, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Global.currentTotal = 0;
-        for (int position = 0; position < Global.currentCart.size(); position++) {
+
+        //see section 2.
+        for (int position = 0; position < Global.currentCart.size(); position++) { //loops through all cart values
+            //calculates prices
             double price=(Double.parseDouble(Global.currentCart.get(position).getPrice())) * (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
+            //makes necessary changes to the prices as dictated by the extras
             if (Global.currentCart.get(position).isBacon() || Global.currentCart.get(position).isAvocado()
                     ||Global.currentCart.get(position).isCheese() ||Global.currentCart.get(position).isChicken()
                     ||Global.currentCart.get(position).isPatty() ||Global.currentCart.get(position).isFried_egg()) {
@@ -152,17 +213,26 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
                     price+=1.29* (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
                 }
             }
-            Global.currentTotal+=price;
-            Global.currentCartPrices.add(price);
+            Global.currentTotal+=price; //update total price
+            Global.currentCartPrices.add(price); //add the price to the price list
         }
+
+        //see section 3.
         Locale locale = new Locale("en", "US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         txtTotalPrice.setText(fmt.format(Global.currentTotal));
     }
+
+    /**
+     * The createOrderDetails method creates the string that is sent to the request and will be
+     * utilized by the employee and customer order status activities to view all the details in a
+     * neat and organized fashion.
+     * @return String of order details for every list in the order.
+     */
     private String createOrderDetails() {
         String orderDetails="";
-        for (int position = 0; position < Global.currentCart.size(); position++) {
-            orderDetails=orderDetails+Global.currentCart.get(position).getProductname()+" x "+Global.currentCart.get(position).getQuantity()+":";
+        for (int position = 0; position < Global.currentCart.size(); position++) { //loop through all order within the cart
+            orderDetails=orderDetails+Global.currentCart.get(position).getProductname()+" x "+Global.currentCart.get(position).getQuantity()+":"; //creates title of order
             if (Global.currentCart.get(position).isLettuce() || Global.currentCart.get(position).isTomato()
                     || Global.currentCart.get(position).isOnion() || Global.currentCart.get(position).isPickle()
                     || Global.currentCart.get(position).isBeef() || Global.currentCart.get(position).isBreaded_chicken()
@@ -174,7 +244,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
                     || Global.currentCart.get(position).isFlour_wrap() || Global.currentCart.get(position).isWheat_kaiser()
                     || Global.currentCart.get(position).isFlat_bread() || Global.currentCart.get(position).isGarlic_wrap()
                     || Global.currentCart.get(position).isGluten_free()) {
-                if (Global.currentCart.get(position).isBeef()) {
+                if (Global.currentCart.get(position).isBeef()) { //create the order details string
                     orderDetails=orderDetails + " beef,";
                 }
                 if (Global.currentCart.get(position).isBreaded_chicken()) {
@@ -267,9 +337,15 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         }
         return orderDetails;
     }
+
+    /**
+     * The onBackPressed method is generated by default through the NavigationView implementation.
+     * It's purpose is to deal with the back button pressed functionality that is possible with
+     * the NavigationView.
+     */
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -277,38 +353,59 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
+    /**
+     * The onCreateOptionsMenu method is generated by default through the NavigationView
+     * implementation. It's purpose is to create the options menu layout based on the xml and return
+     * return true upon successful creation. It is deactivated in this app's case, therefore base
+     * functionality is called.
+     * @param menu object passed to ensure it binds correctly in the activity
+     * @return confirmation of successful binding of the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
 
+    /**
+     * The onOptionsItemSelected method is generated by default through the NavigationView implemenation.
+     * It's purpose is to create the options menu layout. It is deactivated in this app's case,
+     * therefore base functionality is called.
+     * @param item item to be bound to an event
+     * @return confirmation of successful binding of the options item selected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * The onNavigationItemSelected method is generated by default through the NavigationView
+     * implementation. It's purpose is to create the navigation menu. This app utilizes the
+     * navigation bar to move across various screens and sing out. This functionlity may be
+     * seen in the code below.
+     * @param item item to be bound to an event
+     * @return confirmation of successful binding of the options item selected
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.navigation_menu) {
-            Intent intent = new Intent(CheckOutActivity.this, MenuScreenActivity.class);
+            Intent intent = new Intent(CheckOutScreenActivity.this, MenuScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_check_out) {
-            Intent intent = new Intent(CheckOutActivity.this, CheckOutActivity.class);
+            Intent intent = new Intent(CheckOutScreenActivity.this, CheckOutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
-            Intent intent = new Intent(CheckOutActivity.this, OrderStatusActivity.class);
+            Intent intent = new Intent(CheckOutScreenActivity.this, OrderStatusScreenActivity.class);
             startActivity(intent);
         }else if (id == R.id.navigation_about) {
-            Intent intent = new Intent(CheckOutActivity.this, AboutScreenActivity.class);
+            Intent intent = new Intent(CheckOutScreenActivity.this, AboutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_sign_out) {
             Paper.book().destroy();
-            Intent intent = new Intent(CheckOutActivity.this, CustomerSignInScreenActivity.class);
+            Intent intent = new Intent(CheckOutScreenActivity.this, CustomerSignInScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

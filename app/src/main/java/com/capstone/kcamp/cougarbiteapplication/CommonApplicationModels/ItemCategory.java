@@ -8,7 +8,7 @@ package com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels;
  * recycler view of ItemScreenViewHolder.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public class ItemCategory {

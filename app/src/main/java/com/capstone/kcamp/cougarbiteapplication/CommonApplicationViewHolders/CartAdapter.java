@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.capstone.kcamp.cougarbiteapplication.CheckOutActivity;
-import com.capstone.kcamp.cougarbiteapplication.Global.Global;
+import com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses.CheckOutScreenActivity;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationGlobals.Global;
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Order;
 import com.capstone.kcamp.cougarbiteapplication.R;
 import java.text.NumberFormat;
@@ -22,19 +22,19 @@ import static java.lang.Math.abs;
  * customer. In short, its the means by which the checkout screen looks nice.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     private List<Order> orderData; //stores list of orders
-    private CheckOutActivity checkOutActivity; //stores activity of adapter
+    private CheckOutScreenActivity checkOutActivity; //stores activity of adapter
     private String toppings = ""; //stores information about toppings to be displayed
     private String extras = ""; //stores information about extras to be displayed
 
     //generated appropriate constructor initializing all class variables
 
-    public CartAdapter(List<Order> orderData, CheckOutActivity checkOutActivity) {
+    public CartAdapter(List<Order> orderData, CheckOutScreenActivity checkOutActivity) {
         this.orderData = orderData;
         this.checkOutActivity=checkOutActivity;
     }

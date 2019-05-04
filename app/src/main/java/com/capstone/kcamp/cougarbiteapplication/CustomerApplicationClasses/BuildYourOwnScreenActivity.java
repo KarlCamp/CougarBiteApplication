@@ -1,6 +1,7 @@
-package com.capstone.kcamp.cougarbiteapplication;
+package com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,33 +17,72 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import com.capstone.kcamp.cougarbiteapplication.AboutScreenActivity;
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Order;
-import com.capstone.kcamp.cougarbiteapplication.Global.Global;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationGlobals.Global;
+import com.capstone.kcamp.cougarbiteapplication.R;
 
 import io.paperdb.Paper;
 
+/**
+ * The BuildYourOwnScreenActivity class is the activity that allows a customer to customize and
+ * add their own burger from the Build Your Own category. The user may do so by choosing any meat
+ * and bread. They can only choose one of the prior from the options available. All other additions
+ * are optional and the user may choose more than one option outside of the cheese category. This
+ * activity may be accessed through choosing the Build Your Own category from the recycler view
+ * from within the MenuScreenActivity.
+ *
+ * @author Karl Camp
+ * @version 1.0.0
+ * @since 2019-05-04
+ */
 public class BuildYourOwnScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    //these are all the available customizations that can be applied to a Build Your Own order
     boolean lettuceTopping, tomatoTopping, onionTopping, pickleTopping,
             baconTopping, cheeseTopping, avocadoTopping, fried_eggTopping, chickenTopping, pattyTopping,
             beefTopping, breaded_chickenTopping, black_beanTopping, turkeyTopping, grilled_chickenTopping,
             americanTopping, bleuTopping, pepper_jackTopping, swiss_Topping, provoloneTopping,
             white_kaiserTopping, spinach_wrapTopping, flour_wrapTopping, wheat_kaiserTopping, flat_breadTopping, garlic_wrapTopping, gluten_freeTopping;
+
+    //these are all the checkboxes that the user will utilize to create their unique sandwich
     CheckBox lettuce, tomato, onion, pickle, bacon, cheese, avocado, fried_egg, chicken, patty,
             beef, breaded_chicken, black_bean, turkey, grilled_chicken, american, bleu, pepper_jack, swiss, provolone,
             white_kaiser, spinach_wrap, flour_wrap, wheat_kaiser, flat_bread, garlic_wrap, gluten_free;
+
+    /**
+     * The onCreate method does the following:
+     *      1. Utilizes inheritance for the current saved instance of the state.
+     *      2. Establishes the xml content view to be utilized from the layout folder.
+     *      3. Establishes action bar context.
+     *      4. Identifies all values within the xml layout to be filled with appropriate information.
+     *      5. Initializes Paper, which is a key-value pair object for remember me functionality.
+     *      6. Establishes drawer layout context.
+     *      7. Creates an instance of the NavigationView.
+     *      8. Creates an instance of the FloatingActionButton and binds an activity to it.
+     *      9. Adds event listeners for all checkboxes.
+     * @param savedInstanceState stores an instance of saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //see section 1.
         super.onCreate(savedInstanceState);
+
+        //see section 2.
         setContentView(R.layout.activity_build_your_own_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //see section 3.
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Build Your Own");
         setSupportActionBar(toolbar);
 
+        //see section 4.
+        //toppings checkboxes
         lettuce=findViewById(R.id.Lettuce);
         tomato=findViewById(R.id.Tomato);
         onion=findViewById(R.id.Onion);
         pickle=findViewById(R.id.Pickle);
 
+        //extras checkboxes
         bacon=findViewById(R.id.Bacon);
         cheese=findViewById(R.id.Cheese);
         avocado=findViewById(R.id.Avocado);
@@ -50,18 +90,21 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         chicken=findViewById(R.id.Chicken);
         patty=findViewById(R.id.Patty);
 
+        //patties checkboxes
         beef=findViewById(R.id.Beef);
         breaded_chicken=findViewById(R.id.Breaded_Chicken);
         black_bean=findViewById(R.id.Black_Bean);
         turkey=findViewById(R.id.Turkey);
         grilled_chicken=findViewById(R.id.Grilled_Chicken);
 
+        //cheese checkboxes
         american=findViewById(R.id.American);
         bleu=findViewById(R.id.Bleu);
         pepper_jack=findViewById(R.id.Pepper_Jack);
         swiss=findViewById(R.id.Swiss);
         provolone=findViewById(R.id.Provolone);
 
+        //bread checkboxes
         white_kaiser=findViewById(R.id.White_Kaiser);
         spinach_wrap=findViewById(R.id.Spinach_Wrap);
         flour_wrap=findViewById(R.id.Flour_Wrap);
@@ -69,18 +112,25 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         flat_bread=findViewById(R.id.Flat_Bread);
         garlic_wrap=findViewById(R.id.Garlic_Wrap);
         gluten_free=findViewById(R.id.Gluten_Free);
+
+        //see section 5.
         Paper.init(this);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //see section 6.
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        //see section 7.
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        FloatingActionButton fab = findViewById(R.id.heyHey);
+
+        //see section 8.
+        FloatingActionButton fab = findViewById(R.id.buildYourOwnActivityFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { //adds item to cart
                 if (beefTopping || breaded_chickenTopping || black_beanTopping || turkeyTopping || grilled_chickenTopping) {
                     if (white_kaiserTopping || wheat_kaiserTopping || spinach_wrapTopping || flat_breadTopping || flour_wrapTopping || garlic_wrapTopping || gluten_freeTopping) {
                         Order order = new Order("", "Build Your Own", "1", "8.00",
@@ -99,6 +149,8 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
             }
         });
 
+        //see section 8.
+        //the complicated checkboxes are due to the fact that you may only choose on patty, one bread, and one cheese
         beef.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -433,6 +485,7 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
                 }
             }
         });
+        //the simple checkboxes are due to the fact that a user may choose any topping or extra
         lettuce.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -621,37 +674,68 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
         }
 
     }
+
+    /**
+     * The onBackPressed method is generated by default through the NavigationView implementation.
+     * It's purpose is to deal with the back button pressed functionality that is possible with
+     * the NavigationView.
+     */
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
+
+    /**
+     * The onCreateOptionsMenu method is generated by default through the NavigationView
+     * implementation. It's purpose is to create the options menu layout based on the xml and return
+     * return true upon successful creation. It is deactivated in this app's case, therefore base
+     * functionality is called.
+     * @param menu object passed to ensure it binds correctly in the activity
+     * @return confirmation of successful binding of the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
+
+    /**
+     * The onOptionsItemSelected method is generated by default through the NavigationView implemenation.
+     * It's purpose is to create the options menu layout. It is deactivated in this app's case,
+     * therefore base functionality is called.
+     * @param item item to be bound to an event
+     * @return confirmation of successful binding of the options item selected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * The onNavigationItemSelected method is generated by default through the NavigationView
+     * implementation. It's purpose is to create the navigation menu. This app utilizes the
+     * navigation bar to move across various screens and sing out. This functionlity may be
+     * seen in the code below.
+     * @param item item to be bound to an event
+     * @return confirmation of successful binding of the options item selected
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.navigation_menu) {
             Intent intent = new Intent(BuildYourOwnScreenActivity.this, MenuScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_check_out) {
-            Intent intent = new Intent(BuildYourOwnScreenActivity.this, CheckOutActivity.class);
+            Intent intent = new Intent(BuildYourOwnScreenActivity.this, CheckOutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
-            Intent intent = new Intent(BuildYourOwnScreenActivity.this, OrderStatusActivity.class);
+            Intent intent = new Intent(BuildYourOwnScreenActivity.this, OrderStatusScreenActivity.class);
             startActivity(intent);
         }else if (id == R.id.navigation_about) {
             Intent intent = new Intent(BuildYourOwnScreenActivity.this, AboutScreenActivity.class);

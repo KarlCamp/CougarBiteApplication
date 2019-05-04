@@ -1,4 +1,4 @@
-package com.capstone.kcamp.cougarbiteapplication.Global;
+package com.capstone.kcamp.cougarbiteapplication.CommonApplicationGlobals;
 
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.CreditCard;
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Customer;
@@ -15,7 +15,7 @@ import java.util.List;
  * variables across the app, commonly used variables are functions are stored here.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public class Global {
@@ -35,7 +35,7 @@ public class Global {
 
     /**
      * The method statusConversion takes in the numerical status value from customer and employee databases
-     * and converts it to a string in OrderStatus and EmployeeOrderStatus respectively.
+     * and converts it to a string in OrderStatus and EmployeeOrderStatusScreenActivity respectively.
      *
      * @param numericalStatus is a string value of the numerical representation of current status stored in Firebase.
      * @return the word representation of the numerical value of the string.

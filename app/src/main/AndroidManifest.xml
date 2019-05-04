@@ -11,37 +11,40 @@
         tools:replace="android:icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreditCardScreenActivity"/>
+        <activity android:name=".CustomerApplicationClasses.CreditCardScreenActivity"/>
         <activity
-            android:name=".BuildYourOwnScreenActivity"
+            android:name=".CustomerApplicationClasses.BuildYourOwnScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".CustomizeSandwichesScreenActivity"
+            android:name=".CustomerApplicationClasses.CustomizeSandwichesScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".PaymentMethodActivity"
+            android:name=".CustomerApplicationClasses.PaymentMethodScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".EmployeeOrderStatus"
+            android:name=".EmployeeApplicationClasses.EmployeeOrderStatusScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".OrderStatusActivity"
+            android:name=".CustomerApplicationClasses.OrderStatusScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".CheckOutActivity"
+            android:name=".CustomerApplicationClasses.CheckOutScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".CustomizeActivity"
+            android:name=".CustomerApplicationClasses.ItemDescriptionScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".FoodScreenActivity"
+            android:name=".CustomerApplicationClasses.FoodScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".MenuScreenActivity"
+            android:name=".CustomerApplicationClasses.MenuScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".AboutScreenActivity"/>
-        <activity android:name=".EmployeeSignInScreenActivity"/>
-        <activity android:name=".CustomerSignInScreenActivity"/>
+        <activity
+            android:name=".AboutScreenActivity" />
+        <activity
+            android:name=".EmployeeApplicationClasses.EmployeeSignInScreenActivity" />
+        <activity
+            android:name=".CustomerApplicationClasses.CustomerSignInScreenActivity" />
         <activity android:name=".StartScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,7 +12,7 @@ import com.capstone.kcamp.cougarbiteapplication.R;
  * appropriate information regarding a food item.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public class ItemScreenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

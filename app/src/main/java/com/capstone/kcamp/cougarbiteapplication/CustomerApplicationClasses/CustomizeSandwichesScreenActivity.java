@@ -1,6 +1,7 @@
-package com.capstone.kcamp.cougarbiteapplication;
+package com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +16,11 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.capstone.kcamp.cougarbiteapplication.AboutScreenActivity;
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.ItemCategory;
 import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Order;
-import com.capstone.kcamp.cougarbiteapplication.Global.Global;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationGlobals.Global;
+import com.capstone.kcamp.cougarbiteapplication.R;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,52 +30,90 @@ import com.google.firebase.database.ValueEventListener;
 
 import io.paperdb.Paper;
 
-public class CustomizeSandwichesScreenActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    String foodId="";
-    String foodName="";
-    TextView food_name, food_price, food_description, food_nutrition;
-    ElegantNumberButton numberButton;
-    FloatingActionButton btnAdd;
-    ItemCategory foodItem;
+/**
+ * The CustomizeSandwichesScreenActivity is the activity that allows a customer to customize their
+ * sandwich preferences. All additions are optional and the user may choose more than one option
+ * This activity may be accessed through choosing a sandwich from the recycler view within the
+ * Sandwiches category.
+ *
+ * @author Karl Camp
+ * @version 1.0.0
+ * @since 2019-05-04
+ */
+public class CustomizeSandwichesScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    DatabaseReference databaseReference; //database reference to be utilized
+    String foodId=""; //storing id to retrieve food information
+    String foodName=""; //storing name of food
+    TextView food_name, food_price, food_description, food_nutrition; //text views to be filled
+    ElegantNumberButton numberButton; //button that allows addition and subtraction of desired quantity
+    ItemCategory foodItem; //object ot store foodItem
+    //these are all the available customizations that can be applied to a Sandwich
     boolean lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
             fried_eggTopping, chickenTopping, pattyTopping;
+
+    /**
+     * The onCreate method does the following:
+     *      1. Utilizes inheritance for the current saved instance of the state.
+     *      2. Establishes the xml content view to be utilized from the layout folder.
+     *      3. Establishes action bar context.
+     *      4. Identifies all values within the xml layout to be filled with appropriate information.
+     *      5. Establishes references to the Firebase database.
+     *      6. Initializes Paper, which is a key-value pair object for remember me functionality.
+     *      7. Establishes drawer layout context.
+     *      8. Creates an instance of the NavigationView.
+     *      9. Retrieves food item id to be utilized as a key.
+     *      10. Binds an event to the FloatingActionButton.
+     * @param savedInstanceState stores an instance of saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //see section 1.
         super.onCreate(savedInstanceState);
+
+        //see section 2.
         setContentView(R.layout.activity_customize_sandwiches_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //see section 3.
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Description");
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        //see section 4.
+        numberButton = findViewById(R.id.number_button);
+        food_description = findViewById(R.id.food_description);
+        food_name = findViewById(R.id.food_name);
+        food_price = findViewById(R.id.food_price);
+        food_nutrition = findViewById(R.id.food_nutrition);
+
+        //see section 5.
+        databaseReference = FirebaseDatabase.getInstance().getReference("fooditems");
+
+        //see section 6.
+        Paper.init(this);
+
+        //see section 7.
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        //see section 8.
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("fooditems");
-        final DatabaseReference orders=firebaseDatabase.getReference("orders");
-
-        numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
-        food_description = (TextView)findViewById(R.id.food_description);
-        food_name = (TextView) findViewById(R.id.food_name);
-        food_price = (TextView) findViewById(R.id.food_price);
-        food_nutrition = (TextView) findViewById(R.id.food_nutrition);
-        Paper.init(this);
+        //see section 9.
         if(getIntent() !=null) {
             foodId=getIntent().getStringExtra("foodIdentificationNumber");
             if(!foodId.isEmpty()){
                 getDetailFood(foodId);
             }
         }
-        FloatingActionButton fab = findViewById(R.id.heyHey);
+
+        //see section 10.
+        FloatingActionButton fab = findViewById(R.id.customizeSandwichesScreenActivityFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { //adds order to the cart
                     Order order = new Order(foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice(),
                             lettuceTopping, tomatoTopping, onionTopping, pickleTopping, baconTopping, cheeseTopping, avocadoTopping,
                             fried_eggTopping, chickenTopping, pattyTopping, false, false, false, false, false,
@@ -82,11 +123,19 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
             }
         });
     }
+
+    /**
+     * The getDetailFood method does the following:
+     *      1. Retrieves details about a food by querying the database using the foodId value.
+     *      2. Populates the view holder by finding appropriate values based on id in xml.
+     * @param foodId String that is the unique identifier of a food item
+     */
     private void getDetailFood(String foodId) {
         databaseReference.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 foodItem = dataSnapshot.getValue(ItemCategory.class);
+                assert foodItem != null;
                 food_price.setText(foodItem.getPrice());
                 food_name.setText(foodItem.getText());
                 foodName=foodItem.getText();
@@ -94,11 +143,18 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
                 food_nutrition.setText(foodItem.getNutritionalValue());
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
+
+    /**
+     * The method onCheckboxClicked is a generic listener that activates when a check box
+     * within a view is clicked. In this case it just toggles between checked and unchecked
+     * values, updating the booleans passed to the order object.
+     * @param view view holder of the checkbox
+     */
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
         switch(view.getId()) {
@@ -185,37 +241,67 @@ public class CustomizeSandwichesScreenActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * The onBackPressed method is generated by default through the NavigationView implementation.
+     * It's purpose is to deal with the back button pressed functionality that is possible with
+     * the NavigationView.
+     */
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
+
+    /**
+     * The onCreateOptionsMenu method is generated by default through the NavigationView
+     * implementation. It's purpose is to create the options menu layout based on the xml and return
+     * return true upon successful creation. It is deactivated in this app's case, therefore base
+     * functionality is called.
+     * @param menu object passed to ensure it binds correctly in the activity
+     * @return confirmation of successful binding of the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
+
+    /**
+     * The onOptionsItemSelected method is generated by default through the NavigationView implemenation.
+     * It's purpose is to create the options menu layout. It is deactivated in this app's case,
+     * therefore base functionality is called.
+     * @param item item to be bound to an event
+     * @return confirmation of successful binding of the options item selected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * The onNavigationItemSelected method is generated by default through the NavigationView
+     * implementation. It's purpose is to create the navigation menu. This app utilizes the
+     * navigation bar to move across various screens and sing out. This functionlity may be
+     * seen in the code below.
+     * @param item item to be bound to an event
+     * @return confirmation of successful binding of the options item selected
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.navigation_menu) {
             Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, MenuScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_check_out) {
-            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, CheckOutActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, CheckOutScreenActivity.class);
             startActivity(intent);
         } else if (id == R.id.navigation_order_status) {
-            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, OrderStatusActivity.class);
+            Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, OrderStatusScreenActivity.class);
             startActivity(intent);
         }else if (id == R.id.navigation_about) {
             Intent intent = new Intent(CustomizeSandwichesScreenActivity.this, AboutScreenActivity.class);

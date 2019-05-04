@@ -12,12 +12,12 @@ import com.capstone.kcamp.cougarbiteapplication.R;
  * appropriate information regarding an order employee side.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public class EmployeeOrderViewHolder extends RecyclerView.ViewHolder  {
 
-    public TextView txtOrderId, txtOrderStatus, txtOrderPhone, txtOrderTime, txtOrderDetails; //text views to be filled by id's as presented in the xml
+    public TextView txtOrderId, txtOrderStatus, txtOrderPhone, txtOrderHNumber, txtOrderTime, txtOrderDetails; //text views to be filled by id's as presented in the xml
     public ImageView deleteImage, upArrowImage, upsideDownArrowImage; //image views to be filled by id's as presented in the xml
 
     //generated appropriate constructor utilizing inheritance
@@ -28,6 +28,7 @@ public class EmployeeOrderViewHolder extends RecyclerView.ViewHolder  {
         txtOrderId = itemView.findViewById(R.id.employee_order_id);
         txtOrderStatus = itemView.findViewById(R.id.employee_order_status);
         txtOrderPhone = itemView.findViewById(R.id.employee_order_phone);
+        txtOrderHNumber = itemView.findViewById(R.id.employee_order_hNumber);
         txtOrderDetails = itemView.findViewById(R.id.employee_order_details);
         deleteImage = itemView.findViewById(R.id.employee_item_remove);
         upArrowImage=itemView.findViewById(R.id.up_arrow);

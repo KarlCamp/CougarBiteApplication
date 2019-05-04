@@ -13,7 +13,7 @@ import com.capstone.kcamp.cougarbiteapplication.R;
  * appropriate information regarding an order.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public class CartViewHolder extends RecyclerView.ViewHolder {

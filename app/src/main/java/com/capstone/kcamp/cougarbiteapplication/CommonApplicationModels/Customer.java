@@ -7,7 +7,7 @@ package com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels;
  * Stores basic information regarding a customer.
  *
  * @author Karl Camp
- * @version 1.0
+ * @version 1.0.0
  * @since 2019-05-04
  */
 public class Customer {

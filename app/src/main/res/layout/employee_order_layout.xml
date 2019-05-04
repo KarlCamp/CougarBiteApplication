@@ -53,6 +53,16 @@
                 android:textStyle="italic" />
 
             <TextView
+                android:id="@+id/employee_order_hNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:text="123456789"
+                android:textAllCaps="true"
+                android:textStyle="italic" />
+
+            <TextView
                 android:id="@+id/employee_order_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -8,7 +8,7 @@
     android:background="@drawable/cougarbitebackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_check_out"
-    tools:context="com.capstone.kcamp.cougarbiteapplication.CheckOutActivity">
+    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses.CheckOutScreenActivity">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/cougarbitebackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomizeSandwichesScreenActivity"
+    tools:context="com.capstone.kcamp.cougarbiteapplication.CustomerApplicationClasses.CustomizeSandwichesScreenActivity"
     tools:showIn="@layout/app_bar_food_screen">
 
     <ScrollView
