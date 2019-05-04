@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Model.Customer;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Customer;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,9 +43,9 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (ckbRemember.isChecked()) {
-                    Paper.book().write(Common.HNUMBER_KEY,hNumber.getText().toString());
-                    Paper.book().write(Common.PHONE_KEY,phone.getText().toString());
-                    Paper.book().write(Common.PWD_KEY,password.getText().toString());
+                    Paper.book().write(Global.HNUMBER,hNumber.getText().toString());
+                    Paper.book().write(Global.PHONE,phone.getText().toString());
+                    Paper.book().write(Global.PASSWORD,password.getText().toString());
                 }
                 final ProgressDialog dialog = new ProgressDialog(CustomerSignInScreenActivity.this);
                 dialog.setMessage("Loading...");
@@ -61,7 +61,7 @@ public class CustomerSignInScreenActivity extends AppCompatActivity {
                             if (customer.getPassword().equals(password.getText().toString())) {
                                 if (phone.getText().toString().length() == 12) {
                                     if (customer.getPhone().equals(phone.getText().toString())) {
-                                        Common.currentCustomer = customer;
+                                        Global.presentCustomer = customer;
                                         Intent intent = new Intent(CustomerSignInScreenActivity.this, MenuScreenActivity.class);
                                         startActivity(intent);
                                         finish();

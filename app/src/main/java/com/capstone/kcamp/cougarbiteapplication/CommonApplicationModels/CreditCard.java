@@ -1,12 +1,24 @@
-package com.capstone.kcamp.cougarbiteapplication.Model;
+package com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels;
 
+/**
+ * The CreditCard class models the credit card object model detailed in Firebase.
+ * In other words, the class is reflective of the JSON object stored in the
+ * database and properly parses object values by having identical parameter names.
+ * Stores basic information regarding a credit card.
+ *
+ * @author Karl Camp
+ * @version 1.0
+ * @since 2019-05-04
+ */
 public class CreditCard {
-    String number;
-    String accountID;
-    String credit;
-    String savings;
-    String name;
-    String cvv;
+    private String number; //stores credit card number
+    private String accountID; //stores accountID
+    private String credit; //stores credit card balance in credit (value used for payments)
+    private String savings; //stores credit card balance in savings
+    private String name; //stores credit card name
+    private String cvv; //stores credit card CVV
+
+    //generated appropriate setters and getters
 
     public String getAccountID() {
         return accountID;
@@ -56,6 +68,8 @@ public class CreditCard {
         this.number = number;
     }
 
+    //generated appropriate constructor initializing all class variables
+
     public CreditCard(String accountID, String credit, String savings, String name, String cvv) {
         this.accountID = accountID;
         this.credit = credit;
@@ -63,5 +77,8 @@ public class CreditCard {
         this.name = name;
         this.cvv = cvv;
     }
+
+    //generated appropriate default constructor
+
     public CreditCard() {}
 }

@@ -15,10 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
-import com.capstone.kcamp.cougarbiteapplication.Model.MenuCategory;
-import com.capstone.kcamp.cougarbiteapplication.Service.ListenOrder;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.MenuScreenViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.ItemClickListener;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.MenuCategory;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.MenuScreenViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,8 +60,6 @@ public class MenuScreenActivity extends AppCompatActivity implements NavigationV
         layout = new LinearLayoutManager(this);
         recView.setLayoutManager(layout);
         fillAdapter();
-        Intent intent = new Intent(MenuScreenActivity.this, ListenOrder.class);
-        startService(intent);
     }
     private void fillAdapter() {
         adapt = new FirebaseRecyclerAdapter<MenuCategory, MenuScreenViewHolder>(MenuCategory.class,R.layout.menu_item, MenuScreenViewHolder.class,ref) {

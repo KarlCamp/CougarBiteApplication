@@ -14,18 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
-import com.capstone.kcamp.cougarbiteapplication.Model.Order;
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Order;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 
 import io.paperdb.Paper;
 
@@ -96,7 +88,7 @@ public class BuildYourOwnScreenActivity extends AppCompatActivity implements Nav
                                 fried_eggTopping, chickenTopping, pattyTopping, beefTopping, breaded_chickenTopping, black_beanTopping, turkeyTopping, grilled_chickenTopping,
                                 americanTopping, bleuTopping, pepper_jackTopping, swiss_Topping, provoloneTopping, white_kaiserTopping, wheat_kaiserTopping, spinach_wrapTopping,
                                 flour_wrapTopping, flat_breadTopping, garlic_wrapTopping, gluten_freeTopping);
-                        Common.cart.add(order);
+                        Global.currentCart.add(order);
                         Toast.makeText(BuildYourOwnScreenActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(BuildYourOwnScreenActivity.this, "Error: Pick one bread.", Toast.LENGTH_SHORT).show();

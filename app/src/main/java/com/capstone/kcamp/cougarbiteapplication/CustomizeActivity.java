@@ -13,9 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
-import com.capstone.kcamp.cougarbiteapplication.Model.Order;
+
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.ItemCategory;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Order;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,7 +35,7 @@ public class CustomizeActivity extends AppCompatActivity
     TextView food_name, food_price, food_description, food_nutrition;
     ElegantNumberButton numberButton;
     FloatingActionButton btnAdd;
-    FoodItem foodItem;
+    ItemCategory foodItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,7 @@ public class CustomizeActivity extends AppCompatActivity
                     Order order= new Order (foodId, foodItem.getText(), numberButton.getNumber(), foodItem.getPrice(),
                             false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
                             false, false, false, false, false, false, false, false, false, false, false);
-                    Common.cart.add(order);
+                Global.currentCart.add(order);
                     Toast.makeText(CustomizeActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
         });
@@ -78,7 +79,7 @@ public class CustomizeActivity extends AppCompatActivity
         databaseReference.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                foodItem = dataSnapshot.getValue(FoodItem.class);
+                foodItem = dataSnapshot.getValue(ItemCategory.class);
                 food_price.setText(foodItem.getPrice());
                 food_name.setText(foodItem.getText());
                 foodName=foodItem.getText();

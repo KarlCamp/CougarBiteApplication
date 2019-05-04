@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Model.CreditCard;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.CreditCard;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,9 +41,9 @@ public class CreditCardScreenActivity extends AppCompatActivity {
         referenceemployee=FirebaseDatabase.getInstance().getReference("employeerequests");
         referencecustomer=FirebaseDatabase.getInstance().getReference("customerrequests");
 
-        String number = Paper.book().read(Common.CREDIT_CARD_NUMBER);
-        String name = Paper.book().read(Common.CREDIT_CARD_NAME);
-        String cvv = Paper.book().read(Common.CREDIT_CARD_CVV);
+        String number = Paper.book().read(Global.CARD_NUMBER);
+        String name = Paper.book().read(Global.CARD_NAME);
+        String cvv = Paper.book().read(Global.CARD_CVV);
         if (number != null && name != null && cvv != null) {
             if(!number.isEmpty() && !name.isEmpty() && !cvv.isEmpty()) {
                 cardNumber.setText(number);
@@ -55,9 +55,9 @@ public class CreditCardScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (ckbRemember.isChecked()) {
-                    Paper.book().write(Common.CREDIT_CARD_NUMBER,cardNumber.getText().toString());
-                    Paper.book().write(Common.CREDIT_CARD_NAME,creditCardName.getText().toString());
-                    Paper.book().write(Common.CREDIT_CARD_CVV, CVV.getText().toString());
+                    Paper.book().write(Global.CARD_NUMBER,cardNumber.getText().toString());
+                    Paper.book().write(Global.CARD_NAME,creditCardName.getText().toString());
+                    Paper.book().write(Global.CARD_CVV, CVV.getText().toString());
                 }
                 final ProgressDialog dialog = new ProgressDialog(CreditCardScreenActivity.this);
                 dialog.setMessage("Loading...");
@@ -74,16 +74,16 @@ public class CreditCardScreenActivity extends AppCompatActivity {
                                 if (creditCard.getName().equals(creditCardName.getText().toString())) {
                                     if (CVV.getText().toString().length() == 3) {
                                         if (creditCard.getCvv().equals(CVV.getText().toString())) {
-                                            Common.creditCard = creditCard;
-                                            if (Double.parseDouble(creditCard.getCredit())-Common.total>=0) {
-                                                double value = Double.parseDouble(creditCard.getCredit())-Common.total;
-                                                ref.child(Common.creditCard.getNumber()).child("credit").setValue(""+Common.df.format(value));
+                                            Global.card = creditCard;
+                                            if (Double.parseDouble(creditCard.getCredit())-Global.currentTotal>=0) {
+                                                double value = Double.parseDouble(creditCard.getCredit())-Global.currentTotal;
+                                                ref.child(Global.card.getNumber()).child("credit").setValue(""+Global.formatter.format(value));
                                                 String key=String.valueOf(System.currentTimeMillis());
-                                                referenceemployee.child(key).setValue(Common.request);
-                                                referencecustomer.child(key).setValue(Common.request);
-                                                Common.cart.clear();
-                                                Common.prices.clear();
-                                                Common.total=0;
+                                                referenceemployee.child(key).setValue(Global.orderRequest);
+                                                referencecustomer.child(key).setValue(Global.orderRequest);
+                                                Global.currentCart.clear();
+                                                Global.currentCartPrices.clear();
+                                                Global.currentTotal=0;
                                             } else {
                                                 Toast.makeText(CreditCardScreenActivity.this, "Error: Insufficient funds to process transaction!", Toast.LENGTH_LONG).show();
                                             }

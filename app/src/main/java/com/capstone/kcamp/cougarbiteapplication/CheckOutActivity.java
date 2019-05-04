@@ -19,9 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Model.Request;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.CartAdapter;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Request;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.CartAdapter;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.text.NumberFormat;
@@ -71,7 +71,7 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Common.cart.isEmpty()) {
+                if (Global.currentCart.isEmpty()) {
                     Toast.makeText(CheckOutActivity.this, "Error: Cart is empty.", Toast.LENGTH_LONG).show();
                 } else {
                     showAlertDialog();
@@ -98,13 +98,13 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
             public void onClick(DialogInterface dialog, int which) {
                 if ((edtTime.getHour()>=11) && (edtTime.getHour()<23)) {
                     String orderDetails = createOrderDetails();
-                    Common.request = new Request(
-                            Common.currentCustomer.getPhone(),
-                            Common.currentCustomer.getHNumber(),
+                    Global.orderRequest = new Request(
+                            Global.presentCustomer.getPhone(),
+                            Global.presentCustomer.getHNumber(),
                             "" + edtTime.getHour() + ":" + (edtTime.getMinute()<10 ? "0":"")+edtTime.getMinute(),
                             orderDetails,
                             txtTotalPrice.getText().toString(),
-                            Common.cart
+                            Global.currentCart
                     );
                     Toast.makeText(CheckOutActivity.this, "Cart processed!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CheckOutActivity.this, PaymentMethodActivity.class);
@@ -124,144 +124,144 @@ public class CheckOutActivity extends AppCompatActivity implements NavigationVie
         alertDialog.show();
     }
     private void loadListFood() {
-        CartAdapter adapter = new CartAdapter(Common.cart, this);
+        CartAdapter adapter = new CartAdapter(Global.currentCart, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Common.total = 0;
-        for (int position = 0; position < Common.cart.size(); position++) {
-            double price=(Double.parseDouble(Common.cart.get(position).getPrice())) * (Double.parseDouble(Common.cart.get(position).getQuantity()));
-            if (Common.cart.get(position).isBacon() || Common.cart.get(position).isAvocado()
-                    ||Common.cart.get(position).isCheese() ||Common.cart.get(position).isChicken()
-                    ||Common.cart.get(position).isPatty() ||Common.cart.get(position).isFried_egg()) {
-                if (Common.cart.get(position).isBacon()) {
-                    price+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+        Global.currentTotal = 0;
+        for (int position = 0; position < Global.currentCart.size(); position++) {
+            double price=(Double.parseDouble(Global.currentCart.get(position).getPrice())) * (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
+            if (Global.currentCart.get(position).isBacon() || Global.currentCart.get(position).isAvocado()
+                    ||Global.currentCart.get(position).isCheese() ||Global.currentCart.get(position).isChicken()
+                    ||Global.currentCart.get(position).isPatty() ||Global.currentCart.get(position).isFried_egg()) {
+                if (Global.currentCart.get(position).isBacon()) {
+                    price+=1.59* (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
                 }
-                if (Common.cart.get(position).isAvocado()) {
-                    price+=1.59* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                if (Global.currentCart.get(position).isAvocado()) {
+                    price+=1.59* (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
                 }
-                if (Common.cart.get(position).isCheese()) {
-                    price+=0.89* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                if (Global.currentCart.get(position).isCheese()) {
+                    price+=0.89* (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
                 }
-                if (Common.cart.get(position).isPatty()) {
-                    price+=2.19* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                if (Global.currentCart.get(position).isPatty()) {
+                    price+=2.19* (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
                 }
-                if (Common.cart.get(position).isChicken()) {
-                    price+=2.49* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                if (Global.currentCart.get(position).isChicken()) {
+                    price+=2.49* (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
                 }
-                if (Common.cart.get(position).isFried_egg()) {
-                    price+=1.29* (Double.parseDouble(Common.cart.get(position).getQuantity()));
+                if (Global.currentCart.get(position).isFried_egg()) {
+                    price+=1.29* (Double.parseDouble(Global.currentCart.get(position).getQuantity()));
                 }
             }
-            Common.total+=price;
-            Common.prices.add(price);
+            Global.currentTotal+=price;
+            Global.currentCartPrices.add(price);
         }
         Locale locale = new Locale("en", "US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        txtTotalPrice.setText(fmt.format(Common.total));
+        txtTotalPrice.setText(fmt.format(Global.currentTotal));
     }
     private String createOrderDetails() {
         String orderDetails="";
-        for (int position = 0; position < Common.cart.size(); position++) {
-            orderDetails=orderDetails+Common.cart.get(position).getProductname()+" x "+Common.cart.get(position).getQuantity()+":";
-            if (Common.cart.get(position).isLettuce() || Common.cart.get(position).isTomato()
-                    || Common.cart.get(position).isOnion() || Common.cart.get(position).isPickle()
-                    || Common.cart.get(position).isBeef() || Common.cart.get(position).isBreaded_chicken()
-                    || Common.cart.get(position).isBlack_bean() || Common.cart.get(position).isTurkey()
-                    || Common.cart.get(position).isGrilled_chicken() || Common.cart.get(position).isAmerican()
-                    || Common.cart.get(position).isBleu() || Common.cart.get(position).isPepper_jack()
-                    || Common.cart.get(position).isSwiss() || Common.cart.get(position).isProvolone()
-                    || Common.cart.get(position).isWhite_kaiser() || Common.cart.get(position).isSpinach_wrap()
-                    || Common.cart.get(position).isFlour_wrap() || Common.cart.get(position).isWheat_kaiser()
-                    || Common.cart.get(position).isFlat_bread() || Common.cart.get(position).isGarlic_wrap()
-                    || Common.cart.get(position).isGluten_free()) {
-                if (Common.cart.get(position).isBeef()) {
+        for (int position = 0; position < Global.currentCart.size(); position++) {
+            orderDetails=orderDetails+Global.currentCart.get(position).getProductname()+" x "+Global.currentCart.get(position).getQuantity()+":";
+            if (Global.currentCart.get(position).isLettuce() || Global.currentCart.get(position).isTomato()
+                    || Global.currentCart.get(position).isOnion() || Global.currentCart.get(position).isPickle()
+                    || Global.currentCart.get(position).isBeef() || Global.currentCart.get(position).isBreaded_chicken()
+                    || Global.currentCart.get(position).isBlack_bean() || Global.currentCart.get(position).isTurkey()
+                    || Global.currentCart.get(position).isGrilled_chicken() || Global.currentCart.get(position).isAmerican()
+                    || Global.currentCart.get(position).isBleu() || Global.currentCart.get(position).isPepper_jack()
+                    || Global.currentCart.get(position).isSwiss() || Global.currentCart.get(position).isProvolone()
+                    || Global.currentCart.get(position).isWhite_kaiser() || Global.currentCart.get(position).isSpinach_wrap()
+                    || Global.currentCart.get(position).isFlour_wrap() || Global.currentCart.get(position).isWheat_kaiser()
+                    || Global.currentCart.get(position).isFlat_bread() || Global.currentCart.get(position).isGarlic_wrap()
+                    || Global.currentCart.get(position).isGluten_free()) {
+                if (Global.currentCart.get(position).isBeef()) {
                     orderDetails=orderDetails + " beef,";
                 }
-                if (Common.cart.get(position).isBreaded_chicken()) {
+                if (Global.currentCart.get(position).isBreaded_chicken()) {
                     orderDetails=orderDetails + " breaded chicken,";
                 }
-                if (Common.cart.get(position).isBlack_bean()) {
+                if (Global.currentCart.get(position).isBlack_bean()) {
                     orderDetails=orderDetails + " black bean,";
                 }
-                if (Common.cart.get(position).isTurkey()) {
+                if (Global.currentCart.get(position).isTurkey()) {
                     orderDetails=orderDetails + " turkey,";
                 }
-                if (Common.cart.get(position).isGrilled_chicken()) {
+                if (Global.currentCart.get(position).isGrilled_chicken()) {
                     orderDetails=orderDetails + " grilled chicken,";
                 }
-                if (Common.cart.get(position).isAmerican()) {
+                if (Global.currentCart.get(position).isAmerican()) {
                     orderDetails=orderDetails + " american,";
                 }
-                if (Common.cart.get(position).isBleu()) {
+                if (Global.currentCart.get(position).isBleu()) {
                     orderDetails=orderDetails + " bleu,";
                 }
-                if (Common.cart.get(position).isPepper_jack()) {
+                if (Global.currentCart.get(position).isPepper_jack()) {
                     orderDetails=orderDetails + " pepper jack,";
                 }
-                if (Common.cart.get(position).isSwiss()) {
+                if (Global.currentCart.get(position).isSwiss()) {
                     orderDetails=orderDetails + " swiss,";
                 }
-                if (Common.cart.get(position).isProvolone()) {
+                if (Global.currentCart.get(position).isProvolone()) {
                     orderDetails=orderDetails + " provolone,";
                 }
-                if (Common.cart.get(position).isWhite_kaiser()) {
+                if (Global.currentCart.get(position).isWhite_kaiser()) {
                     orderDetails=orderDetails + " white kaiser,";
                 }
-                if (Common.cart.get(position).isSpinach_wrap()) {
+                if (Global.currentCart.get(position).isSpinach_wrap()) {
                     orderDetails=orderDetails + " spinach wrap,";
                 }
-                if (Common.cart.get(position).isFlour_wrap()) {
+                if (Global.currentCart.get(position).isFlour_wrap()) {
                     orderDetails=orderDetails + " flour wrap,";
                 }
-                if (Common.cart.get(position).isWheat_kaiser()) {
+                if (Global.currentCart.get(position).isWheat_kaiser()) {
                     orderDetails=orderDetails + " wheat kaiser,";
                 }
-                if (Common.cart.get(position).isFlat_bread()) {
+                if (Global.currentCart.get(position).isFlat_bread()) {
                     orderDetails=orderDetails + " flat bread,";
                 }
-                if (Common.cart.get(position).isGarlic_wrap()) {
+                if (Global.currentCart.get(position).isGarlic_wrap()) {
                     orderDetails=orderDetails + " garlic wrap,";
                 }
-                if (Common.cart.get(position).isGluten_free()) {
+                if (Global.currentCart.get(position).isGluten_free()) {
                     orderDetails=orderDetails + " gluten free,";
                 }
-                if (Common.cart.get(position).isLettuce()) {
+                if (Global.currentCart.get(position).isLettuce()) {
                     orderDetails=orderDetails + " lettuce,";
                 }
-                if (Common.cart.get(position).isTomato()) {
+                if (Global.currentCart.get(position).isTomato()) {
                     orderDetails=orderDetails + " tomato,";
                 }
-                if (Common.cart.get(position).isOnion()) {
+                if (Global.currentCart.get(position).isOnion()) {
                     orderDetails=orderDetails + " onion,";
                 }
-                if (Common.cart.get(position).isPickle()) {
+                if (Global.currentCart.get(position).isPickle()) {
                     orderDetails=orderDetails + " pickle,";
                 }
             }
-            if (Common.cart.get(position).isBacon() || Common.cart.get(position).isAvocado()
-                    || Common.cart.get(position).isCheese() || Common.cart.get(position).isChicken()
-                    || Common.cart.get(position).isPatty() || Common.cart.get(position).isFried_egg()) {
-                if (Common.cart.get(position).isBacon()) {
+            if (Global.currentCart.get(position).isBacon() || Global.currentCart.get(position).isAvocado()
+                    || Global.currentCart.get(position).isCheese() || Global.currentCart.get(position).isChicken()
+                    || Global.currentCart.get(position).isPatty() || Global.currentCart.get(position).isFried_egg()) {
+                if (Global.currentCart.get(position).isBacon()) {
                     orderDetails=orderDetails + " bacon,";
                 }
-                if (Common.cart.get(position).isAvocado()) {
+                if (Global.currentCart.get(position).isAvocado()) {
                     orderDetails=orderDetails + " avocado,";
                 }
-                if (Common.cart.get(position).isCheese()) {
+                if (Global.currentCart.get(position).isCheese()) {
                     orderDetails=orderDetails + " extra cheese,";
                 }
-                if (Common.cart.get(position).isPatty()) {
+                if (Global.currentCart.get(position).isPatty()) {
                     orderDetails=orderDetails + " extra patty,";
                 }
-                if (Common.cart.get(position).isChicken()) {
+                if (Global.currentCart.get(position).isChicken()) {
                     orderDetails=orderDetails + " chicken,";
                 }
-                if (Common.cart.get(position).isFried_egg()) {
+                if (Global.currentCart.get(position).isFried_egg()) {
                     orderDetails=orderDetails + " fried egg,";
                 }
             }
             orderDetails=orderDetails.substring(0, orderDetails.length() - 1);
-            if (!(position==Common.cart.size()-1)) {
+            if (!(position==Global.currentCart.size()-1)) {
                 orderDetails = orderDetails + "\n\n";
             }
         }

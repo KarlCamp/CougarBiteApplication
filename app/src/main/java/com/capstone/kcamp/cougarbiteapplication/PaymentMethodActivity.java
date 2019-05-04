@@ -2,20 +2,13 @@ package com.capstone.kcamp.cougarbiteapplication;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -54,26 +47,26 @@ public class PaymentMethodActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Common.cart.isEmpty() && Common.total <= 0) {
+                if (Global.currentCart.isEmpty() && Global.currentTotal <= 0) {
                     Toast.makeText(PaymentMethodActivity.this, "Error: Cart is empty!", Toast.LENGTH_LONG).show();
                 } else {
                     if (isMeals) {
-                        if (Integer.parseInt(Common.currentCustomer.getMeals()) * 5 - Common.total >= 0) {
+                        if (Integer.parseInt(Global.presentCustomer.getMeals()) * 5 - Global.currentTotal >= 0) {
                             int value = 0;
-                            Double numberOfMeals = Common.total / 5;
-                            if (Common.total % 5 == 0) {
-                                value = Integer.parseInt(Common.currentCustomer.getMeals()) - (numberOfMeals.intValue());
+                            Double numberOfMeals = Global.currentTotal / 5;
+                            if (Global.currentTotal % 5 == 0) {
+                                value = Integer.parseInt(Global.presentCustomer.getMeals()) - (numberOfMeals.intValue());
                             } else {
-                                value = Integer.parseInt(Common.currentCustomer.getMeals()) - ((numberOfMeals.intValue()) + 1);
+                                value = Integer.parseInt(Global.presentCustomer.getMeals()) - ((numberOfMeals.intValue()) + 1);
                             }
-                            customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
-                            Common.currentCustomer.setMeals("" + value);
+                            customer.child(Global.presentCustomer.getHNumber()).child("meals").setValue("" + value);
+                            Global.presentCustomer.setMeals("" + value);
                             String key=String.valueOf(System.currentTimeMillis());
-                            referenceemployee.child(key).setValue(Common.request);
-                            referencecustomer.child(key).setValue(Common.request);
-                            Common.cart.clear();
-                            Common.prices.clear();
-                            Common.total = 0;
+                            referenceemployee.child(key).setValue(Global.orderRequest);
+                            referencecustomer.child(key).setValue(Global.orderRequest);
+                            Global.currentCart.clear();
+                            Global.currentCartPrices.clear();
+                            Global.currentTotal = 0;
                             Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(PaymentMethodActivity.this, "Error: You are short on meals!", Toast.LENGTH_LONG).show();
@@ -81,16 +74,16 @@ public class PaymentMethodActivity extends AppCompatActivity {
                             pay.setEnabled(false);
                         }
                     } else if (isCash) {
-                        if (Double.parseDouble(Common.currentCustomer.getCash()) - Common.total >= 0) {
-                            double newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
-                            customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
-                            Common.currentCustomer.setCash("" + Common.df.format(newTotal));
+                        if (Double.parseDouble(Global.presentCustomer.getCash()) - Global.currentTotal >= 0) {
+                            double newTotal = Double.parseDouble(Global.presentCustomer.getCash()) - Global.currentTotal;
+                            customer.child(Global.presentCustomer.getHNumber()).child("cash").setValue("" + Global.formatter.format(newTotal));
+                            Global.presentCustomer.setCash("" + Global.formatter.format(newTotal));
                             String key=String.valueOf(System.currentTimeMillis());
-                            referenceemployee.child(key).setValue(Common.request);
-                            referencecustomer.child(key).setValue(Common.request);
-                            Common.cart.clear();
-                            Common.prices.clear();
-                            Common.total = 0;
+                            referenceemployee.child(key).setValue(Global.orderRequest);
+                            referencecustomer.child(key).setValue(Global.orderRequest);
+                            Global.currentCart.clear();
+                            Global.currentCartPrices.clear();
+                            Global.currentTotal = 0;
                             Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(PaymentMethodActivity.this, "Error: You are short on cougar cash!", Toast.LENGTH_LONG).show();
@@ -98,48 +91,48 @@ public class PaymentMethodActivity extends AppCompatActivity {
                             pay.setEnabled(false);
                         }
                     } else if (isBoth) {
-                        if ((Double.parseDouble(Common.currentCustomer.getCash()) + Integer.parseInt(Common.currentCustomer.getMeals()) * 5) - Common.total >= 0) {
-                            if (Integer.parseInt(Common.currentCustomer.getMeals()) * 5 - Common.total >= 0) {
+                        if ((Double.parseDouble(Global.presentCustomer.getCash()) + Integer.parseInt(Global.presentCustomer.getMeals()) * 5) - Global.currentTotal >= 0) {
+                            if (Integer.parseInt(Global.presentCustomer.getMeals()) * 5 - Global.currentTotal >= 0) {
                                 int value = 0;
                                 double newTotal = 0;
-                                Double numberOfMeals = Common.total / 5;
-                                if (Common.total % 5 == 0) {
-                                    value = Integer.parseInt(Common.currentCustomer.getMeals()) - (numberOfMeals.intValue());
+                                Double numberOfMeals = Global.currentTotal / 5;
+                                if (Global.currentTotal % 5 == 0) {
+                                    value = Integer.parseInt(Global.presentCustomer.getMeals()) - (numberOfMeals.intValue());
                                 } else {
-                                    value = Integer.parseInt(Common.currentCustomer.getMeals()) - ((numberOfMeals.intValue()));
-                                    Common.total = Common.total - (numberOfMeals.intValue() * 5);
-                                    if (Double.parseDouble(Common.currentCustomer.getCash()) - Common.total >= 0) {
-                                        newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
+                                    value = Integer.parseInt(Global.presentCustomer.getMeals()) - ((numberOfMeals.intValue()));
+                                    Global.currentTotal = Global.currentTotal - (numberOfMeals.intValue() * 5);
+                                    if (Double.parseDouble(Global.presentCustomer.getCash()) - Global.currentTotal >= 0) {
+                                        newTotal = Double.parseDouble(Global.presentCustomer.getCash()) - Global.currentTotal;
                                     } else {
                                         value--;
                                     }
                                 }
-                                customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
-                                customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + newTotal);
-                                Common.currentCustomer.setCash("" + newTotal);
-                                Common.currentCustomer.setMeals("" + value);
+                                customer.child(Global.presentCustomer.getHNumber()).child("meals").setValue("" + value);
+                                customer.child(Global.presentCustomer.getHNumber()).child("cash").setValue("" + newTotal);
+                                Global.presentCustomer.setCash("" + newTotal);
+                                Global.presentCustomer.setMeals("" + value);
                                 String key=String.valueOf(System.currentTimeMillis());
-                                referenceemployee.child(key).setValue(Common.request);
-                                referencecustomer.child(key).setValue(Common.request);
-                                Common.cart.clear();
-                                Common.prices.clear();
-                                Common.total = 0;
+                                referenceemployee.child(key).setValue(Global.orderRequest);
+                                referencecustomer.child(key).setValue(Global.orderRequest);
+                                Global.currentCart.clear();
+                                Global.currentCartPrices.clear();
+                                Global.currentTotal = 0;
                                 Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                             } else {
                                 int value = 0;
                                 double newTotal = 0;
-                                Common.total = Common.total - Integer.parseInt(Common.currentCustomer.getMeals()) * 5;
-                                newTotal = Double.parseDouble(Common.currentCustomer.getCash()) - Common.total;
-                                customer.child(Common.currentCustomer.getHNumber()).child("meals").setValue("" + value);
-                                customer.child(Common.currentCustomer.getHNumber()).child("cash").setValue("" + Common.df.format(newTotal));
-                                Common.currentCustomer.setCash("" + Common.df.format(newTotal));
-                                Common.currentCustomer.setMeals("" + value);
+                                Global.currentTotal = Global.currentTotal - Integer.parseInt(Global.presentCustomer.getMeals()) * 5;
+                                newTotal = Double.parseDouble(Global.presentCustomer.getCash()) - Global.currentTotal;
+                                customer.child(Global.presentCustomer.getHNumber()).child("meals").setValue("" + value);
+                                customer.child(Global.presentCustomer.getHNumber()).child("cash").setValue("" + Global.formatter.format(newTotal));
+                                Global.presentCustomer.setCash("" + Global.formatter.format(newTotal));
+                                Global.presentCustomer.setMeals("" + value);
                                 String key=String.valueOf(System.currentTimeMillis());
-                                referenceemployee.child(key).setValue(Common.request);
-                                referencecustomer.child(key).setValue(Common.request);
-                                Common.cart.clear();
-                                Common.prices.clear();
-                                Common.total = 0;
+                                referenceemployee.child(key).setValue(Global.orderRequest);
+                                referencecustomer.child(key).setValue(Global.orderRequest);
+                                Global.currentCart.clear();
+                                Global.currentCartPrices.clear();
+                                Global.currentTotal = 0;
                                 Toast.makeText(PaymentMethodActivity.this, "Payment processed successfully!", Toast.LENGTH_LONG).show();
                             }
                         } else {

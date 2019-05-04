@@ -1,17 +1,15 @@
 package com.capstone.kcamp.cougarbiteapplication;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
-import com.capstone.kcamp.cougarbiteapplication.Model.Request;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.OrderViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.ItemClickListener;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Request;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.OrderViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,10 +37,10 @@ public class OrderStatusActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (getIntent() == null)
-                    loadOrders(Common.currentCustomer.getPhone());
+                    loadOrders(Global.presentCustomer.getPhone());
                 else
                     loadOrders(getIntent().getStringExtra("userPhone"));
-                loadOrders(Common.currentCustomer.getPhone());
+                loadOrders(Global.presentCustomer.getPhone());
             }
 
             @Override
@@ -51,10 +49,10 @@ public class OrderStatusActivity extends AppCompatActivity {
             }
         });
         if (getIntent() == null)
-            loadOrders(Common.currentCustomer.getPhone());
+            loadOrders(Global.presentCustomer.getPhone());
         else
             loadOrders(getIntent().getStringExtra("userPhone"));
-        loadOrders(Common.currentCustomer.getPhone());
+        loadOrders(Global.presentCustomer.getPhone());
 
     }
 
@@ -69,7 +67,7 @@ public class OrderStatusActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(OrderViewHolder viewHolder, Request model, final int position) {
                 viewHolder.txtOrderId.setText(adapter.getRef(position).getKey());
-                viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                 viewHolder.txtOrderTime.setText(model.getPickUpTime());
                 viewHolder.txtOrderPhone.setText(model.getPhone());
                 viewHolder.txtOrderDetails.setText(model.getOrderDetails());
@@ -82,15 +80,7 @@ public class OrderStatusActivity extends AppCompatActivity {
                         notifyItemRangeChanged(position,adapter.getItemCount()-1);
                     }
                 });
-
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClik) {
-
-                    }
-                });
             }
-
         };
         recyclerView.setAdapter(adapter);
     }

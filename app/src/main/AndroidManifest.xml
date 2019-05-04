@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.capstone.kcamp.cougarbiteapplication">
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
@@ -13,48 +11,42 @@
         tools:replace="android:icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreditCardScreenActivity"></activity>
+        <activity android:name=".CreditCardScreenActivity"/>
         <activity
             android:name=".BuildYourOwnScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CustomizeSandwichesScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".PaymentMethodActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <service
-            android:name=".Service.ListenOrder"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity android:name=".EmployeeOrderStatus"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".OrderStatusActivity"
+        <activity
+            android:name=".EmployeeOrderStatus"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".OrderStatusActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CheckOutActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CustomizeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".FoodScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".MenuScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AboutScreenActivity" />
-        <activity android:name=".EmployeeSignInScreenActivity" />
-        <activity android:name=".CustomerSignInScreenActivity" />
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".AboutScreenActivity"/>
+        <activity android:name=".EmployeeSignInScreenActivity"/>
+        <activity android:name=".CustomerSignInScreenActivity"/>
         <activity android:name=".StartScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

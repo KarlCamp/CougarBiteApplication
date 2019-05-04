@@ -6,11 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
-import com.capstone.kcamp.cougarbiteapplication.Model.Order;
-import com.capstone.kcamp.cougarbiteapplication.Model.Request;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.EmployeeOrderViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.ItemClickListener;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Request;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.EmployeeOrderViewHolder;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -53,7 +52,7 @@ public class EmployeeOrderStatus extends AppCompatActivity {
             @Override
             protected void populateViewHolder(final EmployeeOrderViewHolder viewHolder, final Request model, final int position) {
                 viewHolder.txtOrderId.setText(adapter.getRef(position).getKey());
-                viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                 viewHolder.txtOrderTime.setText(model.getPickUpTime());
                 viewHolder.txtOrderPhone.setText(model.getPhone());
                 viewHolder.txtOrderDetails.setText(model.getOrderDetails());
@@ -73,22 +72,22 @@ public class EmployeeOrderStatus extends AppCompatActivity {
                         } else {
                             if (model.getStatus().equals("1")) {
                                 model.setStatus("0");
-                                Request request = new Request(model.getPhone(), model.getName(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                                Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
                                 request.setStatus("0");
                                 customer.child(adapter.getRef(position).getKey()).setValue(request);
-                                viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                                viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                             } else if (model.getStatus().equals("2")) {
                                 model.setStatus("1");
-                                Request request = new Request(model.getPhone(), model.getName(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                                Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
                                 request.setStatus("1");
                                 customer.child(adapter.getRef(position).getKey()).setValue(request);
-                                viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                                viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                             } else {
                                 model.setStatus("2");
-                                Request request = new Request(model.getPhone(), model.getName(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                                Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
                                 request.setStatus("2");
                                 customer.child(adapter.getRef(position).getKey()).setValue(request);
-                                viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                                viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                             }
                         }
                     }
@@ -98,29 +97,23 @@ public class EmployeeOrderStatus extends AppCompatActivity {
                     public void onClick(View v) {
                         if (model.getStatus().equals("0")) {
                             model.setStatus("1");
-                            Request request = new Request(model.getPhone(), model.getName(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                            Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
                             request.setStatus("1");
                             customer.child(adapter.getRef(position).getKey()).setValue(request);
-                            viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                            viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                         } else if (model.getStatus().equals("1")) {
                             model.setStatus("2");
-                            Request request = new Request(model.getPhone(), model.getName(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                            Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
                             request.setStatus("2");
                             customer.child(adapter.getRef(position).getKey()).setValue(request);
-                            viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                            viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                         } else {
                             model.setStatus("3");
-                            Request request = new Request(model.getPhone(), model.getName(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
+                            Request request = new Request(model.getPhone(), model.gethNumber(), model.getPickUpTime(), model.getOrderDetails(), model.getTotal(), model.getLs());
                             request.setStatus("3");
                             customer.child(adapter.getRef(position).getKey()).setValue(request);
-                            viewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                            viewHolder.txtOrderStatus.setText(Global.statusConversion(model.getStatus()));
                         }
-                    }
-                });
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClik) {
-
                     }
                 });
             }

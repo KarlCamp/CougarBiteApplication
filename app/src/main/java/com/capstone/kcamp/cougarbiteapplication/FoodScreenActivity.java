@@ -14,9 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.capstone.kcamp.cougarbiteapplication.Interface.ItemClickListener;
-import com.capstone.kcamp.cougarbiteapplication.Model.FoodItem;
-import com.capstone.kcamp.cougarbiteapplication.ViewHolder.FoodScreenViewHolder;
+
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.ItemCategory;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.ItemClickListener;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationViewHolders.ItemScreenViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,7 +29,7 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
     RecyclerView recView;
     RecyclerView.LayoutManager layout;
     String categoryIdentificationNumber="";
-    FirebaseRecyclerAdapter<FoodItem, FoodScreenViewHolder> adapt;
+    FirebaseRecyclerAdapter<ItemCategory, ItemScreenViewHolder> adapt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +86,10 @@ public class FoodScreenActivity extends AppCompatActivity implements NavigationV
         }
     }
     private void fillAdapter(String categoryId) {
-        adapt = new FirebaseRecyclerAdapter<FoodItem,
-                FoodScreenViewHolder>(FoodItem.class,R.layout.food_item, FoodScreenViewHolder.class,databaseReference.orderByChild("foodIdentificationNumber").equalTo(categoryId)) {
+        adapt = new FirebaseRecyclerAdapter<ItemCategory,
+                ItemScreenViewHolder>(ItemCategory.class,R.layout.food_item, ItemScreenViewHolder.class,databaseReference.orderByChild("foodIdentificationNumber").equalTo(categoryId)) {
             @Override
-            protected void populateViewHolder(FoodScreenViewHolder viewHolder, FoodItem model, int position) {
+            protected void populateViewHolder(ItemScreenViewHolder viewHolder, ItemCategory model, int position) {
                 viewHolder.txtFoodName.setText(model.getText());
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override

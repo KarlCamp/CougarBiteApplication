@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.capstone.kcamp.cougarbiteapplication.Common.Common;
-import com.capstone.kcamp.cougarbiteapplication.Model.Customer;
+import com.capstone.kcamp.cougarbiteapplication.CommonApplicationModels.Customer;
+import com.capstone.kcamp.cougarbiteapplication.Global.Global;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,9 +53,9 @@ public class StartScreenActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        String hnumber = Paper.book().read(Common.HNUMBER_KEY);
-        String phone = Paper.book().read(Common.PHONE_KEY);
-        String pwd = Paper.book().read(Common.PWD_KEY);
+        String hnumber = Paper.book().read(Global.HNUMBER);
+        String phone = Paper.book().read(Global.PHONE);
+        String pwd = Paper.book().read(Global.PASSWORD);
         if (hnumber != null && pwd != null && phone != null) {
             if(!hnumber.isEmpty() && !pwd.isEmpty() && !phone.isEmpty()) {
                 login(hnumber, phone, pwd);
@@ -78,7 +78,7 @@ public class StartScreenActivity extends AppCompatActivity {
                     if (customer.getPassword().equals(password)) {
                         if (phone.length() == 12) {
                             if (customer.getPhone().equals(phone)) {
-                                Common.currentCustomer = customer;
+                                Global.presentCustomer = customer;
                                 Intent intent = new Intent(StartScreenActivity.this, MenuScreenActivity.class);
                                 startActivity(intent);
                                 finish();
